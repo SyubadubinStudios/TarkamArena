@@ -1,0 +1,137 @@
+name: Release
+
+# Builds installers for every desktop platform and publishes them as a GitHub release.
+#   git tag v0.1.0 && git push origin v0.1.0
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version without the leading v (e.g. 0.1.0)"
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      value: ${{ steps.v.outputs.value }}
+    steps:
+      - id: v
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then echo "value=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT";
+          else echo "value=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"; fi
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet test tests/TarkamArena.Tests -c Release
+
+  windows:
+    needs: [version, test]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Publish game (win-x64)
+        run: dotnet publish src/TarkamArena.App -c Release -r win-x64 --self-contained -p:PublishReadyToRun=true -p:Version=${{ needs.version.outputs.value }} -o out/win-x64
+      - name: Publish server (win-x64)
+        run: dotnet publish src/TarkamArena.Server -c Release -r win-x64 --self-contained -p:Version=${{ needs.version.outputs.value }} -o out/server-win-x64
+      - name: Installer (Inno Setup)
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" /DAppVersion=${{ needs.version.outputs.value }} /DSourceDir=..\..\out\win-x64 packaging\windows\TarkamArena.iss
+      - name: Microsoft Store package (MSIX)
+        shell: pwsh
+        run: ./packaging/msix/build-msix.ps1 -Version ${{ needs.version.outputs.value }} -PublishDir out/win-x64 -OutDir out/installers
+      - name: Portable zips
+        shell: pwsh
+        run: |
+          Compress-Archive -Path out/win-x64/* -DestinationPath out/installers/TarkamArena-win-x64-portable.zip
+          Compress-Archive -Path out/server-win-x64/* -DestinationPath out/installers/TarkamArena.Server-win-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: out/installers/*
+
+  linux:
+    needs: [version, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Packaging tools
+        run: sudo apt-get update && sudo apt-get install -y rpm libfuse2
+      - name: Publish game (linux-x64)
+        run: dotnet publish src/TarkamArena.App -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true -p:Version=${{ needs.version.outputs.value }} -o out/linux-x64
+      - name: Publish server (linux-x64)
+        run: dotnet publish src/TarkamArena.Server -c Release -r linux-x64 --self-contained -p:Version=${{ needs.version.outputs.value }} -o out/server-linux-x64
+      - name: AppImage, deb, rpm
+        run: bash packaging/linux/build-linux-packages.sh ${{ needs.version.outputs.value }} out/linux-x64 out/installers
+      - name: Server tarball
+        run: tar -czf out/installers/TarkamArena.Server-linux-x64.tar.gz -C out/server-linux-x64 .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: out/installers/*
+
+  macos:
+    needs: [version, test]
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Publish game (osx-arm64)
+        run: dotnet publish src/TarkamArena.App -c Release -r osx-arm64 --self-contained -p:Version=${{ needs.version.outputs.value }} -o out/osx-arm64
+      - name: App bundle and DMG
+        run: bash packaging/macos/build-dmg.sh ${{ needs.version.outputs.value }} out/osx-arm64 out/installers
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: out/installers/*
+
+  release:
+    needs: [version, windows, linux, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.version.outputs.value }}
+          name: Tarkam Arena v${{ needs.version.outputs.value }}
+          body: |
+            Tarkam Arena — Legendary Fighting Tournament from Indonesia.
+            Dibuat oleh Ariana Mischa Fadhila dari Syubadubin Studios.
+
+            | Platform | File |
+            |---|---|
+            | Windows installer | TarkamArena.Setup.exe |
+            | Windows (Microsoft Store package) | TarkamArena.msix |
+            | Windows portable | TarkamArena-win-x64-portable.zip |
+            | Linux | TarkamArena.AppImage · TarkamArena.deb · TarkamArena.rpm |
+            | macOS (Apple Silicon) | TarkamArena.dmg |
+            | Online server | TarkamArena.Server-win-x64.zip · TarkamArena.Server-linux-x64.tar.gz |
+
+            Xbox, PlayStation and Nintendo Switch builds need the platform holders' licensed SDKs and dev kits; see docs/en/packaging.md.
+          files: dist/*

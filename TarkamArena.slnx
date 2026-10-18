@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TarkamArena.App/TarkamArena.App.csproj" />
+    <Project Path="src/TarkamArena.Core/TarkamArena.Core.csproj" />
+    <Project Path="src/TarkamArena.Engine/TarkamArena.Engine.csproj" />
+    <Project Path="src/TarkamArena.Networking/TarkamArena.Networking.csproj" />
+    <Project Path="src/TarkamArena.Persistence/TarkamArena.Persistence.csproj" />
+    <Project Path="src/TarkamArena.Physics/TarkamArena.Physics.csproj" />
+    <Project Path="src/TarkamArena.Server/TarkamArena.Server.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TarkamArena.Tests/TarkamArena.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/TarkamArena.Tools/TarkamArena.Tools.csproj" />
+  </Folder>
+</Solution>

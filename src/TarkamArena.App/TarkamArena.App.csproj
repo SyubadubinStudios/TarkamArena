@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TarkamArena.App</RootNamespace>
+    <AssemblyName>TarkamArena</AssemblyName>
+    <ApplicationIcon>..\..\assets\ui\icon.ico</ApplicationIcon>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <TieredPGO>true</TieredPGO>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="ThreeNet.Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TarkamArena.Core\TarkamArena.Core.csproj" />
+    <ProjectReference Include="..\TarkamArena.Engine\TarkamArena.Engine.csproj" />
+    <ProjectReference Include="..\TarkamArena.Persistence\TarkamArena.Persistence.csproj" />
+    <ProjectReference Include="..\TarkamArena.Networking\TarkamArena.Networking.csproj" />
+  </ItemGroup>
+
+  <!-- Fonts are compiled in so FontFamily URIs work everywhere. -->
+  <ItemGroup>
+    <AvaloniaResource Include="..\..\assets\fonts\*.ttf" Link="Assets\Fonts\%(Filename)%(Extension)" />
+    <AvaloniaResource Include="..\..\assets\ui\icon.ico" Link="Assets\icon.ico" Condition="Exists('..\..\assets\ui\icon.ico')" />
+  </ItemGroup>
+
+  <!-- Game content ships next to the executable. Raw Rodin sources stay out of the build. -->
+  <ItemGroup>
+    <Content Include="..\..\assets\**\*" Exclude="..\..\assets\source\**;..\..\assets\concept\**" LinkBase="assets" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

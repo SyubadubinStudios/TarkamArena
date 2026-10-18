@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <Deterministic>true</Deterministic>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <Authors>Ariana Mischa Fadhila</Authors>
+    <Company>Syubadubin Studios</Company>
+    <Product>Tarkam Arena</Product>
+    <Copyright>Copyright (c) Syubadubin Studios. Dibuat oleh Ariana Mischa Fadhila dari Syubadubin Studios.</Copyright>
+    <Version>0.1.0</Version>
+    <NoWarn>$(NoWarn);CA1062;CA1303;CA1515;CA1716;CA1720;CA1805;CA1815;CA1819;CA1822;CA1848;CA2225;CA1000;CA1051;CA1034;CA1707;CA1724;CA1031;CA1859;CA1861;CA2000;CA1305;CA1307;CA1310;CA1309;CA5394;CA1027;CA1028;CA1008;CA1711;CA1823;CA1849;CA2007;CA1050;CA1063;CA1816</NoWarn>
+  </PropertyGroup>
+</Project>

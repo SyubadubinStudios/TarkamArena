@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TarkamArena.Tools</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TarkamArena.Engine\TarkamArena.Engine.csproj" />
+    <ProjectReference Include="..\..\src\TarkamArena.Networking\TarkamArena.Networking.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,209 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+      Tarkam Arena visual identity: a village tournament painted on tarpaulin and banner cloth.
+      Tarp blue grounds everything, banner yellow carries every action, chilli red is the
+      misregistered second ink. Bungee is the hand-lettered signage, Barlow Semi Condensed the
+      body, IBM Plex Mono the frame data.
+    -->
+    <Styles.Resources>
+        <Color x:Key="TerpalColor">#1F3F9E</Color>
+        <Color x:Key="TerpalDeepColor">#112459</Color>
+        <Color x:Key="TerpalNightColor">#0A1638</Color>
+        <Color x:Key="SpandukColor">#F6C21B</Color>
+        <Color x:Key="SpandukDeepColor">#C9970A</Color>
+        <Color x:Key="CabaiColor">#E0322B</Color>
+        <Color x:Key="KapurColor">#F3EEE1</Color>
+        <Color x:Key="ArangColor">#14141A</Color>
+        <Color x:Key="DaunColor">#2E8B57</Color>
+
+        <SolidColorBrush x:Key="Terpal" Color="{StaticResource TerpalColor}" />
+        <SolidColorBrush x:Key="TerpalDeep" Color="{StaticResource TerpalDeepColor}" />
+        <SolidColorBrush x:Key="TerpalNight" Color="{StaticResource TerpalNightColor}" />
+        <SolidColorBrush x:Key="Spanduk" Color="{StaticResource SpandukColor}" />
+        <SolidColorBrush x:Key="SpandukDeep" Color="{StaticResource SpandukDeepColor}" />
+        <SolidColorBrush x:Key="Cabai" Color="{StaticResource CabaiColor}" />
+        <SolidColorBrush x:Key="Kapur" Color="{StaticResource KapurColor}" />
+        <SolidColorBrush x:Key="Arang" Color="{StaticResource ArangColor}" />
+        <SolidColorBrush x:Key="Daun" Color="{StaticResource DaunColor}" />
+        <SolidColorBrush x:Key="KapurMuted" Color="#B3F3EEE1" />
+        <SolidColorBrush x:Key="PanelFill" Color="#CC0A1638" />
+        <SolidColorBrush x:Key="PanelLine" Color="#33F3EEE1" />
+
+        <FontFamily x:Key="Display">avares://TarkamArena/Assets/Fonts#Bungee</FontFamily>
+        <FontFamily x:Key="DisplayShade">avares://TarkamArena/Assets/Fonts#Bungee Shade</FontFamily>
+        <FontFamily x:Key="Body">avares://TarkamArena/Assets/Fonts#Barlow Semi Condensed</FontFamily>
+        <FontFamily x:Key="Mono">avares://TarkamArena/Assets/Fonts#IBM Plex Mono</FontFamily>
+    </Styles.Resources>
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{StaticResource TerpalNight}" />
+        <Setter Property="FontFamily" Value="{StaticResource Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Kapur}" />
+    </Style>
+
+    <Style Selector="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Kapur}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <!-- Type scale -->
+    <Style Selector="TextBlock.display">
+        <Setter Property="FontFamily" Value="{StaticResource Display}" />
+        <Setter Property="FontSize" Value="88" />
+        <Setter Property="LineHeight" Value="84" />
+    </Style>
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontFamily" Value="{StaticResource Display}" />
+        <Setter Property="FontSize" Value="44" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontFamily" Value="{StaticResource Display}" />
+        <Setter Property="FontSize" Value="26" />
+    </Style>
+    <Style Selector="TextBlock.h3">
+        <Setter Property="FontFamily" Value="{StaticResource Display}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="TextBlock.eyebrow">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="LetterSpacing" Value="2.5" />
+        <Setter Property="Foreground" Value="{StaticResource Spanduk}" />
+    </Style>
+    <Style Selector="TextBlock.body">
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="LineHeight" Value="26" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+        <Setter Property="Foreground" Value="{StaticResource KapurMuted}" />
+    </Style>
+    <Style Selector="TextBlock.mono">
+        <Setter Property="FontFamily" Value="{StaticResource Mono}" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style Selector="TextBlock.ink">
+        <Setter Property="Foreground" Value="{StaticResource Arang}" />
+    </Style>
+
+    <!-- Panels: a night-blue cloth with a chalk hairline. -->
+    <Style Selector="Border.panel">
+        <Setter Property="Background" Value="{StaticResource PanelFill}" />
+        <Setter Property="BorderBrush" Value="{StaticResource PanelLine}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="24" />
+    </Style>
+    <Style Selector="Border.spanduk">
+        <Setter Property="Background" Value="{StaticResource Spanduk}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Arang}" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="Padding" Value="18,8" />
+    </Style>
+
+    <!-- Spanduk menu button: a slanted banner strip; focus turns it chilli red and slides it out. -->
+    <Style Selector="Button.spanduk">
+        <Setter Property="Background" Value="{StaticResource Spanduk}" />
+        <Setter Property="Foreground" Value="{StaticResource Arang}" />
+        <Setter Property="FontFamily" Value="{StaticResource Display}" />
+        <Setter Property="FontSize" Value="23" />
+        <Setter Property="Padding" Value="24,5,36,3" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="BorderBrush" Value="{StaticResource Arang}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="MinWidth" Value="340" />
+        <Setter Property="RenderTransform" Value="skewX(-9deg)" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.spanduk:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource Kapur}" />
+        <Setter Property="Foreground" Value="{StaticResource Arang}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Arang}" />
+    </Style>
+    <Style Selector="Button.spanduk:focus-visible, Button.spanduk.selected">
+        <Setter Property="RenderTransform" Value="skewX(-9deg) translateX(22px)" />
+    </Style>
+    <Style Selector="Button.spanduk:focus-visible /template/ ContentPresenter#PART_ContentPresenter, Button.spanduk.selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource Cabai}" />
+        <Setter Property="Foreground" Value="{StaticResource Kapur}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Arang}" />
+    </Style>
+    <Style Selector="Button.spanduk:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource SpandukDeep}" />
+    </Style>
+    <Style Selector="Button.spanduk.small">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Padding" Value="18,6,24,4" />
+    </Style>
+
+    <!-- Quiet chip button for secondary actions. -->
+    <Style Selector="Button.chip">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource Kapur}" />
+        <Setter Property="BorderBrush" Value="{StaticResource PanelLine}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="Padding" Value="16,8" />
+    </Style>
+    <Style Selector="Button.chip:pointerover /template/ ContentPresenter#PART_ContentPresenter, Button.chip:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#26F3EEE1" />
+        <Setter Property="Foreground" Value="{StaticResource Spanduk}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Spanduk}" />
+    </Style>
+    <Style Selector="Button.chip.active /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{StaticResource Spanduk}" />
+        <Setter Property="Foreground" Value="{StaticResource Arang}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Spanduk}" />
+    </Style>
+
+    <!-- Fighter ticket in the select grid. -->
+    <Style Selector="Button.ticket">
+        <Setter Property="Background" Value="#33112459" />
+        <Setter Property="BorderBrush" Value="{StaticResource PanelLine}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="5" />
+    </Style>
+    <Style Selector="Button.ticket:pointerover /template/ ContentPresenter#PART_ContentPresenter, Button.ticket:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{StaticResource Spanduk}" />
+        <Setter Property="Background" Value="#661F3F9E" />
+    </Style>
+    <Style Selector="Button.ticket.p1 /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{StaticResource Spanduk}" />
+        <Setter Property="BorderThickness" Value="4" />
+    </Style>
+    <Style Selector="Button.ticket.p2 /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{StaticResource Cabai}" />
+        <Setter Property="BorderThickness" Value="4" />
+    </Style>
+    <Style Selector="Button.ticket.locked">
+        <Setter Property="Opacity" Value="0.45" />
+    </Style>
+
+    <Style Selector="Slider">
+        <Setter Property="Foreground" Value="{StaticResource Spanduk}" />
+    </Style>
+    <Style Selector="TextBox">
+        <Setter Property="FontFamily" Value="{StaticResource Body}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <Style Selector="ToggleSwitch">
+        <Setter Property="FontFamily" Value="{StaticResource Body}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+    <Style Selector="ComboBox">
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+</Styles>

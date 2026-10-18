@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>TarkamArena.Engine</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ThreeNet" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TarkamArena.Core\TarkamArena.Core.csproj" />
+    <ProjectReference Include="..\TarkamArena.Physics\TarkamArena.Physics.csproj" />
+  </ItemGroup>
+</Project>

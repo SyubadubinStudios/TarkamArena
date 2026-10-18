@@ -1,0 +1,32 @@
+{
+  "_comment": "Rodin MCP text-to-3D prompts used to generate assets/source/rodin/<id>.glb. Style suffix is appended to every prompt.",
+  "style": "Stylized 3D fighting game character, full body, standing in A-pose, hand-painted stylized look, clean silhouette, game-ready.",
+  "characters": {
+    "gembel-lampu-merah": "lean Indonesian street drifter man, faded green bucket hat, long black hair, worn olive-green jacket over red t-shirt, brown cargo pants, black sandals, small ukulele strapped on his back",
+    "kasir-minimarket": "young Indonesian woman minimarket cashier, blue polo shirt uniform with red collar trim, navy hijab headscarf, black trousers, white sneakers, name tag, confident smile",
+    "guru-matematika": "middle-aged Indonesian male math teacher, khaki safari civil-servant shirt, brown trousers, thick glasses, neat side-parted hair, holding a long wooden ruler, chalk dust on sleeves",
+    "pesilat": "athletic Indonesian pencak silat master, black silat uniform with golden songket sash, traditional black headband cloth (destar), barefoot, focused calm expression",
+    "preman-pasar": "burly Indonesian market thug, black tank top, gold chain, red bandana, scar on cheek, tattooed arms, ripped jeans, black boots, intimidating grin",
+    "tukang-parkir": "Indonesian parking attendant man, bright orange vest over blue shirt, baseball cap, whistle on a cord around his neck, dark trousers, flip-flops",
+    "satpam-komplek": "stocky Indonesian neighbourhood security guard, navy blue uniform with patches, white peaked cap, black belt with baton, black boots",
+    "abang-bakso": "Indonesian meatball soup street vendor man, thick moustache, white t-shirt, green apron, straw hat, holding a ladle, sarong around waist",
+    "emak-emak-komplek": "plump Indonesian housewife, purple house dress (daster), yellow hijab, flip-flops, holding a flip-flop sandal as a weapon, hands on hips, stern face",
+    "kuntilanak": "Indonesian ghost woman Kuntilanak, very long black messy hair covering part of the pale face, long flowing white dress, floating, spooky but stylized",
+    "pocong": "Indonesian ghost Pocong, figure wrapped completely in white burial shroud tied at head and feet, pale face visible, stylized cartoon horror",
+    "buto-ijo": "Javanese green giant Buto Ijo, huge muscular green-skinned ogre, tusks, small horns, wild black hair, brown loincloth, golden armbands",
+    "genderuwo": "Javanese forest spirit Genderuwo, tall hulking ape-like creature covered in dark shaggy fur, glowing red eyes, long arms",
+    "wewe-gombel": "Javanese spirit Wewe Gombel, tall thin woman with very long arms, long grey-black hair, tattered dark purple kebaya, eerie but stylized",
+    "begu-ganjang": "Batak tall shadow spirit Begu Ganjang, extremely tall thin dark figure, glowing blue eyes, long limbs, wrapped in dark ulos-patterned cloth",
+    "leak-bali": "Balinese Leak sorcerer, red and gold Rangda-style mask with fangs, long white hair, red and white Balinese costume, glowing yellow eyes",
+    "orang-utan": "stylized Bornean orangutan fighter, orange shaggy fur, very long arms, wide cheek pads, standing upright, green leaf wristbands",
+    "bekantan": "stylized proboscis monkey fighter, long nose, orange-brown fur, cream belly, long tail, standing upright, fighting stance",
+    "komodo": "stylized Komodo dragon fighter, large grey-green scaly lizard, long tail, forked tongue, powerful claws, low crouching stance",
+    "harimau-sumatra": "stylized Sumatran tiger fighter, orange fur with black stripes, standing upright, muscular, fierce expression",
+    "cenderawasih": "stylized bird of paradise spirit fighter from Papua, humanoid bird with golden yellow plumes, red and green feathers, long tail feathers, glowing",
+    "nyi-roro-kidul": "Javanese Queen of the Southern Sea Nyi Roro Kidul, regal woman in emerald green kebaya and golden crown, long flowing green sash, long black hair",
+    "gatotkaca": "Javanese wayang hero Gatotkaca, muscular knight in red and gold armour, golden crown (gelung), red cape, moustache, heroic pose",
+    "si-pitung": "Betawi folk hero Si Pitung, black traditional Betawi clothes (baju sadariah), red sarong over the shoulder, black peci cap, golok machete at the waist",
+    "sangkuriang": "Sundanese legendary hero Sangkuriang, muscular young man with long hair tied back, brown traditional clothes, green sash, holding a wooden oar",
+    "jaka-tarub": "Javanese legendary hero Jaka Tarub, handsome young man in blue and white traditional clothes, light flowing shawl cape, holding a bow"
+  }
+}

@@ -426,3 +426,14 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# ---- Tarkam Arena ----
+out/
+assets/source/
+*.db
+*.db-wal
+*.db-shm
+tarkam-server.db
+.claude/settings.local.json
+.mcp.json
+*_History.json

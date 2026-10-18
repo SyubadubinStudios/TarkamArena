@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Tarkam Arena
+GenericName=Fighting Game
+Comment=Legendary Fighting Tournament from Indonesia
+Comment[id]=Turnamen Pertarungan Legendaris dari Indonesia
+Exec=tarkam-arena
+Icon=tarkam-arena
+Terminal=false
+Categories=Game;ActionGame;
+Keywords=fighting;tarkam;indonesia;

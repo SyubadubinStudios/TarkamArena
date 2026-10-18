@@ -205,7 +205,7 @@ public static class Stages
                 E(ArenaEventKind.FireSpread, "Fire flare-up", "Api menjalar", "A patch of peat bursts into flame under the fighters.", "Sepetak gambut tiba-tiba menyala di bawah petarung.", true),
                 E(ArenaEventKind.WaterBomb, "Water bomb", "Bom air", "A helicopter drops water over the arena.", "Helikopter menjatuhkan air ke arena.", true),
             ],
-            HalfWidth = 8f, CrowdDensity = 25,
+            HalfWidth = 8f, CrowdDensity = 50,
         },
         new()
         {
@@ -280,7 +280,7 @@ public static class Stages
                 E(ArenaEventKind.Fireworks, "Camera flashes", "Kilatan kamera", "Every camera in the gallery flashes at once.", "Semua kamera di balkon memotret bersamaan."),
                 E(ArenaEventKind.Protest, "Order in the court", "Harap tenang", "The judge bangs the gavel and the gallery erupts.", "Hakim mengetuk palu dan balkon riuh."),
             ],
-            HalfWidth = 6.5f, CrowdDensity = 45,
+            HalfWidth = 6.5f, CrowdDensity = 60,
         },
     ];
 }

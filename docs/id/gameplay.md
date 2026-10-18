@@ -132,6 +132,19 @@ orang utan melempar buah, ombak besar, bass drop sound horeg, water cannon, api 
 serbuan motor di bawah jalan layang. Event bertanda "memengaruhi pertarungan" adalah rintangan yang
 menjatuhkan petarung (didahului peringatan merah berkedip).
 
+Latarnya juga bergerak. Pohon, pohon pisang, semak, pakis, padi, rumput, bendera, dan umbul-umbul
+bergoyang kena angin dengan embusan pelan (lebih kencang saat hujan dan badai); lampu hias berkejaran,
+lampu jalan berkedip, dan dinding speaker karnaval sound horeg bergetar mengikuti beat. Setiap arena
+punya dekornya sendiri — gerobak, motor, perahu jukung, kuda Bromo, arca singa dan Buddha, penjor,
+ondel-ondel, topeng reog, truk sound, mobil pemadam, meja hakim, dan Garuda — di atas lantai bertekstur
+(beton pasar, tanah sawah, lantai hutan, gambut terbakar, pasir vulkanik, pantai, batu candi, parket
+ruang sidang).
+
+| | |
+|---|---|
+| ![Borobudur](../screenshots/arenas/candi-borobudur.jpg) | ![Hutan Kalimantan](../screenshots/arenas/hutan-kalimantan.jpg) |
+| ![Hutan Gambut Riau](../screenshots/arenas/hutan-gambut-riau.jpg) | ![Ruang Sidang](../screenshots/arenas/ruang-sidang.jpg) |
+
 ## Penonton
 
 Meter sorakan (VU meter sound system di bawah HUD) naik karena kombo, counter, tangkisan, launcher,

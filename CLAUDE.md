@@ -41,6 +41,11 @@ images are produced. Kill stale `TarkamArena.dll` processes if a run hangs (the 
   `MatchState.Summons`, stepped in `MatchSimulation.Signatures.cs`; `SignatureRenderer` (Engine) draws them.
   The in-window render loop stalls when the game window is in the background, so check visuals with the
   `signatures`/`scene` tool commands rather than desktop screenshots.
+- Arena dressing lives in `Rendering/StageDressing.cs` (partial `StageBuilder`): decor models are
+  `assets/models/decor/<id>.glb`, one mesh + one material, 1 m tall with the origin at the base. Rodin
+  outputs go through `tools/blender/process_prop.py`; procedural ones are built in Blender with
+  `tools/blender/decor_kit.py` + `decor_builders.py` (colours baked into a palette texture). Wind sway,
+  blinking lights and beat shakers are lists on `StageRig`, animated in `ArenaPresenter.AnimateSet`.
 - Content is data in `Roster.cs` and `Stages.cs`. Order is stable (append only). Frame data is derived by
   `MoveSetFactory` from archetype + stats; finisher inputs by `FinisherFactory` (seeded by id, 4 tokens,
   disjoint pools per kind so no sequence is a suffix of another — a test checks this).

@@ -31,6 +31,7 @@ Status legend / Keterangan: ✅ done/selesai · 🚧 in progress/berjalan · �
 - ✅ Hit-stop camera punch-in, slow-motion final hit, round-transition wipes in the spanduk style.
 - ✅ Per-fighter move list in the pause menu (signature moves).
 - Rodin/Blender-authored models for the signature props and summons (replace the primitive rigs).
+- ✅ Living arenas: textured floors, Rodin decor, wind sway, blinking lights, shaking speakers.
 - Per-move hand-authored animations in Blender for the five most played fighters (signature specials).
 - Unique finisher cinematics per fighter (camera paths, props, Blender-authored clips).
 - Costume rendering (tinted materials and alternate Rodin textures) and visible victory poses/intros.

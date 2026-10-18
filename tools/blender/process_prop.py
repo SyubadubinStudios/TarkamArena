@@ -17,6 +17,9 @@ SRC, DST, HEIGHT, BUDGET = argv[0], argv[1], float(argv[2]), int(argv[3])
 for obj in list(bpy.data.objects):
     bpy.data.objects.remove(obj, do_unlink=True)
 bpy.ops.import_scene.gltf(filepath=SRC)
+# Some sources carry extra (empty) scenes; the game's glTF loader rejects scenes without nodes.
+for sc in [sc for sc in bpy.data.scenes if sc != bpy.context.scene]:
+    bpy.data.scenes.remove(sc)
 meshes = [o for o in bpy.data.objects if o.type == "MESH"]
 for o in meshes:
     mw = o.matrix_world.copy()

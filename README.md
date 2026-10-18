@@ -38,6 +38,14 @@ convoys, a heavenly pacul, lightning, tornadoes, tidal waves… ([how to play](d
 | ![Kuyang](docs/screenshots/signatures/summon-kuyang-head.jpg) | ![Mahasiswi Demo](docs/screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Jaka Tarub](docs/screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |
 | ![Kang Ojol](docs/screenshots/signatures/tornado-kang-ojol.jpg) | ![Bang Damar](docs/screenshots/signatures/wave-pemadam-water.jpg) | ![Kuyang petir](docs/screenshots/signatures/storm-kuyang-lightning.jpg) |
 
+**Arena hidup / Living arenas** — textured floors, Rodin and Blender decor, trees and flags in the wind,
+blinking lights, speakers shaking on the beat.
+
+| | | |
+|---|---|---|
+| ![Borobudur](docs/screenshots/arenas/candi-borobudur.jpg) | ![Hutan Kalimantan](docs/screenshots/arenas/hutan-kalimantan.jpg) | ![Gunung Bromo](docs/screenshots/arenas/gunung-bromo.jpg) |
+| ![Hutan Gambut Riau](docs/screenshots/arenas/hutan-gambut-riau.jpg) | ![Pantai Selatan](docs/screenshots/arenas/pantai-selatan.jpg) | ![Ruang Sidang](docs/screenshots/arenas/ruang-sidang.jpg) |
+
 | | |
 |---|---|
 | ![Pasar Becek](docs/screenshots/06-fight-pasar-becek.png) | ![Karnaval Sound Horeg](docs/screenshots/07-fight-sound-horeg.png) |

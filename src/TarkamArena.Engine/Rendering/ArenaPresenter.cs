@@ -324,6 +324,8 @@ public sealed class ArenaPresenter : IDisposable
             _rig.Pulsers[i].Scale = new Vector3(b.X * s, b.Y * (i % 2 == 0 ? 1f : s), b.Z * s);
         }
 
+        AnimateSet(beat);
+
         // Impact flash and blackouts dim or boost the sun.
         if (_flash > 0) _flash = MathF.Max(0, _flash - dt);
         else if (_flash < 0) _flash = MathF.Min(0, _flash + dt);
@@ -344,6 +346,59 @@ public sealed class ArenaPresenter : IDisposable
         _vfx.Update(dt, _camera.Camera.WorldMatrix);
         Scene.UpdateAnimations(dt);
         Audio?.Update(Scene, _camera.Camera, dt);
+    }
+
+    /// <summary>
+    /// The living set: wind bends trees, bushes, grass, flags and pennants (with slow gusts); bulbs and
+    /// neon flicker or chase; speaker cabinets rattle on the beat.
+    /// </summary>
+    private void AnimateSet(float beat)
+    {
+        float t = _time;
+        float gust = 0.65f + 0.35f * MathF.Sin(t * 0.37f) * MathF.Sin(t * 0.13f + 1.3f);
+        foreach (var s in _rig.Swayers)
+        {
+            float a = s.Amplitude * gust;
+            float bend = MathF.Sin(t * s.Speed + s.Phase) * a + a * 0.4f;
+            float twist = MathF.Sin(t * s.Speed * 0.7f + s.Phase * 1.7f) * a * 0.5f;
+            s.Node.Rotation = s.Base * Quaternion.CreateFromYawPitchRoll(twist * 0.5f, twist, -bend);
+        }
+        foreach (var g in _rig.Scatters)
+        {
+            for (int i = 0; i < g.Base.Length; i++)
+            {
+                // Bend each tuft about its own root: rotate in local space, then put it back in place.
+                float a = g.Amplitude * gust;
+                float bend = MathF.Sin(t * 2.1f + g.Phase[i]) * a + a * 0.4f;
+                var b = g.Base[i];
+                var root = b.Translation;
+                b.Translation = Vector3.Zero;
+                g.Work[i] = b * Matrix4x4.CreateRotationZ(-bend) * Matrix4x4.CreateTranslation(root);
+            }
+            g.Node.SetInstances(g.Work);
+        }
+        foreach (var b in _rig.Blinkers)
+        {
+            float k;
+            if (b.Chase)
+            {
+                // Marquee chase along the string, with a soft glow between on and off.
+                float wave = MathF.Sin(t * b.Speed * 2f - b.Base.X * 3f - b.Phase * 0.2f);
+                k = wave > 0.2f ? 1.1f : 0.55f;
+            }
+            else
+            {
+                // Lamps hum and occasionally stutter.
+                float n = MathF.Sin(t * b.Speed + b.Phase) * MathF.Sin(t * b.Speed * 2.3f + b.Phase * 3f);
+                k = n > 0.85f ? 0.6f : 0.95f + 0.05f * MathF.Sin(t * 30f + b.Phase);
+            }
+            b.Node.Scale = b.Base * k;
+        }
+        foreach (var sh in _rig.Shakers)
+        {
+            float j = beat * sh.Amplitude;
+            sh.Node.Position = sh.Base + new Vector3(MathF.Sin(t * 91f + sh.Base.X) * j, MathF.Sin(t * 77f + sh.Base.Y) * j, beat * sh.Amplitude * 1.5f);
+        }
     }
 
     public void Dispose()

@@ -437,3 +437,6 @@ tarkam-server.db
 .claude/settings.local.json
 .mcp.json
 *_History.json
+
+# Stage thumbnails rendered by the tools (stages command); regenerated, not committed
+assets/generated/stages/

@@ -13,6 +13,10 @@ public sealed class StageRig
     public List<Node> Lamps { get; } = [];
     public List<(Node Node, float Speed)> Spinners { get; } = [];
     public List<Node> Pulsers { get; } = [];
+    public List<Swayer> Swayers { get; } = [];
+    public List<Blinker> Blinkers { get; } = [];
+    public List<Shaker> Shakers { get; } = [];
+    public List<ScatterGroup> Scatters { get; } = [];
     public Vector3 SunDirection { get; init; }
     public float BaseSunIntensity { get; init; }
     public bool Night { get; init; }
@@ -23,7 +27,7 @@ public sealed class StageRig
 /// landmarks for each location. An authored <c>models/stages/&lt;id&gt;.glb</c> (Blender MCP) replaces
 /// the procedural set when present. Physics props are registered with <see cref="ArenaPhysics"/>.
 /// </summary>
-public sealed class StageBuilder
+public sealed partial class StageBuilder
 {
     private readonly Scene _scene;
     private readonly MeshCache _c;
@@ -69,8 +73,9 @@ public sealed class StageBuilder
         env.FogColor = Palette.Hex3(p.Fog);
         env.FogDensity = !dynamicWeather ? 0.008f : _stage.Weather switch
         {
-            Weather.Fog => 0.045f,
-            Weather.Ash => 0.035f,
+            // Thick enough to read as haze in the distance without washing out the textured floor.
+            Weather.Fog => 0.024f,
+            Weather.Ash => 0.02f,
             Weather.Rain or Weather.Storm => 0.025f,
             Weather.Night => 0.02f,
             _ => 0.01f,
@@ -96,8 +101,13 @@ public sealed class StageBuilder
         var rig = new StageRig { Sun = sun, SunDirection = sunDir, BaseSunIntensity = sunLight.Intensity, Night = night };
 
         // Ground: a tiling hand-painted texture (Rodin MCP) tinted with the stage palette.
-        var groundOptions = MaterialOptions.Pbr(Palette.Hex(Palette.Lighten(p.Ground, night ? 0.6f : 0.3f)), 0f, _stage.Weather is Weather.Rain or Weather.Storm ? 0.3f : 0.92f);
-        var groundTexture = AssetLocator.PathOf($"textures/ground-{GroundKind(_stage.Id)}.jpg");
+        // Generic textures (concrete, earth, sand, stone) take the stage colour; the location-specific ones
+        // (jungle floor, burnt peat, volcanic sand, beach, temple slabs, parquet) already carry their own.
+        string groundKind = GroundKind(_stage.Id);
+        bool painted = groundKind is not ("concrete" or "earth" or "sand" or "stone");
+        uint groundTint = painted ? (night ? 0xC8C8D0u : 0xFFFFFFu) : Palette.Lighten(p.Ground, night ? 0.6f : 0.3f);
+        var groundOptions = MaterialOptions.Pbr(Palette.Hex(groundTint), 0f, _stage.Weather is Weather.Rain or Weather.Storm ? 0.3f : groundKind == "parquet" ? 0.45f : 0.92f);
+        var groundTexture = AssetLocator.PathOf($"textures/ground-{groundKind}.jpg");
         if (File.Exists(groundTexture))
         {
             var tex = _scene.LoadTextureCached(groundTexture);
@@ -141,6 +151,7 @@ public sealed class StageBuilder
         {
             BuildSet(rig);
         }
+        Dress(rig);
         return rig;
     }
 
@@ -148,9 +159,14 @@ public sealed class StageBuilder
 
     private static string GroundKind(string stageId) => stageId switch
     {
-        "sawah-jawa-tengah" or "hutan-kalimantan" or "hutan-gambut-riau" or "alun-alun-ponorogo" or "karnaval-sound-horeg" => "earth",
-        "candi-borobudur" or "kota-tua" or "malam-pengerupukan" or "ruang-sidang" => "stone",
-        "pantai-selatan" or "gunung-bromo" => "sand",
+        "hutan-kalimantan" => "jungle",
+        "hutan-gambut-riau" => "peat",
+        "gunung-bromo" => "volcanic",
+        "pantai-selatan" => "beach",
+        "candi-borobudur" => "temple",
+        "ruang-sidang" => "parquet",
+        "sawah-jawa-tengah" or "alun-alun-ponorogo" or "karnaval-sound-horeg" => "earth",
+        "kota-tua" or "malam-pengerupukan" => "stone",
         _ => "concrete",
     };
 
@@ -223,17 +239,27 @@ public sealed class StageBuilder
 
     private void Tree(Vector3 pos, float height, uint leaves, bool palm = false)
     {
-        Cyl(0x5A3A1E, pos, palm ? 0.12f : 0.22f, height);
+        // Prefer the Rodin tree models; the primitive version is the fallback.
+        if (DecorMesh(palm ? "palm" : "jungle-tree") is not null)
+        {
+            Decor(palm ? "palm" : "jungle-tree", pos, palm ? height * 1.15f : height * 1.1f, _rigForTrees!, palm ? 0.06f : 0.03f);
+            return;
+        }
+        if (_hasBackdrop && pos.Z < -8.5f) return;
+        var tree = _scene.CreateNode(name: "tree");
+        tree.Position = pos;
+        _c.Add(_c.Cylinder, _c.Pbr(0x5A3A1E, 0.8f), new Vector3(0, height / 2, 0), new Vector3(palm ? 0.24f : 0.44f, height, palm ? 0.24f : 0.44f), tree);
         if (palm)
         {
             for (int i = 0; i < 6; i++)
-                _c.Add(_c.Box, _c.Pbr(leaves, 0.7f), pos + new Vector3(0, height, 0), new Vector3(0.25f, 0.05f, 2.2f), euler: new Vector3(0.5f, i * MathF.PI / 3, 0));
+                _c.Add(_c.Box, _c.Pbr(leaves, 0.7f), new Vector3(0, height, 0), new Vector3(0.25f, 0.05f, 2.2f), tree, new Vector3(0.5f, i * MathF.PI / 3, 0));
         }
         else
         {
-            Ball(leaves, pos + new Vector3(0, height, 0), height * 0.7f);
-            Ball(Palette.Darken(leaves, 0.15f), pos + new Vector3(height * 0.25f, height * 0.85f, 0.3f), height * 0.5f);
+            _c.Add(_c.Sphere, _c.Pbr(leaves, 0.8f), new Vector3(0, height, 0), new Vector3(height * 0.7f), tree);
+            _c.Add(_c.Sphere, _c.Pbr(Palette.Darken(leaves, 0.15f), 0.8f), new Vector3(height * 0.25f, height * 0.85f, 0.3f), new Vector3(height * 0.5f), tree);
         }
+        _rigForTrees!.Swayers.Add(new Swayer(tree, Quaternion.Identity, (palm ? 0.05f : 0.025f) * Wind, R(0.7f, 1.1f), R(0, MathF.Tau)));
     }
 
     private Node Bus(Vector3 pos, uint body, float yaw = 0)
@@ -255,7 +281,7 @@ public sealed class StageBuilder
         for (int y = 0; y < rows; y++)
         {
             var cab = new Vector3(pos.X + (x - (columns - 1) / 2f) * 1.1f, 1.2f + 0.55f + y * 1.1f, pos.Z);
-            Box(0x2A2A32, cab, new Vector3(1.05f, 1.05f, 1.0f), rough: 0.4f);
+            Shake(Box(0x2A2A32, cab, new Vector3(1.05f, 1.05f, 1.0f), rough: 0.4f), rig, 0.025f);
             var cone = _c.Add(_c.Cylinder, _c.Pbr(0x2A2A30, 0.3f, 0.5f), cab + new Vector3(0, 0, 0.51f), new Vector3(0.8f, 0.04f, 0.8f), euler: new Vector3(MathF.PI / 2, 0, 0));
             rig.Pulsers.Add(cone);
         }
@@ -273,7 +299,7 @@ public sealed class StageBuilder
     private void Lamp(Vector3 pos, uint color, StageRig rig, float intensity = 6f)
     {
         Cyl(0x333333, pos, 0.05f, 3.2f, 0.4f);
-        Ball(color, pos + new Vector3(0, 3.25f, 0), 0.3f, 0.2f, 5f);
+        Blink(Ball(color, pos + new Vector3(0, 3.25f, 0), 0.3f, 0.2f, 5f), rig, 9f);
         if (rig.Lamps.Count < 4)
         {
             var light = _scene.AddLight(Light.Point(Palette.Hex3(color), intensity, 9f), name: "lamp");
@@ -285,7 +311,7 @@ public sealed class StageBuilder
     private void StringLights(float z, float y, float width, StageRig rig)
     {
         for (float x = -width / 2; x <= width / 2; x += 0.6f)
-            Ball(new uint[] { 0xF6C21B, 0xE0322B, 0x6BD0FF, 0x7CFC00 }[(int)((x + width) / 0.6f) % 4], new Vector3(x, y + MathF.Sin(x * 0.7f) * 0.25f, z), 0.12f, 0.2f, 6f);
+            Blink(Ball(new uint[] { 0xF6C21B, 0xE0322B, 0x6BD0FF, 0x7CFC00 }[(int)((x + width) / 0.6f) % 4], new Vector3(x, y + MathF.Sin(x * 0.7f) * 0.25f, z), 0.12f, 0.2f, 6f), rig, 2.5f, chase: true);
     }
 
     private void Props(int count, uint color, PropShape shape, float size, float mass = 2f)
@@ -312,8 +338,11 @@ public sealed class StageBuilder
         node.CastShadow = false;
     }
 
+    private StageRig? _rigForTrees;
+
     private void BuildSet(StageRig rig)
     {
+        _rigForTrees = rig;
         var p = _stage.Palette;
         float hw = _stage.HalfWidth;
         switch (_stage.Id)
@@ -482,6 +511,12 @@ public sealed class StageBuilder
                 for (int i = -3; i <= 3; i++) Box(0x7A7E85, new Vector3(i * 7f, 3.2f, -6), new Vector3(1.4f, 6.4f, 1.4f));
                 for (int i = 0; i < 9; i++)
                 {
+                    // The parked ojol fleet: the authored scooter when it exists, a primitive one otherwise.
+                    if (DecorMesh("motorbike") is not null)
+                    {
+                        Decor("motorbike", new Vector3(-12 + i * 3, 0, -4.2f - (i % 3) * 0.6f), 1.2f, rig, yaw: 0.4f + MathF.PI / 2);
+                        continue;
+                    }
                     var bike = _scene.CreateNode(name: "motor");
                     bike.Position = new Vector3(-12 + i * 3, 0, -4.2f - (i % 3) * 0.6f);
                     bike.EulerAngles = new Vector3(0, 0.4f, 0);
@@ -495,12 +530,8 @@ public sealed class StageBuilder
 
             case "ruang-sidang":
                 Box(0x5A3A24, new Vector3(0, 4, -6.5f), new Vector3(24, 8, 0.3f), rough: 0.5f);
-                Box(0x6B4A2B, new Vector3(0, 1.2f, -5), new Vector3(8, 1.6f, 1.4f), rough: 0.4f); // bench
-                Box(0x3A2A1E, new Vector3(0, 2.9f, -5.6f), new Vector3(1.6f, 1.8f, 0.3f));
                 Box(0xE0322B, new Vector3(-5, 5.5f, -6.3f), new Vector3(2.4f, 0.8f, 0.05f));
                 Box(0xF3EEE1, new Vector3(-5, 4.7f, -6.3f), new Vector3(2.4f, 0.8f, 0.05f));
-                Box(0xD4AF37, new Vector3(0, 6.2f, -6.3f), new Vector3(1.2f, 1.2f, 0.05f), rough: 0.3f);
-                for (int i = 0; i < 4; i++) Box(0x6B4A2B, new Vector3(-9 + i * 6, 0.5f, 3.2f), new Vector3(4.5f, 1, 0.6f));
                 Props(4, 0xF3EEE1, PropShape.Box, 0.35f, 0.5f); // case files
                 break;
 

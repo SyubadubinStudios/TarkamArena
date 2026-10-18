@@ -143,7 +143,7 @@ public sealed class VfxSystem
                 {
                     Rate = 12, Lifetime = 9f, Size = 2.5f, Growth = 1.6f, Shape = EmitterShape.Box, EmitterSize = new Vector3(14, 0.5f, 4),
                     Origin = new Vector3(0, 0.6f, -4), Rise = 0.05f, Spread = 0.25f, Turbulence = 0.3f,
-                }, ParticleEffect.SmokeMaterial(smoke, Palette.Hex3(stage.Palette.Fog), 0.12f));
+                }, ParticleEffect.SmokeMaterial(smoke, Palette.Hex3(stage.Palette.Fog), 0.07f));
             }
         }
 

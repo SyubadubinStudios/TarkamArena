@@ -132,6 +132,19 @@ fruit-throwing orangutans, a rogue wave, the sound-horeg bass drop, a water cann
 the peat forest, a motorbike swarm under the flyover. Events marked "affects the fight" are hazards
 that knock fighters down (they flash a red warning first).
 
+The sets move too. Trees, banana plants, bushes, ferns, rice, grass, flags and umbul-umbul bend in the
+wind with slow gusts (harder in rain and storms); string lights chase and lamps flicker; the speaker
+walls of the sound-horeg carnival rattle on the beat. Each arena is dressed with its own decor —
+carts, scooters, jukung boats, Bromo ponies, guardian lions and Buddhas, penjor, ondel-ondel, the
+reog mask, the sound truck, the fire truck, the judges' bench and the Garuda — on a textured floor
+(market concrete, rice-field earth, jungle floor, burnt peat, volcanic sand, beach, temple stone,
+courtroom parquet).
+
+| | |
+|---|---|
+| ![Borobudur](../screenshots/arenas/candi-borobudur.jpg) | ![Hutan Kalimantan](../screenshots/arenas/hutan-kalimantan.jpg) |
+| ![Hutan Gambut Riau](../screenshots/arenas/hutan-gambut-riau.jpg) | ![Ruang Sidang](../screenshots/arenas/ruang-sidang.jpg) |
+
 ## Crowd
 
 The crowd meter (the sound-system VU meter at the bottom of the HUD) rises with combos, counters,

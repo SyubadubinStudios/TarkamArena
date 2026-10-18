@@ -33,6 +33,16 @@
   cost, input slots, determinism, CPU usage, meter gain).
 - **Docs**: signature section in the EN/ID gameplay guides with screenshots; every fighter page lists
   its three signatures.
+- **Living arenas / Arena yang hidup**: new Rodin ground textures for the arenas that had plain floors
+  (jungle floor, burnt peat, Bromo volcanic sand, beach sand, Borobudur andesite slabs, courtroom
+  parquet); 46 decor models placed per arena by `StageDressing` — 22 from Rodin (trees, bushes, ferns,
+  rocks, rice, carts, scooters, jukung, ponies, guardian lions, Buddhas, penjor, ondel-ondel, reog mask,
+  sound truck…) and 24 modelled procedurally in Blender via MCP once the Rodin credits ran out (fire
+  truck, water cannon, jeep, ontel, colonial lamps, gubuk, scarecrow, hornbill totem, sesajen, canang,
+  bale kulkul, sasando, judges' bench, Garuda, frangipani…); instanced ground clutter; wind sway with gusts for trees,
+  bushes, grass, flags and umbul-umbul; chasing string lights and flickering lamps; speaker cabinets that
+  rattle on the beat; more locals in the peatland and courtroom.
+  Lantai bertekstur baru, dekor dari Rodin, vegetasi bergoyang kena angin, lampu kelap-kelip, speaker bergetar.
 
 ## 2026-10-18 — v0.1.0
 

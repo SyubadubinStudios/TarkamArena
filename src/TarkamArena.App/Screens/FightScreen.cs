@@ -127,16 +127,21 @@ public sealed class FightScreen : Screen
 
     private async Task StartCoreAsync()
     {
+        LoadTrace.Mark("fight: start");
         await _versus.PlayAsync();
+        LoadTrace.Mark("fight: versus card shown");
         _versus.SetProgress(0.3);
         await Task.Delay(120);
         Load();
+        LoadTrace.Mark("fight: scene built");
         _versus.SetProgress(0.85);
         await Task.Delay(500);
         // Start the 3D view only as the card starts to leave: rendering a view that is fully
         // covered stalls ThreeNetView's GPU readback on some drivers.
         StartRendering();
+        LoadTrace.Mark("fight: rendering started");
         await _versus.DismissAsync();
+        LoadTrace.Mark("fight: versus card dismissed");
         // The opening "Round 1" event is part of the initial state; present it now that the card is gone.
         _presenter?.OnSimulated(_state);
         _holdSimulation = false;
@@ -178,6 +183,7 @@ public sealed class FightScreen : Screen
         _presenter.EventRaised += e =>
         {
             _hud.OnEvent(e, _state);
+            if (e.Kind == MatchEventKind.SignatureStart) SignatureShown?.Invoke();
             // The match-deciding blow plays in slow motion (offline only: online peers must stay in step).
             if (e.Kind == MatchEventKind.KO && _plan.Online is null) _slowMotion = 1.2;
         };
@@ -220,9 +226,13 @@ public sealed class FightScreen : Screen
         return o;
     }
 
+    private int _framesSeen;
+
     private void OnFrame(object? sender, FrameEventArgs e)
     {
         if (_presenter is null || _context is null) return;
+        if (_framesSeen++ < 3) LoadTrace.Mark($"fight: frame {_framesSeen}");
+        if (!_holdSimulation && _framesSeen > 3) _ready.TrySetResult();
         double dt = Math.Min(e.DeltaSeconds, 0.25);
         if (_slowMotion > 0)
         {
@@ -265,7 +275,7 @@ public sealed class FightScreen : Screen
                     _ => _brains[i]?.Think(_state, context) ?? InputFrame.Neutral,
                 };
             }
-            if (LaunchOptions.SignatureDemo)
+            if (LaunchOptions.SignatureDemo || FillJurus)
                 for (int i = 0; i < _state.FighterCount; i++) _state.Fighters[i].Jurus = MatchSimulation.MeterMax;
             MatchSimulation.Step(ref _state, context, _inputs);
         }
@@ -318,6 +328,20 @@ public sealed class FightScreen : Screen
     {
         if (!_paused && !_finished && !_holdSimulation && _plan.Online is null) SetPaused(true);
     }
+
+    private readonly TaskCompletionSource _ready = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+    /// <summary>Completes once the loading card is gone and the arena has rendered a few frames.</summary>
+    public Task Ready => _ready.Task;
+
+    /// <summary>Screenshot tour: every fighter's Jurus meter stays full so the CPUs throw signatures.</summary>
+    public bool FillJurus { get; set; }
+
+    /// <summary>Raised when a signature cut-in starts (used by the screenshot tour).</summary>
+    public event Action? SignatureShown;
+
+    /// <summary>Screenshot tour: opens the pause menu (with the move list) as a player would.</summary>
+    public void PauseForCapture() => SetPaused(true);
 
     private void SetPaused(bool paused)
     {

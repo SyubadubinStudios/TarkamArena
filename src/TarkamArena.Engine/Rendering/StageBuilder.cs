@@ -409,7 +409,14 @@ public sealed partial class StageBuilder
                 break;
 
             case "kampung-ambon":
-                for (int i = 0; i < 6; i++) House(new Vector3(-15 + i * 6, 0, i % 2 == 0 ? -6 : -7), 5.2f, R(3.5f, 5.5f), Palette.Mix(0xC9A27E, 0x8EB3C9, R(0, 1)), 0x6A3A2A);
+                // Colourful kampung houses (Blender MCP) with porches, shutters and laundry; boxes as a fallback.
+                for (int i = 0; i < 6; i++)
+                {
+                    var hp = new Vector3(-15 + i * 6, 0, i % 2 == 0 ? -6.2f : -7.2f);
+                    string variant = $"house-ambon-{(char)('a' + i % 3)}";
+                    if (DecorMesh(variant) is not null) Decor(variant, hp, R(4.2f, 4.8f), rig, yaw: R(-0.06f, 0.06f));
+                    else House(hp, 5.2f, R(3.5f, 5.5f), Palette.Mix(0xC9A27E, 0x8EB3C9, R(0, 1)), 0x6A3A2A);
+                }
                 StringLights(-3.6f, 3.6f, 24, rig);
                 StringLights(-4.8f, 4.2f, 24, rig);
                 for (int i = 0; i < 3; i++) Lamp(new Vector3(-9 + i * 9, 0, -3.4f), 0xFFB86B, rig);

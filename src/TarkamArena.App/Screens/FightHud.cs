@@ -71,6 +71,7 @@ public sealed class FightHud : Grid
     private readonly TextBlock _cutInKind = Ui.Text("", "eyebrow").With(t => { t.FontSize = 18; t.Foreground = Ui.Spanduk; });
     private readonly StackPanel _cutInText;
     private double _cutInTimer;
+    private readonly Border _cutInDim = new() { Background = Brushes.Black, Opacity = 0, IsHitTestVisible = false };
 
     public FightHud(MatchContext context, int localSlot)
     {
@@ -196,6 +197,7 @@ public sealed class FightHud : Grid
         Children.Add(_finisherPanel);
 
         _cutInText = Ui.V(2, _cutInKind, _cutInName).With(v => v.VerticalAlignment = VerticalAlignment.Center);
+        Children.Add(_cutInDim);
         _cutIn.Children.Add(_cutInBand);
         _cutIn.Children.Add(_cutInStripe);
         _cutIn.Children.Add(new ParticleField(ParticleStyle.SpeedLines, 40) { Opacity = 0.6, ClipToBounds = true });
@@ -358,6 +360,8 @@ public sealed class FightHud : Grid
         {
             _cutInTimer -= dt;
             _cutIn.Opacity = Math.Clamp(_cutInTimer * 4, 0, 1);
+            // The super-flash darkening: the arena dims behind the cut-in, then comes back for the effect.
+            _cutInDim.Opacity = 0.45 * Math.Clamp((_cutInTimer - 0.35) * 2.5, 0, 1);
         }
         if (_eventTimer > 0)
         {
@@ -526,7 +530,8 @@ public sealed class FightHud : Grid
         {
             StartPoint = new RelativePoint(right ? 1 : 0, 0, RelativeUnit.Relative),
             EndPoint = new RelativePoint(right ? 0 : 1, 0, RelativeUnit.Relative),
-            GradientStops = { new GradientStop(Color.FromArgb(0xF0, 0x0A, 0x16, 0x38), 0), new GradientStop(Color.FromArgb(0xE0, primary.R, primary.G, primary.B), 0.45), new GradientStop(Color.FromArgb(0x50, primary.R, primary.G, primary.B), 1) },
+            // Darken the move colour so pale themes (ghost white, moonlight) still carry white lettering.
+            GradientStops = { new GradientStop(Color.FromArgb(0xF4, 0x0A, 0x16, 0x38), 0), new GradientStop(Color.FromArgb(0xE8, (byte)(primary.R * 0.55), (byte)(primary.G * 0.55), (byte)(primary.B * 0.55)), 0.45), new GradientStop(Color.FromArgb(0x70, (byte)(primary.R * 0.45), (byte)(primary.G * 0.45), (byte)(primary.B * 0.45)), 1) },
         };
         _cutInStripe.Background = new SolidColorBrush(secondary);
         _cutInFace.Source = Images.Portrait(c, 512);
@@ -543,7 +548,7 @@ public sealed class FightHud : Grid
         _ = Anim.SlideIn(_cutInStripe, right ? -1400 : 1400, 40, 260, "skewY(-4deg)");
         _ = Anim.SlideIn(_cutInFace, right ? 600 : -600, 60, 300, right ? "scale(-1, 1)" : "");
         _ = Anim.Stamp(_cutInName, 160, 300, 2.0, right ? 6 : -6);
-        Flash(primary, 0.35);
+        // No colour flash here: pale move colours washed the whole screen out; the dim overlay carries it.
         SpeedLines(1.0);
     }
 

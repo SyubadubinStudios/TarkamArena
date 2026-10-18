@@ -322,7 +322,67 @@ def frangipani():
             sph((cx + random.uniform(-0.3, 0.3), cy + random.uniform(-0.3, 0.3), 2.62), 0.025, mat(0xF6C21B, 0.5))
 
 
+def _gable(length, base, z0, z1, m):
+    """A triangular prism along X: the gable wall between the wall top z0 and the ridge z1."""
+    import bmesh
+    me = bpy.data.meshes.new("gable")
+    bm = bmesh.new()
+    vs = []
+    for x in (-length / 2, length / 2):
+        vs += [bm.verts.new((x, -base / 2, z0)), bm.verts.new((x, base / 2, z0)), bm.verts.new((x, 0, z1))]
+    for f in ((0, 1, 2), (5, 4, 3), (0, 3, 4, 1), (1, 4, 5, 2), (2, 5, 3, 0)):
+        bm.faces.new([vs[i] for i in f])
+    bm.to_mesh(me)
+    bm.free()
+    o = bpy.data.objects.new("gable", me)
+    bpy.context.scene.collection.objects.link(o)
+    o.data.materials.append(m)
+    return o
+
+
+def _kampung_house(wall, trim, roof_col, seed):
+    """A kampung house facade 5 m wide: zinc roof, porch, shuttered windows, door, potted plants,
+    a clothesline and an AC unit. Built front-facing (-Y)."""
+    random.seed(seed)
+    W, T, Rf = mat(wall, 0.85), mat(trim, 0.6), mat(roof_col, 0.45, 0.6)
+    box((0, 0, 0.15), (5.2, 3.2, 0.3), mat(0x8A8478, 0.9))            # foundation
+    box((0, 0, 1.9), (5.0, 3.0, 3.2), W)                               # walls
+    box((0, -1.51, 0.45), (5.0, 0.03, 0.3), T)                         # skirting
+    for side in (1, -1):
+        box((0, side * 0.82, 3.88), (5.6, 1.95, 0.08), Rf, (-side * 0.45, 0, 0))   # gable roof
+    box((0, 0, 4.28), (5.7, 0.14, 0.1), mat(0x8A8A8A, 0.4, 0.8))
+    _gable(4.96, 3.0, 3.5, 4.22, W)                                     # gable ends
+    box((0, -1.6, 0.31), (0.95, 0.06, 0.02), mat(0x5A3A24, 0.8))       # step
+    box((0.6, -1.52, 1.35), (0.9, 0.05, 1.9), mat(0x6B3F22, 0.6))       # door
+    box((0.6, -1.53, 2.38), (1.05, 0.04, 0.12), T)
+    sph((0.95, -1.56, 1.35), 0.03, mat(GOLD, 0.3, 0.8))
+    for x in (-1.6, 2.0):
+        box((x, -1.52, 2.0), (0.9, 0.04, 0.9), mat(0x2A3A4A, 0.15, 0.4))  # window glass
+        box((x, -1.54, 2.0), (1.0, 0.03, 0.07), T)
+        box((x, -1.54, 2.0), (0.07, 0.03, 1.0), T)
+        for sx in (-0.62, 0.62):
+            box((x + sx, -1.55, 2.0), (0.32, 0.03, 1.0), T)                 # shutters
+        box((x, -1.6, 1.5), (1.1, 0.2, 0.08), T)                            # sill
+    box((0, -2.1, 2.9), (5.2, 1.2, 0.06), Rf, (-0.18, 0, 0))               # porch roof
+    for x in (-2.4, 2.4):
+        cyl((x, -2.6, 1.45), 0.06, 2.9, T)
+    for x in (-2.0, -1.2, 1.5):
+        cyl((x, -1.85, 0.5), 0.16, 0.36, mat(random.choice((0xB04A2A, 0x3A6AA0, 0xE0E0E0)), 0.7), r2=0.12)
+        sph((x, -1.85, 0.85), (0.28, 0.28, 0.3), mat(random.choice((0x3E7A2E, 0x2E6A2A, 0x5A8A3A)), 0.8))
+    box((-2.0, -1.6, 2.9), (0.6, 0.25, 0.4), mat(0xE8E8E8, 0.5))          # AC unit
+    cyl((0.0, -2.55, 2.45), 0.008, 4.8, mat(0x9A9A9A, 0.4, 0.6), (0, PI / 2, 0))  # clothesline
+    for i in range(5):
+        box((-1.8 + i * 0.85, -2.55, 2.15), (0.45, 0.02, 0.55), mat(random.choice((0xE0322B, 0xF6C21B, 0x1F4FB0, WHITE, 0x2E8B57)), 0.9))
+    box((-0.8, -1.53, 3.1), (1.4, 0.03, 0.35), mat(trim, 0.5))              # name board
+
+
+def house_ambon_a(): _kampung_house(0x5FB8C8, WHITE, 0x9AA0A8, 1)
+def house_ambon_b(): _kampung_house(0xF09AB8, 0x2E5C8A, 0xB04A2A, 2)
+def house_ambon_c(): _kampung_house(0xF2D060, 0x2E8B57, 0x8A8A8A, 3)
+
+
 BUILDERS = {
+    "house-ambon-a": house_ambon_a, "house-ambon-b": house_ambon_b, "house-ambon-c": house_ambon_c,
     "traffic-cone": traffic_cone,
     "fire-truck": fire_truck, "water-cannon": water_cannon, "jeep": jeep, "ontel": ontel,
     "colonial-lamp": colonial_lamp, "gubuk": gubuk, "scarecrow": scarecrow, "hornbill-totem": hornbill_totem,

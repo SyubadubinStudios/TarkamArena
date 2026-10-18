@@ -43,6 +43,16 @@
   bushes, grass, flags and umbul-umbul; chasing string lights and flickering lamps; speaker cabinets that
   rattle on the beat; more locals in the peatland and courtroom.
   Lantai bertekstur baru, dekor dari Rodin, vegetasi bergoyang kena angin, lampu kelap-kelip, speaker bergetar.
+- **Kampung Ambon** houses replaced by three colourful kampung-house models (porches, shutters,
+  laundry, plants) built in Blender via MCP; each arena's signature decor moved into the fight camera's view.
+- **Screenshot tour** waits for the arena to be live (GPU-independent) and adds the signature cut-in,
+  its effect and the pause-menu move list; all docs screenshots retaken. `TARKAM_TRACE=1` logs load timings.
+
+### Known issues / Masalah yang diketahui (v0.2.0)
+
+- On a busy or integrated GPU (or while the window is covered) the first frames of an arena can take
+  tens of seconds (pipeline and texture warm-up); the VS card stays up until the arena is ready.
+- Signature props and summons are primitive rigs, not authored models yet.
 
 ## 2026-10-18 — v0.1.0
 

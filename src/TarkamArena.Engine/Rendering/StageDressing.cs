@@ -229,21 +229,21 @@ public sealed partial class StageBuilder
                 Scatter("rice", 140, 0.7f, 1.1f, rig, 0.18f, -8f, -2.8f);
                 Scatter("rice", 50, 0.7f, 1.1f, rig, 0.18f, -2.6f, 4.5f, sides: true);
                 for (int i = 0; i < 4; i++) Decor("banana", new Vector3(R(-hw - 8, hw + 8), 0, R(-8, -5)), R(2.8f, 3.8f), rig, 0.1f);
-                Decor("gubuk", new Vector3(hw + 4, 0, -5), 3f, rig, yaw: -0.4f);
-                Decor("scarecrow", new Vector3(-hw - 2, 0, -3.5f), 1.9f, rig, 0.12f, yaw: 0.3f);
+                Decor("gubuk", new Vector3(5.2f, 0, -6.6f), 3f, rig, yaw: -0.25f);
+                Decor("scarecrow", new Vector3(-4.6f, 0, -4.2f), 1.9f, rig, 0.12f, yaw: 0.3f);
                 break;
 
             case "gedung-dpr":
                 Scatter("bush", 14, 0.8f, 1.2f, rig, 0.05f, -6.5f, -3f);
                 for (int i = 0; i < 6; i++) Flag(new Vector3(-12 + i * 4.8f, 0, -5.6f), 5, 0xE0322B, 0xF3EEE1, rig);
-                Decor("mic-podium", new Vector3(hw + 2.5f, 0, -3), 1.4f, rig, yaw: -0.4f);
+                Decor("mic-podium", new Vector3(4.2f, 0, -4.4f), 1.4f, rig, yaw: -0.3f);
                 break;
 
             case "jalan-demo":
                 Scatter("tire", 12, 0.6f, 0.9f, rig, 0, -6f, -2.8f);
                 Scatter("litter", 40, 0.06f, 0.09f, rig, 0, -6f, 3.5f);
                 for (int i = 0; i < 4; i++) Flag(new Vector3(-10 + i * 6.5f, 0, -4.4f), 4.2f, i % 2 == 0 ? 0xE0322Bu : 0xF6C21Bu, 0xF3EEE1, rig);
-                Decor("water-cannon", new Vector3(-hw - 5, 0, -5), 3.2f, rig, yaw: 0.5f);
+                Decor("water-cannon", new Vector3(-7f, 0, -6.4f), 3.2f, rig, yaw: 0.35f);
                 break;
 
             case "halte-transjakarta":
@@ -265,7 +265,7 @@ public sealed partial class StageBuilder
                 Scatter("bush", 16, 0.7f, 1.2f, rig, 0.06f, -6.5f, -3.4f);
                 for (int i = 0; i < 4; i++) Decor("palm", new Vector3(i % 2 == 0 ? -hw - 2 - i * 2 : hw + 2 + i * 2, 0, R(-5.5f, -3.5f)), R(5, 7), rig, 0.07f);
                 Decor("plastic-chairs", new Vector3(hw + 2.6f, 0, -2.6f), 0.9f, rig);
-                Decor("sasando", new Vector3(-hw - 1.8f, 0, -2.6f), 1.1f, rig, yaw: 0.6f);
+                Decor("sasando", new Vector3(-3.4f, 0, -3.6f), 1.1f, rig, yaw: 0.6f);
                 break;
 
             case "hutan-kalimantan":
@@ -274,23 +274,23 @@ public sealed partial class StageBuilder
                 Scatter("boulder", 10, 0.5f, 1.2f, rig, 0, -8f, -3f);
                 for (int i = 0; i < 6; i++) Decor("jungle-tree", new Vector3(R(-hw - 10, hw + 10), 0, R(-8.4f, -5.5f)), R(9, 13), rig, 0.03f);
                 for (int i = 0; i < 4; i++) Decor("banana", new Vector3(i % 2 == 0 ? -hw - R(1.5f, 6) : hw + R(1.5f, 6), 0, R(-4, 1)), R(2.8f, 3.6f), rig, 0.1f);
-                Decor("hornbill-totem", new Vector3(-hw - 1.5f, 0, -3.2f), 2.4f, rig, yaw: 0.4f);
+                Decor("hornbill-totem", new Vector3(-4.8f, 0, -4.6f), 2.4f, rig, yaw: 0.4f);
                 break;
 
             case "hutan-gambut-riau":
                 Scatter("burnt-stump", 22, 0.6f, 1.4f, rig, 0, -8f, -2.8f);
                 Scatter("boulder", 6, 0.4f, 0.9f, rig, 0, -6f, -3f);
                 for (int i = 0; i < 7; i++) Decor("deadtree", new Vector3(R(-hw - 10, hw + 10), 0, R(-8.4f, -4.5f)), R(5, 9), rig, 0.02f);
-                Decor("fire-truck", new Vector3(hw + 6, 0, -4.5f), 3.2f, rig, yaw: -0.3f);
+                Decor("fire-truck", new Vector3(6f, 0, -6.6f), 3.2f, rig, yaw: -0.2f);
                 Decor("water-hose", new Vector3(-hw - 2, 0, -2.4f), 0.4f, rig);
                 break;
 
             case "pantai-selatan":
                 Scatter("seashell", 30, 0.05f, 0.09f, rig, 0, -6f, 4f);
                 Scatter("boulder", 6, 0.6f, 1.4f, rig, 0, -7.5f, -4f);
-                Decor("jukung", new Vector3(-hw - 3, 0, -4.5f), 1.6f, rig, yaw: 0.4f);
+                Decor("jukung", new Vector3(-4.5f, 0, -5.8f), 1.4f, rig, yaw: 0.25f);
                 Decor("jukung", new Vector3(hw + 4, 0, -5.5f), 1.6f, rig, yaw: -0.6f);
-                Decor("sesajen", new Vector3(hw + 1.8f, 0, -2.6f), 0.7f, rig);
+                Decor("sesajen", new Vector3(2.6f, 0, -3.2f), 0.6f, rig);
                 for (int i = 0; i < 3; i++) Flag(new Vector3(-6 + i * 6, 0, -6f), 4.5f, 0x0E7A52, 0xF6C21B, rig);
                 break;
 
@@ -298,16 +298,17 @@ public sealed partial class StageBuilder
                 Scatter("bush", 10, 0.7f, 1f, rig, 0.05f, -7f, -4f);
                 for (int i = 0; i < 4; i++) Decor("ontel", new Vector3(i % 2 == 0 ? -hw - 1.5f - i : hw + 1.5f + i, 0, R(-3.5f, -2.6f)), 1.1f, rig, yaw: R(0.8f, 2.2f));
                 for (int i = 0; i < 4; i++) Decor("colonial-lamp", new Vector3(-12 + i * 8, 0, -4.2f), 3.4f, rig, yaw: 0);
-                Decor("ondel-ondel", new Vector3(hw + 2.5f, 0, -3.4f), 2.6f, rig, 0.03f, yaw: -0.3f);
+                Decor("ondel-ondel", new Vector3(4.6f, 0, -4.4f), 2.6f, rig, 0.03f, yaw: -0.3f);
+                Decor("ondel-ondel", new Vector3(-hw - 2.5f, 0, -3.6f), 2.6f, rig, 0.03f, yaw: 0.3f);
                 break;
 
             case "gunung-bromo":
                 Scatter("boulder", 18, 0.5f, 1.6f, rig, 0, -8f, -3f);
                 Scatter("dry-grass", 50, 0.4f, 0.8f, rig, 0.2f, -8f, 4f);
-                Decor("pony", new Vector3(-hw - 2.5f, 0, -3.2f), 1.6f, rig, yaw: 1.2f);
+                Decor("pony", new Vector3(-4.2f, 0, -4.6f), 1.6f, rig, yaw: 1.2f);
                 Decor("pony", new Vector3(hw + 3.5f, 0, -4.2f), 1.6f, rig, yaw: -1.6f);
                 Decor("jeep", new Vector3(hw + 7, 0, -6), 2f, rig, yaw: -0.5f);
-                Decor("sesajen", new Vector3(-hw - 1, 0, -2.4f), 0.7f, rig);
+                Decor("sesajen", new Vector3(-1.8f, 0, -3.2f), 0.6f, rig);
                 break;
 
             case "candi-borobudur":
@@ -322,23 +323,23 @@ public sealed partial class StageBuilder
                 break;
 
             case "karnaval-sound-horeg":
-                Decor("sound-truck", new Vector3(hw + 7, 0, -6.5f), 4.2f, rig, yaw: -0.25f);
+                Decor("sound-truck", new Vector3(6f, 0, -7.6f), 4.2f, rig, yaw: -0.2f);
                 Scatter("litter", 30, 0.06f, 0.09f, rig, 0, -6f, 3.5f);
                 Bunting(-3.6f, 4.6f, 24, rig);
                 break;
 
             case "alun-alun-ponorogo":
                 Scatter("bush", 12, 0.7f, 1.1f, rig, 0.06f, -7f, -4f);
-                Decor("reog-mask", new Vector3(-hw - 2.5f, 0, -3.6f), 2.6f, rig, 0.02f, yaw: 0.5f);
+                Decor("reog-mask", new Vector3(-4.6f, 0, -5f), 2.6f, rig, 0.02f, yaw: 0.35f);
                 Decor("gerobak", new Vector3(hw + 3, 0, -2.8f), 1.5f, rig, yaw: -1.6f);
                 for (int i = 0; i < 5; i++) Flag(new Vector3(-12 + i * 6, 0, -6.4f), 4.5f, 0xB22222, Palette.Spanduk, rig);
                 break;
 
             case "malam-pengerupukan":
                 for (int i = 0; i < 6; i++) Decor("penjor", new Vector3(-13 + i * 5.2f, 0, -4.9f), 6f, rig, 0.06f, yaw: 0);
-                Decor("bale-kulkul", new Vector3(-hw - 4, 0, -5.5f), 5f, rig, yaw: 0.4f);
-                Decor("canang", new Vector3(-hw - 1.2f, 0, -2.4f), 0.5f, rig);
-                Decor("canang", new Vector3(hw + 1.4f, 0, -2.6f), 0.5f, rig);
+                Decor("bale-kulkul", new Vector3(-6.5f, 0, -6.8f), 5f, rig, yaw: 0.3f);
+                Decor("canang", new Vector3(-2.2f, 0, -3.1f), 0.4f, rig);
+                Decor("canang", new Vector3(2.4f, 0, -3.2f), 0.4f, rig);
                 break;
 
             case "pangkalan-ojol":

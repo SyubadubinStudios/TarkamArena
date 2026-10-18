@@ -79,6 +79,10 @@ Ada sembilan jenis jurus pamungkas, dan setiap petarung punya set yang sesuai de
 Tiga jurus pamungkas setiap petarung ditampilkan di pemilihan karakter, di menu jeda saat bertarung,
 dan di [halaman petarung](characters.md). Di mode Latihan meter Jurus terisi sendiri.
 
+| Cut-in | Daftar jurus di menu jeda |
+|---|---|
+| ![Cut-in jurus](../screenshots/19-signature-cutin.png) | ![Daftar jurus](../screenshots/21-pause-move-list.png) |
+
 | | | |
 |---|---|---|
 | ![Panggilan](../screenshots/signatures/summon-kuyang-head.jpg) | ![Serbuan](../screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Senjata](../screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |

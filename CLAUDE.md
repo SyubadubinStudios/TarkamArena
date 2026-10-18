@@ -25,6 +25,9 @@ python tools/blender/process_all.py [--only id] [--force]             # Rodin gl
 
 `--capture <dir>` drives the real app through every screen and saves screenshots; it is how README/docs
 images are produced. Kill stale `TarkamArena.dll` processes if a run hangs (the window title is "Tarkam Arena").
+The tour keeps the window topmost and waits for `FightScreen.Ready` before each fight shot, because the
+first frames of an arena can take tens of seconds on a busy/integrated GPU. `TARKAM_TRACE=1` writes load
+timings to `%TEMP%/tarkam-trace.txt`.
 
 ## Architecture (big picture)
 

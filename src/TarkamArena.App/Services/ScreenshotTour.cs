@@ -18,6 +18,9 @@ public static class ScreenshotTour
     public static async Task RunAsync(MainWindow window, string directory)
     {
         Directory.CreateDirectory(directory);
+        // Windows throttles rendering for covered windows; stay on top for the length of the tour.
+        window.Topmost = true;
+        window.Activate();
         async Task Shot(string name, Screen? screen, double seconds = 1.5, bool replace = false)
         {
             if (screen is not null)
@@ -59,7 +62,34 @@ public static class ScreenshotTour
             plan.Stage = Stages.Get(f.Stage);
             plan.Seed = 4242;
             plan.Rules = plan.Rules with { ArenaEventsEnabled = false };
-            await Shot(f.Name, new FightScreen(plan), f.Wait);
+            // Loading time depends on the GPU; wait for the arena to be live, then let the fight run.
+            var screen = new FightScreen(plan);
+            window.Show(screen);
+            await Task.WhenAny(screen.Ready, Task.Delay(TimeSpan.FromSeconds(150)));
+            await Shot(f.Name, null, f.Wait - 3);
+            window.Back();
+        }
+
+        // Signature moves: wait for a CPU to throw one, then catch the cut-in and the effect.
+        {
+            var plan = MatchPlan.For(GameMode.Versus);
+            plan.Controllers = [SlotController.Cpu, SlotController.Cpu];
+            plan.Fighters[0] = Roster.Get("kuyang");
+            plan.Fighters[1] = Roster.Get("mahasiswi-demo");
+            plan.Difficulty = CpuDifficulty.Legend;
+            plan.Stage = Stages.Get("pasar-becek");
+            plan.Seed = 77;
+            plan.Rules = plan.Rules with { ArenaEventsEnabled = false };
+            var fight = new FightScreen(plan) { FillJurus = true };
+            var shown = new TaskCompletionSource();
+            fight.SignatureShown += () => shown.TrySetResult();
+            window.Show(fight);
+            await Task.WhenAny(fight.Ready, Task.Delay(TimeSpan.FromSeconds(150)));
+            await Task.WhenAny(shown.Task, Task.Delay(TimeSpan.FromSeconds(30)));
+            await Shot("19-signature-cutin", null, 0.3);
+            await Shot("20-signature-effect", null, 1.6);
+            await Dispatcher.UIThread.InvokeAsync(fight.PauseForCapture);
+            await Shot("21-pause-move-list", null, 0.8);
             window.Back();
         }
 

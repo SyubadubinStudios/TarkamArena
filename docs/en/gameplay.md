@@ -79,6 +79,10 @@ There are nine kinds of signature, and each fighter's set is themed to who they 
 Every fighter's three signatures are listed on character select, in the pause menu during a fight,
 and on the [fighter pages](characters.md). In Training the Jurus meter refills by itself.
 
+| Cut-in | Pause menu move list |
+|---|---|
+| ![Signature cut-in](../screenshots/19-signature-cutin.png) | ![Move list](../screenshots/21-pause-move-list.png) |
+
 | | | |
 |---|---|---|
 | ![Summon](../screenshots/signatures/summon-kuyang-head.jpg) | ![Crowd](../screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Weapon](../screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |

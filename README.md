@@ -53,6 +53,7 @@ blinking lights, speakers shaking on the beat.
 | ![Main menu](docs/screenshots/02-main-menu.png) | ![Character select](docs/screenshots/04-character-select.png) |
 | ![Stage select](docs/screenshots/05-stage-select.png) | ![Story](docs/screenshots/12-story.png) |
 | ![Tournament](docs/screenshots/13-tournament.png) | ![Credits](docs/screenshots/18-credits.png) |
+| ![Signature cut-in](docs/screenshots/19-signature-cutin.png) | ![Pause move list](docs/screenshots/21-pause-move-list.png) |
 
 ---
 

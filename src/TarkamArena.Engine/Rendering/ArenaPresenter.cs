@@ -29,7 +29,6 @@ public sealed class ArenaPresenter : IDisposable
     private readonly VfxSystem _vfx;
     private readonly CameraDirector _camera;
     private readonly SignatureRenderer _signatures;
-    private float _superDim;
     private readonly Node[] _projectiles;
     private readonly Node _hazard;
     private readonly Node _hazardWarning;
@@ -200,19 +199,20 @@ public sealed class ArenaPresenter : IDisposable
                     var theme = _signatures.MoveOf(e.Slot, e.Value).Theme;
                     var color = Palette.Hex3(theme.Primary);
                     var chest = at + new Vector3(0, 1.1f, 0);
-                    _vfx.FinisherBurst(chest, gold: e.Value == 2);
-                    _vfx.Shockwave(chest, color, 3.2f + e.Value, 0.45f);
-                    _vfx.Shockwave(chest, Palette.Hex3(theme.Secondary), 1.8f + e.Value, 0.3f);
+                    // Kept below the bloom threshold: the cut-in carries the moment, the arena must stay readable.
+                    if (e.Value == 2) _vfx.FinisherBurst(chest, gold: true);
+                    else _vfx.CounterSparks(chest);
+                    _vfx.Shockwave(chest, color * 0.45f, 2.4f + e.Value * 0.5f, 0.4f);
+                    _vfx.Shockwave(chest, Palette.Hex3(theme.Secondary) * 0.35f, 1.5f + e.Value * 0.4f, 0.3f);
                     _camera.Punch(0.5f + e.Value * 0.2f);
                     _camera.Shake(0.25f);
-                    _superDim = 0.5f;
                     break;
                 }
                 case MatchEventKind.SignatureImpact:
                 {
                     ref readonly var s = ref state.Summons[e.Value];
                     var theme = _signatures.MoveOf(s.Owner >= 0 ? s.Owner : e.Slot, s.Slot).Theme;
-                    _vfx.Shockwave(at + new Vector3(0, 0.3f, 0), Palette.Hex3(theme.Primary), 3.4f, 0.4f);
+                    _vfx.Shockwave(at + new Vector3(0, 0.3f, 0), Palette.Hex3(theme.Primary) * 0.6f, 3.0f, 0.4f);
                     _vfx.HitSparks(at + new Vector3(0, 0.5f, 0), 120);
                     _vfx.Dust(at, 24);
                     _camera.Shake(0.6f);
@@ -329,8 +329,7 @@ public sealed class ArenaPresenter : IDisposable
         // Impact flash and blackouts dim or boost the sun.
         if (_flash > 0) _flash = MathF.Max(0, _flash - dt);
         else if (_flash < 0) _flash = MathF.Min(0, _flash + dt);
-        _superDim = MathF.Max(0, _superDim - dt);
-        float sunIntensity = _rig.BaseSunIntensity * (1f + _flash * 1.6f) * (_flash < 0 ? 0.15f : 1f) * (1f - MathF.Min(1, _superDim * 3f) * 0.7f);
+        float sunIntensity = _rig.BaseSunIntensity * (1f + _flash * 1.6f) * (_flash < 0 ? 0.15f : 1f);  // the super-flash darkening is a HUD overlay: dimming the sun only let the fog wash the arena out
         var light = _rig.Sun.Light!.Value;
         light.Intensity = sunIntensity;
         _rig.Sun.Light = light;

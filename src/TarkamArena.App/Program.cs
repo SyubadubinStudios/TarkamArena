@@ -58,6 +58,22 @@ internal static class LaunchOptions
     }
 }
 
+/// <summary>
+/// Timing marks for diagnosing slow loads: set <c>TARKAM_TRACE=1</c> and read
+/// <c>%TEMP%/tarkam-trace.txt</c>. Costs nothing when the variable is not set.
+/// </summary>
+internal static class LoadTrace
+{
+    private static readonly bool s_on = Environment.GetEnvironmentVariable("TARKAM_TRACE") == "1";
+    private static readonly System.Diagnostics.Stopwatch s_clock = System.Diagnostics.Stopwatch.StartNew();
+
+    public static void Mark(string what)
+    {
+        if (!s_on) return;
+        System.IO.File.AppendAllText(System.IO.Path.Combine(System.IO.Path.GetTempPath(), "tarkam-trace.txt"), $"{s_clock.ElapsedMilliseconds,8} ms  {what}{System.Environment.NewLine}");
+    }
+}
+
 /// <summary>Writes unexpected exceptions next to the save file so players can attach them to bug reports.</summary>
 internal static class CrashLog
 {

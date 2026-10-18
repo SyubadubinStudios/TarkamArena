@@ -89,6 +89,13 @@ public static class ScreenshotTour
         plan.Stage = Stages.Get("pasar-becek");
         window.Replace(new MainMenuScreen());
         window.Show(new FightScreen(plan));
+        if (LaunchOptions.SnapDirectory is { } dir)
+        {
+            // --snap <dir>: save in-app frames at fixed times (no desktop capture needed).
+            Directory.CreateDirectory(dir);
+            foreach (var (seconds, name) in new[] { (4.0, "a-vs-loaded"), (5.6, "b-round"), (8.0, "c-fight"), (12.0, "d-fight"), (18.0, "e-fight"), (26.0, "f-fight") })
+                DispatcherTimer.RunOnce(() => Save(window, Path.Combine(dir, name + ".png")), TimeSpan.FromSeconds(seconds));
+        }
     }
 
     private static void Save(MainWindow window, string path)

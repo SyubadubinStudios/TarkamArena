@@ -22,6 +22,7 @@ public partial class App : Application
                 e.Handled = true;
                 CurrentWindow?.Toast("Error", e.Exception.Message);
             };
+            Controls.Anim.Register();
             Game.Initialize();
             desktop.MainWindow = new MainWindow();
             desktop.ShutdownRequested += (_, _) => Game.Shutdown();

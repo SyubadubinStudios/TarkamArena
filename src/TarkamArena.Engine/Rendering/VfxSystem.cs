@@ -24,7 +24,22 @@ public sealed class VfxSystem
     private readonly Emitter? _weather;
     private readonly List<Emitter> _all = [];
     private readonly FireEffect[] _rageFires;
+    private readonly Emitter _counterSparks;
+    private readonly Emitter _aura;
+    private readonly Emitter _trail;
+    private readonly Ring[] _rings = new Ring[6];
+    private int _nextRing;
     private double _time;
+
+    /// <summary>An expanding, fading shockwave ring facing the camera.</summary>
+    private struct Ring
+    {
+        public Node Node;
+        public Material Material;
+        public Vector3 Color;
+        public float Age, Duration, MaxScale;
+        public bool Active;
+    }
 
     public VfxSystem(Scene scene, StageDefinition stage, int fighters, bool weather, bool lowQuality)
     {
@@ -62,6 +77,39 @@ public sealed class VfxSystem
             Rate = 0, Lifetime = 1.6f, Variation = 0.6f, Size = 0.18f, Growth = 0.4f, Shape = EmitterShape.Sphere, EmitterRadius = 0.4f,
             Radial = true, Spread = 6f, Gravity = new Vector3(0, 1.5f, 0), Drag = 0.5f, Turbulence = 2.5f,
         }, ParticleEffect.GlowMaterial(glow, new Vector3(1f, 0.85f, 0.3f), new Vector3(0.2f, 0.8f, 1f), 6f));
+
+        _counterSparks = Add(new ParticleEffect(300 / scale, 21)
+        {
+            Rate = 0, Lifetime = 0.5f, Variation = 0.5f, Size = 0.14f, Growth = 0.1f, Shape = EmitterShape.Sphere, EmitterRadius = 0.1f,
+            Radial = true, Spread = 9f, Gravity = new Vector3(0, -6, 0), Drag = 0.6f, StretchBySpeed = 0.07f,
+        }, ParticleEffect.GlowMaterial(glow, new Vector3(1f, 0.85f, 0.2f), new Vector3(1f, 0.15f, 0.05f), 6f));
+
+        _aura = Add(new ParticleEffect(260 / scale, 22)
+        {
+            Rate = 0, Lifetime = 0.8f, Variation = 0.5f, Size = 0.07f, Growth = 0.2f, Shape = EmitterShape.Box, EmitterSize = new Vector3(0.35f, 0.8f, 0.25f),
+            Rise = 1.4f, Spread = 0.3f, Gravity = new Vector3(0, 1.2f, 0), Turbulence = 1.5f,
+        }, ParticleEffect.GlowMaterial(glow, new Vector3(0.5f, 1f, 0.55f), new Vector3(0.1f, 0.6f, 1f), 3f));
+
+        _trail = Add(new ParticleEffect(300 / scale, 23)
+        {
+            Rate = 0, Lifetime = 0.35f, Variation = 0.4f, Size = 0.16f, Growth = 0.05f, Shape = EmitterShape.Sphere, EmitterRadius = 0.06f,
+            Spread = 0.2f, Drag = 0.9f,
+        }, ParticleEffect.GlowMaterial(glow, new Vector3(1f, 0.9f, 0.4f), new Vector3(1f, 0.25f, 0.1f), 4f));
+
+        var torus = scene.CreateTorusGeometry(0.5f, 0.035f, 8, 48);
+        for (int i = 0; i < _rings.Length; i++)
+        {
+            var options = MaterialOptions.Basic(new Vector4(1, 1, 1, 0));
+            options.AlphaMode = AlphaMode.Additive;
+            options.DepthWrite = false;
+            options.CullMode = CullMode.None;
+            var material = scene.CreateMaterial(options);
+            var node = scene.AddMesh(torus, material, name: "shockwave");
+            node.CastShadow = false;
+            node.ReceiveShadow = false;
+            node.Visible = false;
+            _rings[i] = new Ring { Node = node, Material = material };
+        }
 
         _confetti = Add(new ParticleEffect(500 / scale, 15)
         {
@@ -144,6 +192,41 @@ public sealed class VfxSystem
         e.Effect.Burst(260);
     }
 
+    /// <summary>Gold burst for counter hits.</summary>
+    public void CounterSparks(Vector3 at)
+    {
+        _counterSparks.Effect.Origin = at;
+        _counterSparks.Effect.Burst(60);
+    }
+
+    /// <summary>Expanding shockwave ring (heavy hits, parries, KOs, rage bursts).</summary>
+    public void Shockwave(Vector3 at, Vector3 color, float maxScale = 2.4f, float duration = 0.35f)
+    {
+        ref var r = ref _rings[_nextRing];
+        _nextRing = (_nextRing + 1) % _rings.Length;
+        r.Active = true;
+        r.Age = 0;
+        r.Duration = duration;
+        r.MaxScale = maxScale;
+        r.Color = color;
+        r.Node.Position = at;
+        r.Node.Visible = true;
+    }
+
+    /// <summary>Adrenaline aura: green sparks rising off the fighter while the mode lasts.</summary>
+    public void Aura(Vector3 position, float dt)
+    {
+        _aura.Effect.Origin = position + new Vector3(0, 0.9f, 0);
+        _aura.Effect.Burst(Math.Max(1, (int)(dt * 90)));
+    }
+
+    /// <summary>Glowing trail behind a projectile.</summary>
+    public void Trail(Vector3 position)
+    {
+        _trail.Effect.Origin = position;
+        _trail.Effect.Burst(2);
+    }
+
     public void Confetti(Vector3 at)
     {
         _confetti.Effect.Origin = at;
@@ -160,6 +243,22 @@ public sealed class VfxSystem
 
     public void Update(float dt, Matrix4x4 cameraWorld)
     {
+        for (int i = 0; i < _rings.Length; i++)
+        {
+            ref var r = ref _rings[i];
+            if (!r.Active) continue;
+            r.Age += dt;
+            float t = MathF.Min(1, r.Age / r.Duration);
+            float ease = 1 - (1 - t) * (1 - t) * (1 - t);
+            float scale = 0.25f + (r.MaxScale - 0.25f) * ease;
+            r.Node.Scale = new Vector3(scale, scale, scale);
+            r.Material.BaseColor = new Vector4(r.Color * (1 - t) * 2.2f, 1 - t);
+            if (t >= 1)
+            {
+                r.Active = false;
+                r.Node.Visible = false;
+            }
+        }
         _time += dt;
         foreach (var e in _all)
         {
@@ -188,6 +287,11 @@ public sealed class CameraDirector
     }
 
     public void Shake(float amount) => _shake = MathF.Max(_shake, amount);
+
+    private float _punch;
+
+    /// <summary>A quick push-in towards the action (KO, finisher start).</summary>
+    public void Punch(float amount) => _punch = MathF.Max(_punch, amount);
 
     public enum Mode
     {
@@ -239,7 +343,13 @@ public sealed class CameraDirector
             shake = new Vector3((float)_random.NextDouble() - 0.5f, (float)_random.NextDouble() - 0.5f, 0) * _shake * 0.35f;
             _shake *= MathF.Exp(-dt * 9f);
         }
-        Camera.Position = _position + shake;
+        var punchOffset = Vector3.Zero;
+        if (_punch > 0.001f)
+        {
+            punchOffset = Vector3.Normalize(_target - _position) * _punch * 2.2f;
+            _punch *= MathF.Exp(-dt * 5f);
+        }
+        Camera.Position = _position + shake + punchOffset;
         Camera.LookAt(_target + shake * 0.5f);
     }
 }

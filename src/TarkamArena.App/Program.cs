@@ -32,6 +32,7 @@ internal static class LaunchOptions
     public static bool Fullscreen { get; private set; }
     public static string? Language { get; private set; }
     public static bool QuickFight { get; private set; }
+    public static string? SnapDirectory { get; private set; }
 
     public static void Parse(string[] args)
     {
@@ -42,6 +43,7 @@ internal static class LaunchOptions
                 case "--capture" when i + 1 < args.Length: CaptureDirectory = args[++i]; break;
                 case "--fullscreen": Fullscreen = true; break;
                 case "--fight": QuickFight = true; break;
+                case "--snap" when i + 1 < args.Length: SnapDirectory = args[++i]; break;
                 case "--lang" when i + 1 < args.Length: Language = args[++i]; break;
             }
         }

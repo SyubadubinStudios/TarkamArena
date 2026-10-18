@@ -249,5 +249,20 @@ public static class Loc
         ["controls.tag"] = new("Tag partner", "Tukar rekan"),
         ["controls.rage"] = new("Rage mode", "Mode amarah"),
         ["controls.pause"] = new("Pause", "Jeda"),
+
+        // Loading tips
+        ["loading.tip"] = new("Tip", "Tips"),
+        ["tip.0"] = new("Tap Block just before a hit lands to parry: no damage, and the attacker is left open.", "Ketuk Tahan sesaat sebelum pukulan mendarat untuk menangkis: tanpa damage, dan penyerang terbuka."),
+        ["tip.1"] = new("Down + Heavy launches. Press Up on hit to jump after them for an air combo.", "Bawah + Berat melontarkan lawan. Tekan Atas saat kena untuk mengejarnya dengan kombo udara."),
+        ["tip.2"] = new("Rage fills faster when you are below a quarter of your health. Press Rage when it is full.", "Amarah terisi lebih cepat saat darahmu di bawah seperempat. Tekan Amarah saat penuh."),
+        ["tip.3"] = new("Legendary Finishers need a roaring crowd: keep the VU meter in the red.", "Finisher Legenda butuh penonton yang riuh: jaga VU meter tetap merah."),
+        ["tip.4"] = new("Two grabs at once cancel each other out. Grabs cannot catch someone in the air.", "Dua tangkapan bersamaan saling batal. Tangkapan tidak bisa menangkap lawan di udara."),
+        ["tip.5"] = new("A hit during the opponent's startup is a counter: more damage, longer stun.", "Pukulan saat lawan memulai jurus adalah counter: damage lebih besar, terpaku lebih lama."),
+        ["tip.6"] = new("Watch the red warning on the floor: arena events knock everyone down.", "Perhatikan peringatan merah di lantai: event arena menjatuhkan siapa saja."),
+        ["tip.7"] = new("In Tag Battle, tag in while the opponent is in hitstun to enter with a launcher.", "Di Tag Battle, tukar rekan saat lawan terkena hitstun untuk masuk dengan launcher."),
+        ["tip.8"] = new("Mercy lets the loser stand back up with a sliver of health. The crowd loves it.", "Ampunan membuat yang kalah bangkit dengan sedikit darah. Penonton menyukainya."),
+        ["tip.9"] = new("Locals recognise some fighters: traders fear the Market Thug, students cheer the protester.", "Warga mengenali petarung tertentu: pedagang takut Preman Pasar, mahasiswa bersorak untuk Mahasiswi Demo."),
+        ["tip.10"] = new("Quarter-circle forward (↓↘→) + attack is a forward special; →↓↘ + attack is the uppercut.", "Seperempat putaran maju (↓↘→) + serangan adalah jurus maju; →↓↘ + serangan adalah uppercut."),
+        ["tip.11"] = new("Win a tournament, finish the story or survive ten waves to unlock the secret legends.", "Juarai turnamen, tamatkan cerita, atau bertahan sepuluh gelombang untuk membuka legenda rahasia."),
     }.ToFrozenDictionary(StringComparer.Ordinal);
 }

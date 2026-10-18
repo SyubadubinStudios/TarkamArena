@@ -137,16 +137,26 @@ public sealed class ArenaPresenter : IDisposable
             switch (e.Kind)
             {
                 case MatchEventKind.Hit or MatchEventKind.CounterHit:
+                    bool heavy = e.Value > 60;
                     _vfx.HitSparks(at, e.Value);
-                    _camera.Shake(e.Value > 60 || e.Kind == MatchEventKind.CounterHit ? 0.45f : 0.15f);
+                    if (e.Kind == MatchEventKind.CounterHit)
+                    {
+                        _vfx.CounterSparks(at);
+                        _vfx.Shockwave(at, new Vector3(1f, 0.75f, 0.2f), 2.6f, 0.3f);
+                    }
+                    else if (heavy) _vfx.Shockwave(at, new Vector3(1f, 0.9f, 0.7f), 1.8f, 0.25f);
+                    _camera.Shake(heavy || e.Kind == MatchEventKind.CounterHit ? 0.45f : 0.15f);
                     _physics?.Explode(at, 2.5f, e.Value / 60f);
                     break;
                 case MatchEventKind.Block: _vfx.BlockSparks(at); break;
                 case MatchEventKind.Parry:
                     _vfx.BlockSparks(at);
                     _vfx.BlockSparks(at + new Vector3(0, 0.2f, 0));
+                    _vfx.Shockwave(at, new Vector3(0.4f, 0.75f, 1f), 2.2f, 0.3f);
                     _flash = 0.25f;
                     break;
+                case MatchEventKind.Launch: _vfx.Shockwave(at, new Vector3(1f, 1f, 1f), 1.6f, 0.22f); break;
+                case MatchEventKind.TagSwitch: _vfx.Shockwave(at + new Vector3(0, 1, 0), new Vector3(0.96f, 0.76f, 0.1f), 2.4f, 0.4f); break;
                 case MatchEventKind.Land or MatchEventKind.Dodge: _vfx.Dust(at, 6); break;
                 case MatchEventKind.Knockdown:
                     _vfx.Dust(at, 18);
@@ -155,12 +165,17 @@ public sealed class ArenaPresenter : IDisposable
                     break;
                 case MatchEventKind.KO:
                     _vfx.HitSparks(at, 200);
+                    _vfx.CounterSparks(at);
+                    _vfx.Shockwave(at, new Vector3(1f, 0.3f, 0.2f), 4f, 0.5f);
+                    _vfx.Shockwave(at, new Vector3(1f, 0.9f, 0.6f), 2.6f, 0.35f);
+                    _camera.Punch(0.9f);
                     _camera.Shake(0.9f);
                     _flash = 0.5f;
                     _physics?.Explode(at, 5f, 4f);
                     break;
                 case MatchEventKind.RageActivated:
                     _vfx.FinisherBurst(at + new Vector3(0, 1, 0), gold: false);
+                    _vfx.Shockwave(at + new Vector3(0, 1, 0), new Vector3(1f, 0.2f, 0.1f), 5f, 0.5f);
                     _camera.Shake(0.4f);
                     _physics?.Explode(at, 4f, 3f);
                     break;
@@ -172,6 +187,8 @@ public sealed class ArenaPresenter : IDisposable
                     if (kind is FinisherKind.Fatality or FinisherKind.Brutality && _physics is not null)
                         _physics.SpawnDebris(at + new Vector3(0, 0.8f, 0), 14, _context.Characters[e.Target].Body.PrimaryColor, 0.18f, _random);
                     _camera.Shake(0.7f);
+                    _camera.Punch(1.2f);
+                    _vfx.Shockwave(at + new Vector3(0, 1, 0), kind == FinisherKind.Legendary ? new Vector3(1f, 0.85f, 0.3f) : new Vector3(1f, 0.15f, 0.1f), 6f, 0.7f);
                     _flash = 0.6f;
                     break;
                 case MatchEventKind.HazardHit:
@@ -211,6 +228,7 @@ public sealed class ArenaPresenter : IDisposable
             maxY = MathF.Max(maxY, p.Y);
             _fighterSpots[spots++] = (new Vector3(p.X, 0, 0), _context.Characters[i].Id);
             _vfx.SetRage(i, f.RageActive, new Vector3(p.X, p.Y, 0));
+            if (f.AdrenalineActive && dt > 0) _vfx.Aura(new Vector3(p.X, p.Y, 0), dt);
         }
         if (spots == 0) { minX = -2; maxX = 2; }
 
@@ -222,6 +240,7 @@ public sealed class ArenaPresenter : IDisposable
             if (!pr.Active) continue;
             var pos = pr.Position.ToVector2();
             node.Position = new Vector3(pos.X, pos.Y, 0);
+            if (dt > 0) _vfx.Trail(node.Position);
             float pulse = 0.35f + 0.06f * MathF.Sin(_time * 30f);
             node.Scale = new Vector3(pulse);
         }

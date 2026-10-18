@@ -25,6 +25,10 @@ public sealed class MainMenuScreen : Screen
     private readonly DispatcherTimer _rotate;
     private readonly List<(string Label, string Hint, Action Go)> _items = [];
     private int _posterIndex;
+    private SignText _logo = null!;
+    private Border _stripe = null!;
+    private Image _backdrop = null!;
+    private StackPanel _caption = null!;
     private CharacterDefinition[] _posterPool = [];
 
     public MainMenuScreen()
@@ -57,7 +61,8 @@ public sealed class MainMenuScreen : Screen
             Nav(b);
         }
 
-        var logo = Ui.V(0, new SignText("TARKAM ARENA", 54));
+        _logo = new SignText("TARKAM ARENA", 54);
+        var logo = Ui.V(0, _logo);
         var left = Ui.V(20, logo, menu, _hint);
         left.Margin = new Thickness(80, 40, 0, 0);
 
@@ -107,13 +112,37 @@ public sealed class MainMenuScreen : Screen
             f.VerticalAlignment = VerticalAlignment.Bottom;
         });
 
-        var root = new Grid();
+        _stripe = stripe;
+        _caption = posterCaption;
+        // Painted night-tournament key art far behind everything, dimmed, drifting slowly.
+        _backdrop = Ui.Picture(Images.Load("ui/keyart.png", 1600), stretch: Stretch.UniformToFill).With(i => i.Opacity = 0.16);
+        var spotlight = new Border
+        {
+            Width = 900,
+            Height = 900,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Margin = new Thickness(0, 0, -60, -260),
+            Background = new RadialGradientBrush
+            {
+                GradientStops = { new GradientStop(Color.FromArgb(0x70, 0xF6, 0xC2, 0x1B), 0), new GradientStop(Color.FromArgb(0x00, 0xF6, 0xC2, 0x1B), 1) },
+            },
+            IsHitTestVisible = false,
+        };
+        var mendung = Ui.Picture(Images.Load("ui/mega-mendung.png", 1600), stretch: Stretch.UniformToFill)
+            .With(i => { i.Height = 54; i.VerticalAlignment = VerticalAlignment.Top; i.Opacity = 0.35; i.IsHitTestVisible = false; });
+
+        var root = new Grid { ClipToBounds = true };
+        root.Children.Add(_backdrop);
+        root.Children.Add(mendung);
+        root.Children.Add(spotlight);
         root.Children.Add(stripe);
         root.Children.Add(_poster);
         root.Children.Add(posterCaption);
         root.Children.Add(left);
         root.Children.Add(chip);
         root.Children.Add(footer);
+        root.Children.Add(new ParticleField(ParticleStyle.Embers, 60) { Opacity = 0.8 });
         Content = root;
 
         _posterPool = [.. Roster.All.Where(c => Game.IsUnlocked(c) && Images.Portrait(c) is not null)];
@@ -134,9 +163,26 @@ public sealed class MainMenuScreen : Screen
     {
         _posterIndex++;
         ShowPoster();
+        // Each new fighter slides onto the banner from the right with its name stamped below.
+        _ = Anim.SlideIn(_poster, 160, 0, 520);
+        _ = Anim.Stamp(_caption, 220, 380, 1.6, -4);
     }
 
-    protected override void OnNavChanged(int index) => _hint.Text = _items[index].Hint;
+    protected override void OnNavChanged(int index)
+    {
+        _hint.Text = _items[index].Hint;
+        _ = Anim.FadeIn(_hint, 0, 220);
+    }
+
+    protected override void AnimateEntrance()
+    {
+        base.AnimateEntrance();
+        Anim.Drift(_backdrop, 40, 1.1, 50);
+        _ = Anim.Stamp(_logo, 0, 420, 1.8, -5);
+        _ = Anim.SlideIn(_stripe, 500, 60, 520, "skewX(-9deg)", -80);
+        _ = Anim.SlideIn(_poster, 260, 220, 620);
+        _ = Anim.Stamp(_caption, 560, 400, 1.6, -4);
+    }
 
     public override void OnEnter()
     {

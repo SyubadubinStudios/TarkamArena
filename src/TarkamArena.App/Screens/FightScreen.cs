@@ -30,7 +30,9 @@ public sealed class FightScreen : Screen
     private readonly MatchPlan _plan;
     private readonly ThreeNetView _view = new() { MaxFramesPerSecond = 60 };
     private readonly Grid _hudLayer = new();
-    private readonly Border _loading;
+    private readonly VersusOverlay _versus;
+    private bool _holdSimulation = true;
+    private double _slowMotion;
     private readonly Border _pause;
     private readonly StackPanel _pauseMenu = new() { Spacing = 10 };
     private MatchContext? _context;
@@ -54,24 +56,7 @@ public sealed class FightScreen : Screen
     public FightScreen(MatchPlan plan)
     {
         _plan = plan;
-        _loading = new Border
-        {
-            Background = Ui.Night,
-            Child = Ui.V(18,
-                new SignText(plan.Stage?.Name.ToString().ToUpperInvariant() ?? "", 64),
-                Ui.Text(Loc.T("common.loading"), "h3", "muted"),
-                Ui.Wrap(plan.Stage?.Description.ToString() ?? "", "body").With(t => t.MaxWidth = 700))
-                .With(s => { s.HorizontalAlignment = HorizontalAlignment.Center; s.VerticalAlignment = VerticalAlignment.Center; }),
-        };
-        if (plan.Stage is not null && Images.Backdrop(plan.Stage, 1600) is { } bmp)
-        {
-            var card = _loading.Child!;
-            _loading.Child = null;
-            var g = new Grid();
-            g.Children.Add(Ui.Picture(bmp, stretch: Avalonia.Media.Stretch.UniformToFill).With(i => i.Opacity = 0.35));
-            g.Children.Add(card);
-            _loading.Child = g;
-        }
+        _versus = new VersusOverlay([.. plan.Fighters.Select(f => f ?? Core.Content.Roster.Get("pesilat"))], plan.Mode, plan.Stage ?? Core.Content.Stages.All[0]);
 
         _pause = new Border
         {
@@ -88,7 +73,7 @@ public sealed class FightScreen : Screen
         root.Children.Add(_view);
         root.Children.Add(_hudLayer);
         root.Children.Add(_pause);
-        root.Children.Add(_loading);
+        root.Children.Add(_versus);
         Content = root;
         _view.Frame += OnFrame;
         _view.RenderFailed += (_, message) => Window.Toast("ThreeNet", message);
@@ -119,8 +104,41 @@ public sealed class FightScreen : Screen
     {
         if (_presenter is not null) return;
         Game.Audio.StopMusic();
-        // Let the loading card paint before the heavy scene build.
-        DispatcherTimer.RunOnce(Load, TimeSpan.FromMilliseconds(60));
+        _ = StartAsync();
+    }
+
+    /// <summary>VS card in, arena built behind it, a short beat, then the card wipes away and the fight begins.</summary>
+    private async Task StartAsync()
+    {
+        try
+        {
+            await StartCoreAsync();
+        }
+        catch (Exception e)
+        {
+            CrashLog.Write(e);
+            Window.Toast("Error", e.Message);
+            _versus.IsVisible = false;
+            _holdSimulation = false;
+        }
+    }
+
+
+    private async Task StartCoreAsync()
+    {
+        await _versus.PlayAsync();
+        _versus.SetProgress(0.3);
+        await Task.Delay(120);
+        Load();
+        _versus.SetProgress(0.85);
+        await Task.Delay(500);
+        // Start the 3D view only as the card starts to leave: rendering a view that is fully
+        // covered stalls ThreeNetView's GPU readback on some drivers.
+        StartRendering();
+        await _versus.DismissAsync();
+        // The opening "Round 1" event is part of the initial state; present it now that the card is gone.
+        _presenter?.OnSimulated(_state);
+        _holdSimulation = false;
     }
 
     private void Load()
@@ -153,11 +171,32 @@ public sealed class FightScreen : Screen
         _hud = new FightHud(_context, _localSlot);
         _hudLayer.Children.Clear();
         _hudLayer.Children.Add(_hud);
-        _presenter.EventRaised += e => _hud.OnEvent(e, _state);
+        _presenter.EventRaised += e =>
+        {
+            _hud.OnEvent(e, _state);
+            // The match-deciding blow plays in slow motion (offline only: online peers must stay in step).
+            if (e.Kind == MatchEventKind.KO && _plan.Online is null) _slowMotion = 1.2;
+        };
 
         _ = Game.Audio.StartMusicAsync(_context.Stage.Music, (int)Core.Mathematics.DeterministicRandom.Hash(_context.Stage.Id));
-        _loading.IsVisible = false;
-        _view.IsRendering = true;
+    }
+
+    private DispatcherTimer? _frameTimer;
+
+    /// <summary>
+    /// Drives the 3D view from a Background-priority timer instead of the view's own render loop.
+    /// When a frame takes longer than the display interval (integrated GPUs, large windows), the
+    /// built-in loop queues frames back to back above input priority and the window stops
+    /// responding; at Background priority input, timers and animations always run first.
+    /// </summary>
+    private void StartRendering()
+    {
+        _view.IsRendering = false;
+        _frameTimer ??= new DispatcherTimer(TimeSpan.FromMilliseconds(15), DispatcherPriority.Background, (_, _) =>
+        {
+            if (_presenter is not null) _view.RenderFrame();
+        });
+        _frameTimer.Start();
     }
 
     private static RendererOptions RendererFor(GraphicsQuality q)
@@ -181,7 +220,12 @@ public sealed class FightScreen : Screen
     {
         if (_presenter is null || _context is null) return;
         double dt = Math.Min(e.DeltaSeconds, 0.25);
-        if (!_paused && !_finished)
+        if (_slowMotion > 0)
+        {
+            _slowMotion -= dt;
+            dt *= 0.3;
+        }
+        if (!_paused && !_finished && !_holdSimulation)
         {
             _accumulator += dt;
             int steps = 0;
@@ -263,6 +307,12 @@ public sealed class FightScreen : Screen
         }
     }
 
+    /// <summary>Called when the window loses focus: offline matches pause so nobody loses a round while alt-tabbed.</summary>
+    public void AutoPause()
+    {
+        if (!_paused && !_finished && !_holdSimulation && _plan.Online is null) SetPaused(true);
+    }
+
     private void SetPaused(bool paused)
     {
         if (_plan.Online is not null && paused) return; // Online matches cannot pause.
@@ -295,6 +345,7 @@ public sealed class FightScreen : Screen
 
     public override void OnLeave()
     {
+        _frameTimer?.Stop();
         _view.IsRendering = false;
         _view.Frame -= OnFrame;
         _view.Scene = null!;

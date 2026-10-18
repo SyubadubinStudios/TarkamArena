@@ -25,6 +25,9 @@ public sealed class MainWindow : Window
     private readonly DispatcherTimer _padTimer;
     private InputButtons _lastPad;
     private int _padRepeat;
+    private readonly Grid _wipe = new() { IsHitTestVisible = false, IsVisible = false, ClipToBounds = true };
+    private readonly Border[] _bars;
+    private bool _wiping, _dirty;
 
     public Screen? Current => _stack.Count > 0 ? _stack.Peek() : null;
 
@@ -42,6 +45,27 @@ public sealed class MainWindow : Window
         var root = new Grid();
         root.Children.Add(new Border { Background = Ui.TarpBackground() });
         root.Children.Add(_host);
+        // Screen transition: three slanted banner strips sweep across, like spanduk being unrolled.
+        _bars =
+        [
+            new Border { Background = Ui.Terpal },
+            new Border { Background = Ui.Cabai },
+            new Border
+            {
+                Background = Ui.Spanduk,
+                Child = new TextBlock
+                {
+                    Text = "TARKAM ARENA", FontFamily = Ui.Display, FontSize = 64, Foreground = Ui.Arang, Opacity = 0.9,
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center, VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                },
+            },
+        ];
+        foreach (var bar in _bars)
+        {
+            bar.Margin = new Thickness(-400, -100);
+            _wipe.Children.Add(bar);
+        }
+        root.Children.Add(_wipe);
         root.Children.Add(_toasts);
         Content = root;
 
@@ -68,7 +92,11 @@ public sealed class MainWindow : Window
             else if (LaunchOptions.QuickFight) ScreenshotTour.QuickFight(this);
         };
         Closing += (_, _) => Game.Save();
-        Deactivated += (_, _) => Game.Input.ReleaseAll();
+        Deactivated += (_, _) =>
+        {
+            Game.Input.ReleaseAll();
+            if (Current is FightScreen fight && LaunchOptions.CaptureDirectory is null && LaunchOptions.SnapDirectory is null) fight.AutoPause();
+        };
     }
 
     // ───────────────────────── navigation ─────────────────────────
@@ -78,8 +106,7 @@ public sealed class MainWindow : Window
         Current?.OnLeave();
         screen.Window = this;
         _stack.Push(screen);
-        _host.Content = screen;
-        Dispatcher.UIThread.Post(screen.OnEnter, DispatcherPriority.Loaded);
+        Present();
     }
 
     public void Replace(Screen screen)
@@ -97,9 +124,7 @@ public sealed class MainWindow : Window
         if (_stack.Count <= 1) return;
         var old = _stack.Pop();
         old.OnLeave();
-        var screen = _stack.Peek();
-        _host.Content = screen;
-        Dispatcher.UIThread.Post(screen.OnEnter, DispatcherPriority.Loaded);
+        Present();
     }
 
     /// <summary>Clears the stack back to the main menu.</summary>
@@ -111,6 +136,68 @@ public sealed class MainWindow : Window
             s.OnLeave();
         }
         Show(new MainMenuScreen());
+    }
+
+    /// <summary>Puts the top of the stack on screen behind a banner wipe. Navigation during a wipe is coalesced.</summary>
+    private void Present()
+    {
+        if (_wiping)
+        {
+            _dirty = true;
+            return;
+        }
+        _ = PresentAsync();
+    }
+
+    private async Task PresentAsync()
+    {
+        _wiping = true;
+        try
+        {
+            do
+            {
+                _dirty = false;
+                bool animate = _host.Content is not null && !Controls.Anim.Reduced && Bounds.Width > 0;
+                if (animate) await SweepAsync(cover: true);
+                var screen = Current;
+                if (!ReferenceEquals(_host.Content, screen))
+                {
+                    _host.Content = screen;
+                    if (screen is not null) Dispatcher.UIThread.Post(screen.OnEnter, DispatcherPriority.Loaded);
+                }
+                if (animate) await SweepAsync(cover: false);
+            }
+            while (_dirty);
+        }
+        finally
+        {
+            _wiping = false;
+        }
+    }
+
+    private async Task SweepAsync(bool cover)
+    {
+        double w = Bounds.Width + 800;
+        _wipe.IsVisible = true;
+        var tasks = new List<Task>(3);
+        for (int i = 0; i < _bars.Length; i++)
+        {
+            int order = cover ? i : _bars.Length - 1 - i;
+            double from = cover ? -w : 0, to = cover ? 0 : w;
+            var a = new Avalonia.Animation.Animation
+            {
+                Duration = TimeSpan.FromMilliseconds(cover ? 210 : 260),
+                Delay = TimeSpan.FromMilliseconds(order * 45),
+                Easing = cover ? new Avalonia.Animation.Easings.CubicEaseIn() : new Avalonia.Animation.Easings.CubicEaseOut(),
+                FillMode = Avalonia.Animation.FillMode.Both,
+            };
+            a.Children.Add(new Avalonia.Animation.KeyFrame { Cue = new Avalonia.Animation.Cue(0), Setters = { new Avalonia.Styling.Setter(RenderTransformProperty, Avalonia.Media.Transformation.TransformOperations.Parse($"skewX(-14deg) translateX({from}px)")) } });
+            a.Children.Add(new Avalonia.Animation.KeyFrame { Cue = new Avalonia.Animation.Cue(1), Setters = { new Avalonia.Styling.Setter(RenderTransformProperty, Avalonia.Media.Transformation.TransformOperations.Parse($"skewX(-14deg) translateX({to}px)")) } });
+            tasks.Add(a.RunAsync(_bars[i]));
+        }
+        if (cover) Game.Audio.Play(Engine.Audio.Sfx.Whoosh, 0.35f, 0.05f);
+        await Task.WhenAny(Task.WhenAll(tasks), Task.Delay(700));
+        if (!cover) _wipe.IsVisible = false;
     }
 
     public void ToggleFullscreen()

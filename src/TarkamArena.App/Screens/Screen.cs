@@ -33,7 +33,29 @@ public abstract class Screen : UserControl
     /// <summary>When true the shell does not translate keys to menu actions (the fight screen reads raw input).</summary>
     public virtual bool WantsRawInput => false;
 
-    public virtual void OnEnter() => FocusCurrent();
+    public virtual void OnEnter()
+    {
+        FocusCurrent();
+        AnimateEntrance();
+    }
+
+    /// <summary>When true, <see cref="AnimateEntrance"/> slides the navigable items in on every enter.</summary>
+    protected virtual bool StaggerNavItems => true;
+
+    /// <summary>Default entrance: the content fades up and the first navigable items slide in one after another.</summary>
+    protected virtual void AnimateEntrance()
+    {
+        if (Content is Avalonia.Animation.Animatable content) _ = Anim.FadeIn(content, 0, 260);
+        if (!StaggerNavItems) return;
+        int i = 0;
+        foreach (var item in NavItems)
+        {
+            if (i >= 16 || !item.IsEffectivelyVisible) continue;
+            string rest = item.Classes.Contains("spanduk") ? "skewX(-9deg)" : "";
+            _ = Anim.SlideIn(item, -70, 80 + i * 38, 340, rest);
+            i++;
+        }
+    }
 
     public virtual void OnLeave()
     {

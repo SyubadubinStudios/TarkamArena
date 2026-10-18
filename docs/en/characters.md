@@ -15,6 +15,12 @@ Jarot has lived at the same crossroads for twenty years. He knows every light cy
 
 - **S**: Tin Can Toss · **→ S**: Red Light Somersault · **↓ S**: Busker's Smash
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Tin Can Rain** | Barrage | 250 | A volley of dented cans and bottle caps. |
+| `↓ ↙ ← + S` | **Buskers' Charge** | Crowd charge | 400 | Every busker at the crossroads storms in with ukuleles. |
+| `↓ ↓ + S` | **Traffic Light Slam** | Signature weapon | 700 | Rips out the traffic light and swings it, lights still blinking. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Green Means Go |
@@ -37,6 +43,12 @@ Sinta has scanned a million items and smiled through every one. Her greeting is 
 > Would you like to top up too, sis?
 
 - **S**: Receipt Whip · **→ S**: Barcode Dash · **↓ S**: Cash Drawer Ding
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Receipt Storm** | Barrage | 250 | Razor-sharp receipts fired from the till. |
+| `↓ ↙ ← + S` | **Promo Stampede** | Crowd charge | 400 | Shoppers chasing a two-for-one deal trample everything. |
+| `↓ ↓ + S` | **Trolley of Doom** | Signature weapon | 700 | A fully loaded shopping trolley, swung like a hammer. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -61,6 +73,12 @@ Thirty-one years of teaching, and not one student has escaped his chalk. Pak Dar
 
 - **S**: Chalk Sniper · **→ S**: Wooden Ruler Lunge · **↓ S**: Pop Quiz
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Chalk Machine Gun** | Barrage | 250 | Thirty years of aim, all at once. |
+| `↓ ↙ ← + S` | **Falling Formulas** | Weather strike | 400 | Blackboards full of equations rain from the sky. |
+| `↓ ↓ + S` | **Giant Ruler** | Signature weapon | 700 | A one-metre ruler, enlarged to five. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Division by Zero |
@@ -83,6 +101,12 @@ Rangga trained in a surau courtyard before dawn every day of his childhood. His 
 > Silat is not for showing off.
 
 - **S**: Tiger Stance · **→ S**: Crescent Kick · **↓ S**: Joint Lock
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Silat Whirlwind** | Tornado | 250 | A spinning kick that becomes a typhoon. |
+| `↓ ↙ ← + S` | **Spirit Tiger** | Summon | 400 | The tiger of his school's legend leaps out to strike. |
+| `↓ ↓ + S` | **Inner Power** | Lift & slam | 700 | Lifts the opponent with pure inner power and drops them. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -107,6 +131,12 @@ Every stall in the market pays Codet's 'security fee'. He has a scar for every a
 
 - **S**: Shakedown · **→ S**: Stall Charge · **↓ S**: Market Slam
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Market Gang** | Crowd charge | 250 | Codet whistles and the whole gang comes running. |
+| `↓ ↙ ← + S` | **Bamboo Club** | Signature weapon | 400 | A bamboo pole straight from the stall frame. |
+| `↓ ↓ + S` | **Lift and Slam** | Lift & slam | 700 | Hoists the opponent over his head and slams them. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Protection Fee |
@@ -129,6 +159,12 @@ Nobody sees Priit arrive, but he is always there when you leave. His whistle can
 > Left, left, keep going... stop!
 
 - **S**: Whistle Blast · **→ S**: Reverse, Reverse · **↓ S**: Two Thousand Fee
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Sonic Whistle** | Wave | 250 | A whistle so loud it knocks people over. |
+| `↓ ↙ ← + S` | **Illegal Parking** | Crowd charge | 400 | A row of motorbikes reverses out all at once. |
+| `↓ ↓ + S` | **Parking Barrier** | Signature weapon | 700 | The striped barrier arm swings down. No ticket, no exit. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -153,6 +189,12 @@ Slamet has guarded the same gate through floods, blackouts and three mayors. He 
 
 - **S**: Baton Strike · **→ S**: Night Patrol · **↓ S**: Alarm Gong
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Night Shift Baton** | Signature weapon | 250 | The baton he has polished for twenty years. |
+| `↓ ↙ ← + S` | **Village Patrol** | Crowd charge | 400 | Neighbours with kentongan drums sweep the street. |
+| `↓ ↓ + S` | **Gate Slam** | Quake | 700 | Slams the complex gate so hard the ground shakes. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Gate Closed |
@@ -176,6 +218,12 @@ Kumis pushes a cart heavier than a motorbike up every hill in town. The broth is
 
 - **S**: Meatball Barrage · **→ S**: Runaway Cart · **↓ S**: Hot Broth Splash
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Meatballs Galore** | Barrage | 250 | Meatballs that split into more meatballs. |
+| `↓ ↙ ← + S` | **Broth Flood** | Wave | 400 | A tidal wave of scalding, spicy broth. |
+| `↓ ↓ + S` | **Runaway Cart** | Signature weapon | 700 | The cart, the bowls, the stove, all of it. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Extra Spicy |
@@ -198,6 +246,12 @@ Ratna runs the arisan, the WhatsApp group and the whole street. Her left indicat
 > I've told you a hundred times!
 
 - **S**: Homing Flip-Flop · **→ S**: Left Signal, Right Turn · **↓ S**: Endless Scolding
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Homing Sandals** | Barrage | 250 | Flip-flops that always find the naughty one. |
+| `↓ ↙ ← + S` | **Arisan Gang** | Crowd charge | 400 | The moms ride in on scooters, left signal on, turning right. |
+| `↓ ↓ + S` | **Ear Pull** | Lift & slam | 700 | Lifted by the ear, then sat down very firmly. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -224,6 +278,12 @@ Her laugh carries across rivers. When it sounds far away she is right behind you
 
 - **S**: Piercing Laughter · **→ S**: Drifting Flight · **↓ S**: Midnight Claw
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Twin Kunti** | Summon | 250 | Her sisters drift out of the trees, laughing. |
+| `↓ ↙ ← + S` | **Hair Snare** | Lift & slam | 400 | Her hair coils around the victim and lifts them up. |
+| `↓ ↓ + S` | **Thursday Night** | Weather strike | 700 | A blood-red moon and lightning that only strikes the brave. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Hair Cocoon |
@@ -246,6 +306,12 @@ Joni's ties were never untied, so he hops. He has hopped for so long that his le
 > Untie me... please...
 
 - **S**: Shroud Hop · **→ S**: Shroud Roll · **↓ S**: Binding Knot
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pocong Army** | Crowd charge | 250 | A whole graveyard hops across the arena. |
+| `↓ ↙ ← + S` | **Shroud Tornado** | Tornado | 400 | Spins so fast his shroud becomes a whirlwind. |
+| `↓ ↓ + S` | **Graveyard Hop** | Quake | 700 | One enormous hop, one enormous landing. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -270,6 +336,12 @@ A hungry giant from the old tales, once outwitted by Timun Mas. He has been wait
 
 - **S**: Giant's Roar · **→ S**: Earth Pound · **↓ S**: Swallow Whole
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Giant's Stomp** | Quake | 250 | The earth cracks under one green foot. |
+| `↓ ↙ ← + S` | **Boulder Toss** | Barrage | 400 | River boulders, thrown like pebbles. |
+| `↓ ↓ + S` | **Giant's Grip** | Lift & slam | 700 | Picks the opponent up like a snack, then changes his mind. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Cucumber Revenge |
@@ -292,6 +364,12 @@ A shaggy shadow that lives in old banyan trees. It throws stones at those who di
 > Respect the old trees.
 
 - **S**: Hurled Stone · **→ S**: Shadow Lunge · **↓ S**: Dark Grip
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Phantom Stones** | Barrage | 250 | Stones thrown by nobody, from nowhere. |
+| `↓ ↙ ← + S` | **Forest Shadows** | Summon | 400 | Shaggy shadows peel off the trees and pounce. |
+| `↓ ↓ + S` | **Banyan's Wrath** | Weather strike | 700 | The old banyan drops its heaviest branches. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -316,6 +394,12 @@ She hides neglected children from careless parents and returns them only when th
 
 - **S**: Treetop Vanish · **→ S**: Long Embrace · **↓ S**: Mournful Cry
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Long Embrace** | Lift & slam | 250 | Arms that reach across the arena and carry you off. |
+| `↓ ↙ ← + S` | **The Lost Children** | Summon | 400 | The children she hid come out to play rough. |
+| `↓ ↓ + S` | **Gombel Fog** | Weather strike | 700 | A cold fog that strikes from above. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Hide and Never Seek |
@@ -338,6 +422,12 @@ A spirit from Batak tales that grows taller every time you look up at it. The lo
 > Look up. Higher. Higher.
 
 - **S**: Skyward Growth · **→ S**: Looming Gaze · **↓ S**: Long Shadow
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pulled Upwards** | Lift & slam | 250 | The longer you look up, the higher you go. |
+| `↓ ↙ ← + S` | **Toba Lightning** | Weather strike | 400 | Lightning from the storms over Lake Toba. |
+| `↓ ↓ + S` | **Giant Shadow** | Summon | 700 | His shadow stands up on its own and stomps. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -362,6 +452,12 @@ By day a quiet villager, by night a sorcerer of the Rangda tradition. Its head g
 
 - **S**: Leak Fire · **→ S**: Flying Head · **↓ S**: Desti Curse
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Leak Fire Rain** | Weather strike | 250 | Balls of cemetery fire fall like rain. |
+| `↓ ↙ ← + S` | **Flying Heads** | Summon | 400 | Glowing heads leave their bodies and bite. |
+| `↓ ↓ + S` | **Rangda's Vortex** | Tornado | 700 | A tornado of black magic fire. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Rangda's Call |
@@ -384,6 +480,12 @@ At night her head leaves her body and flies over the river villages, trailing a 
 > Did you lock the window?
 
 - **S**: Crimson Trail · **→ S**: Head Dive · **↓ S**: Night Hunger
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Floating Heads** | Summon | 250 | Her sisters' heads glide in over the river. |
+| `↓ ↙ ← + S` | **Night Drain** | Lift & slam | 400 | Lifts the victim with a red glow and drains them. |
+| `↓ ↓ + S` | **Red Moon** | Weather strike | 700 | Strikes of red light from a red moon. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -408,6 +510,12 @@ A horned outsider from a foreign legend, drawn by the tournament's thinning veil
 
 - **S**: Amber Hex · **→ S**: Horn Charge · **↓ S**: Wing Gust
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Amber Eclipse** | Weather strike | 250 | The sun goes dark and amber lightning falls. |
+| `↓ ↙ ← + S` | **Shadow Goats** | Summon | 400 | Horned shadows gallop out of the dark. |
+| `↓ ↓ + S` | **Dark Throne** | Lift & slam | 700 | Raises the opponent onto an invisible throne, then topples it. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Goat's Judgement |
@@ -430,6 +538,12 @@ A bamboo-and-paper demon built for the night before Nyepi, meant to carry away b
 > RAAAWR! (baleganjur intensifies)
 
 - **S**: Bamboo Slam · **→ S**: Parade Stomp · **↓ S**: Baleganjur Roar
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Bearers' Parade** | Crowd charge | 250 | The bearers run the effigy through the crowd. |
+| `↓ ↙ ← + S` | **Bamboo Stomp** | Quake | 400 | The bamboo frame slams down with the gamelan. |
+| `↓ ↓ + S` | **Crossroads Spin** | Tornado | 700 | Spun three times at the crossroads, it becomes a storm. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -454,6 +568,12 @@ The dancer carries a tiger mask and a peacock fan weighing as much as a person, 
 
 - **S**: Peacock Fan · **→ S**: Barong Charge · **↓ S**: Warok Stomp
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Peacock Fan Storm** | Tornado | 250 | The giant peacock fan whips up a whirlwind. |
+| `↓ ↙ ← + S` | **Jathilan Riders** | Crowd charge | 400 | Horse dancers gallop in on woven horses. |
+| `↓ ↓ + S` | **Barong Bite** | Lift & slam | 700 | Lifts the opponent in the Singo Barong's jaws. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Jaw of Iron |
@@ -476,6 +596,12 @@ Kerto's clients come at midnight with a photo and a grudge. He fights with straw
 > Bring me a photo.
 
 - **S**: Rusty Nail Hex · **→ S**: Straw Doll · **↓ S**: Kris Curse
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Tuyul Delivery** | Summon | 250 | Sends his little helpers to pick your pockets, painfully. |
+| `↓ ↙ ← + S` | **Voodoo Doll** | Lift & slam | 400 | Whatever happens to the doll happens to you. |
+| `↓ ↓ + S` | **Rain of Nails** | Weather strike | 700 | Rusty nails fall from a clear sky. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -502,6 +628,12 @@ Ucok guards the last stand of old forest with patience and enormous arms. He onl
 
 - **S**: Durian Toss · **→ S**: Vine Swing · **↓ S**: Jungle Hug
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Durian Rain** | Barrage | 250 | Ripe, heavy and spiky. |
+| `↓ ↙ ← + S` | **Forest Troop** | Crowd charge | 400 | The whole family swings in from the canopy. |
+| `↓ ↓ + S` | **Vine Swing** | Lift & slam | 700 | Ties the opponent to a vine, swings, lets go. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Canopy Drop |
@@ -524,6 +656,12 @@ The pride of the mangroves, with a nose to match. He leaps between river boats f
 > Honk!
 
 - **S**: Mighty Nose · **→ S**: Mangrove Leap · **↓ S**: Bekantan Call
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Proboscis Patrol** | Crowd charge | 250 | A dozen big noses, one direction. |
+| `↓ ↙ ← + S` | **Barito Current** | Wave | 400 | Calls the river over its banks. |
+| `↓ ↓ + S` | **Mangrove Spin** | Tornado | 700 | A whirl of mangrove leaves and river mud. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -548,6 +686,12 @@ Ora is old, patient and venomous. She can wait for days. Her bite does the rest.
 
 - **S**: Venom Bite · **→ S**: Tail Lash · **↓ S**: Dragon Pounce
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Komodo Hatchlings** | Summon | 250 | Small, fast and already venomous. |
+| `↓ ↙ ← + S` | **Venom Cloud** | Wave | 400 | A breath of venom that rolls across the floor. |
+| `↓ ↓ + S` | **Tail Quake** | Quake | 700 | One swing of the tail, and the island shakes. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Slow Venom |
@@ -571,6 +715,12 @@ Villagers call him Datuk out of respect. He moves through the tall grass without
 
 - **S**: Striped Claw · **→ S**: Lightning Pounce · **↓ S**: Sumatran Roar
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Ancestor Tigers** | Summon | 250 | The spirits of old tigers run beside him. |
+| `↓ ↙ ← + S` | **Roaring Storm** | Tornado | 400 | A roar that turns into a spinning gale. |
+| `↓ ↓ + S` | **Giant Claw** | Signature weapon | 700 | A claw the size of a door, glowing with the forest's anger. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Tall Grass |
@@ -593,6 +743,12 @@ The spirit of the bird of paradise dances at the edge of the clouds. Its plumes 
 > Wak-wak-wak!
 
 - **S**: Plume Dance · **→ S**: Dawn Wings · **↓ S**: Feather Storm
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Feather Storm** | Tornado | 250 | A cyclone of golden plumes, each one a blade. |
+| `↓ ↙ ← + S` | **Paradise Flock** | Crowd charge | 400 | A flock of birds of paradise dives across the arena. |
+| `↓ ↓ + S` | **Papuan Dawn** | Weather strike | 700 | Beams of the first sunrise strike the ground. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -620,6 +776,12 @@ The queen of the southern ocean commands the waves themselves. Those who wear gr
 - **S**: Southern Wave · **→ S**: Green Sash · **↓ S**: Call of the Sea
 - Unlock: Win the Story Campaign.
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Southern Tide** | Wave | 250 | The southern sea answers her call. |
+| `↓ ↙ ← + S` | **Green Sash** | Lift & slam | 400 | Her sash lifts the opponent towards the waves. |
+| `↓ ↓ + S` | **Ocean Storm** | Weather strike | 700 | Thunder over the black sand of Parangtritis. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Undertow |
@@ -643,6 +805,12 @@ The flying knight of the wayang stage, son of Bima, forged in the cauldron of th
 
 - **S**: Brajamusti Fist · **→ S**: Pringgandani Flight · **↓ S**: Antakusuma Shield
 - Unlock: Win a Tournament on any difficulty.
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Brajamusti Lightning** | Weather strike | 250 | His fists call lightning down from heaven. |
+| `↓ ↙ ← + S` | **Fly and Slam** | Lift & slam | 400 | Carries the opponent into the clouds, then down. |
+| `↓ ↓ + S` | **Meteor Fist** | Quake | 700 | Falls from the sky like a meteor, fist first. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -668,6 +836,12 @@ The legendary jagoan of Betawi who took from the colonial landlords and gave to 
 - **S**: Betawi Golok · **→ S**: Rawa Belong Silat · **↓ S**: Bulletproof
 - Unlock: Reach Survival wave 10.
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Rawa Belong Golok** | Signature weapon | 250 | A golok that never misses an oppressor. |
+| `↓ ↙ ← + S` | **Kampung Champions** | Crowd charge | 400 | Betawi fighters and ondel-ondel charge with him. |
+| `↓ ↓ + S` | **Golok Volley** | Barrage | 700 | Throws golok after golok, each one returning to his hand. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Golok Justice |
@@ -691,6 +865,12 @@ Tricked by a false dawn, he kicked his unfinished boat over and it became a moun
 
 - **S**: Boat Kick · **→ S**: Citarum Dam · **↓ S**: False Dawn
 - Unlock: Perform 25 finishers.
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Giant Oar** | Signature weapon | 250 | The oar of the boat he never finished. |
+| `↓ ↙ ← + S` | **Citarum Dam** | Wave | 400 | Releases the whole lake in one night. |
+| `↓ ↓ + S` | **Boat Kick** | Quake | 700 | Kicks the boat over and it becomes a mountain. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -716,6 +896,12 @@ He once hid a celestial nymph's shawl by the lake. Now he fights with the borrow
 - **S**: Heavenly Shawl · **→ S**: Kahyangan Arrow · **↓ S**: Nymph Lake
 - Unlock: Earn 30 achievements.
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Heavenly Hoe** | Signature weapon | 250 | The farmer's pacul, blessed by the nymphs, comes down like a guillotine. |
+| `↓ ↙ ← + S` | **Nymph Allies** | Summon | 400 | Seven nymphs descend, and they are not happy. |
+| `↓ ↓ + S` | **Flying Shawl** | Lift & slam | 700 | The stolen shawl carries the opponent into the sky. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Stolen Shawl |
@@ -739,6 +925,12 @@ Sundel Bolong joins Tarkam Arena in a downloadable content pack.
 
 - **S**: Satay Order · **→ S**: Back Turn · **↓ S**: Wailing Night
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Spirit Call** | Summon | 250 | Spirits answer and attack. |
+| `↓ ↙ ← + S` | **Night Lightning** | Weather strike | 400 | Lightning on command. |
+| `↓ ↓ + S` | **Floating Curse** | Lift & slam | 700 | The curse lifts and drops its victim. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Night Terror |
@@ -759,6 +951,12 @@ Tuyul joins Tarkam Arena in a downloadable content pack.
 
 
 - **S**: Coin Snatch · **→ S**: Wallet Dash · **↓ S**: Crab Distraction
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Cyclone Kick** | Tornado | 250 | A kick that becomes a cyclone. |
+| `↓ ↙ ← + S` | **Blade Volley** | Barrage | 400 | A volley of thrown blades. |
+| `↓ ↓ + S` | **Signature Blade** | Signature weapon | 700 | A heirloom blade, drawn at last. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -781,6 +979,12 @@ Palasik joins Tarkam Arena in a downloadable content pack.
 
 - **S**: Night Flight · **→ S**: Soul Sip · **↓ S**: Minang Curse
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Spirit Call** | Summon | 250 | Spirits answer and attack. |
+| `↓ ↙ ← + S` | **Night Lightning** | Weather strike | 400 | Lightning on command. |
+| `↓ ↓ + S` | **Floating Curse** | Lift & slam | 700 | The curse lifts and drops its victim. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Night Terror |
@@ -801,6 +1005,12 @@ Bang Mamat joins Tarkam Arena in a downloadable content pack.
 
 
 - **S**: Cingkrik Strike · **→ S**: Palang Pintu Rush · **↓ S**: Sarong Whip
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Cyclone Kick** | Tornado | 250 | A kick that becomes a cyclone. |
+| `↓ ↙ ← + S` | **Blade Volley** | Barrage | 400 | A volley of thrown blades. |
+| `↓ ↓ + S` | **Signature Blade** | Signature weapon | 700 | A heirloom blade, drawn at last. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -823,6 +1033,12 @@ Ki Jaro joins Tarkam Arena in a downloadable content pack.
 
 - **S**: Debus Fist · **→ S**: Golok Arc · **↓ S**: Iron Skin
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kampung Barrage** | Barrage | 250 | Whatever is lying around, thrown hard. |
+| `↓ ↙ ← + S` | **Call the Kampung** | Crowd charge | 400 | The whole neighbourhood joins in. |
+| `↓ ↓ + S` | **Bamboo Pole** | Signature weapon | 700 | A long bamboo pole, swung wide. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Night Terror |
@@ -843,6 +1059,12 @@ Cak Ronggo joins Tarkam Arena in a downloadable content pack.
 
 
 - **S**: Celurit Crescent · **→ S**: Karapan Charge · **↓ S**: Salt Wind
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kampung Barrage** | Barrage | 250 | Whatever is lying around, thrown hard. |
+| `↓ ↙ ← + S` | **Call the Kampung** | Crowd charge | 400 | The whole neighbourhood joins in. |
+| `↓ ↓ + S` | **Bamboo Pole** | Signature weapon | 700 | A long bamboo pole, swung wide. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -865,6 +1087,12 @@ Mas Bimo joins Tarkam Arena in a downloadable content pack.
 
 - **S**: Order Accepted · **→ S**: Shortcut Boost · **↓ S**: Five-Star Rating
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Cyclone Kick** | Tornado | 250 | A kick that becomes a cyclone. |
+| `↓ ↙ ← + S` | **Blade Volley** | Barrage | 400 | A volley of thrown blades. |
+| `↓ ↓ + S` | **Signature Blade** | Signature weapon | 700 | A heirloom blade, drawn at last. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Night Terror |
@@ -886,6 +1114,12 @@ Mbah Algo joins Tarkam Arena in a downloadable content pack.
 
 - **S**: Neural Mantra · **→ S**: Prediction Strike · **↓ S**: Hallucination
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Spirit Call** | Summon | 250 | Spirits answer and attack. |
+| `↓ ↙ ← + S` | **Night Lightning** | Weather strike | 400 | Lightning on command. |
+| `↓ ↓ + S` | **Floating Curse** | Lift & slam | 700 | The curse lifts and drops its victim. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Night Terror |
@@ -906,6 +1140,12 @@ Unit P-62 joins Tarkam Arena in a downloadable content pack.
 
 
 - **S**: Ticket Laser · **→ S**: Siren Dash · **↓ S**: Drone Swarm
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kampung Barrage** | Barrage | 250 | Whatever is lying around, thrown hard. |
+| `↓ ↙ ← + S` | **Call the Kampung** | Crowd charge | 400 | The whole neighbourhood joins in. |
+| `↓ ↓ + S` | **Bamboo Pole** | Signature weapon | 700 | A long bamboo pole, swung wide. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -932,6 +1172,12 @@ Bambang has never signed anything without an envelope under it. He fights with a
 
 - **S**: Envelope Toss · **→ S**: Briefcase Bash · **↓ S**: Cash Shield
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Envelope Rain** | Barrage | 250 | Envelopes full of 'appreciation', thrown hard. |
+| `↓ ↙ ← + S` | **Personal Bodyguards** | Crowd charge | 400 | Men in black suits clear the way. |
+| `↓ ↓ + S` | **Cash Briefcase** | Signature weapon | 700 | A briefcase so full of cash it is a weapon. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Budget Markup |
@@ -954,6 +1200,12 @@ Dewi naps through the morning session and wakes up just in time for the vote. He
 > Your aspirations have been noted.
 
 - **S**: Endless Speech · **→ S**: Walk Out · **↓ S**: Point of Order
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Endless Speech** | Wave | 250 | A speech so long the sound itself pushes people back. |
+| `↓ ↙ ← + S` | **Study Trip Entourage** | Crowd charge | 400 | The whole committee, with luggage, back from abroad. |
+| `↓ ↓ + S` | **Gavel Drop** | Weather strike | 700 | Giant gavels fall from the sky. Passed. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -978,6 +1230,12 @@ Viral runs four hundred accounts from one bedroom. He can trend any hashtag befo
 
 - **S**: Hashtag Storm · **→ S**: Bot Swarm Dash · **↓ S**: Cancel Culture
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hashtag Storm** | Tornado | 250 | A trending topic you can actually get hit by. |
+| `↓ ↙ ← + S` | **Bot Swarm** | Crowd charge | 400 | Four hundred anonymous accounts, all at once. |
+| `↓ ↓ + S` | **Notification Spam** | Barrage | 700 | Every notification arrives at once, physically. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Doxxed |
@@ -1000,6 +1258,12 @@ Cleo has two million followers and a ring light on her back at all times. Every 
 > Don't forget to like and subscribe!
 
 - **S**: Flash Selfie · **→ S**: Collab Dash · **↓ S**: Live Stream
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Ring Light Flash** | Barrage | 250 | Blinding beauty-mode flashes. |
+| `↓ ↙ ← + S` | **Die-hard Fans** | Crowd charge | 400 | Fans with phones out stampede for a selfie. |
+| `↓ ↓ + S` | **Going Viral** | Lift & slam | 700 | Lifted on a wave of views, then dropped by the algorithm. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -1024,6 +1288,12 @@ Rizky can rebuild a motorbike engine with his eyes closed. He shows up to every 
 
 - **S**: Wrench Throw · **→ S**: Belt Whip · **↓ S**: Engine Rev
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **STM Convoy** | Crowd charge | 250 | The whole class arrives on loud bikes. |
+| `↓ ↙ ← + S` | **Wrench Volley** | Barrage | 400 | Every spanner in the workshop, airborne. |
+| `↓ ↓ + S` | **Gear Belt** | Signature weapon | 700 | A belt buckled with a motorbike sprocket. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Tune Up |
@@ -1046,6 +1316,12 @@ Nadia leads the chants with a megaphone and the facts with footnotes. She has re
 > Read the bill first!
 
 - **S**: Megaphone Blast · **→ S**: Long March · **↓ S**: Banner Sweep
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Call the Protesters** | Crowd charge | 250 | A column of students in campus jackets charges with banners. |
+| `↓ ↙ ← + S` | **Thousand-Decibel Megaphone** | Wave | 400 | One chant through the megaphone, one shockwave. |
+| `↓ ↓ + S` | **Banner Downpour** | Weather strike | 700 | Protest banners rain down from the overpass. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -1070,6 +1346,12 @@ Asep knows every shortcut in the city and has a five-star rating to protect. Rai
 
 - **S**: Helmet Toss · **→ S**: Shortcut Rush · **↓ S**: Order Cancelled
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Ojol Convoy** | Crowd charge | 250 | Every driver in the city answers the call. |
+| `↓ ↙ ← + S` | **Helmet Throw** | Barrage | 400 | Spare helmets for everyone, delivered at speed. |
+| `↓ ↓ + S` | **Drift Tornado** | Tornado | 700 | Spins his bike so fast it becomes a tornado of smoke. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | One-Star Review |
@@ -1092,6 +1374,12 @@ Sarmin walks on glass, chews on fire and shrugs off machete blows in the Banten 
 > Go on, hit me.
 
 - **S**: Fire Breath · **→ S**: Glass Walk · **↓ S**: Iron Skin
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Flaming Golok** | Signature weapon | 250 | A golok wrapped in flame from his own breath. |
+| `↓ ↙ ← + S` | **Fire Breath** | Barrage | 400 | Kerosene, a torch, and a very deep breath. |
+| `↓ ↓ + S` | **Iron Body Blast** | Quake | 700 | Takes the hit, and the shockwave knocks everyone else down. |
 
 | Input | Kind | Finisher |
 |---|---|---|
@@ -1116,6 +1404,12 @@ Jerry plays three chords on a broken ukulele and shares his last rice with anyon
 
 - **S**: Ukulele Smash · **→ S**: Stage Dive · **↓ S**: Mosh Pit
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Full Distortion** | Wave | 250 | One chord through a broken amp. |
+| `↓ ↙ ← + S` | **Mosh Pit** | Crowd charge | 400 | Every punk in Bandung pogos through the arena. |
+| `↓ ↓ + S` | **Circle Pit** | Tornado | 700 | A circle pit so big it has its own weather. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Anarchy in the Kampung |
@@ -1139,6 +1433,12 @@ Damar has spent every dry season inside the smoke of the peat fires. He fights w
 
 - **S**: Water Jet · **→ S**: Firebreak Charge · **↓ S**: Water Bomb
 
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **High-Pressure Jet** | Wave | 250 | The hose at full pressure, aimed at you. |
+| `↓ ↙ ← + S` | **Helicopter Water Bomb** | Weather strike | 400 | The water-bombing helicopter drops on his signal. |
+| `↓ ↓ + S` | **Fire Axe** | Signature weapon | 700 | The axe that has cut a thousand firebreaks. |
+
 | Input | Kind | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Smoke Out |
@@ -1161,6 +1461,12 @@ Lala dances in front of a sound-system wall taller than a house. The bass shakes
 > Turn it up!
 
 - **S**: Bass Drop · **→ S**: Horeg Shuffle · **↓ S**: Subwoofer Slam
+
+| Input | Signature move | Kind | Meter | Effect |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Bass Drop** | Quake | 250 | Ten thousand watts of sub-bass hit the ground. |
+| `↓ ↙ ← + S` | **Horeg Twister** | Tornado | 400 | She dances so hard the air starts spinning. |
+| `↓ ↓ + S` | **Sound Truck Pass** | Crowd charge | 700 | A three-storey sound system rolls through the fight. |
 
 | Input | Kind | Finisher |
 |---|---|---|

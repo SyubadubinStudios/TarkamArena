@@ -15,6 +15,12 @@ Jarot sudah dua puluh tahun hidup di perempatan yang sama. Ia hafal setiap siklu
 
 - **S**: Lempar Kaleng · **→ S**: Salto Lampu Merah · **↓ S**: Kencrung Maut
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Kaleng** | Rentetan | 250 | Rentetan kaleng penyok dan tutup botol. |
+| `↓ ↙ ← + S` | **Serbuan Pengamen** | Serbuan massa | 400 | Semua pengamen perempatan menyerbu sambil membawa ukulele. |
+| `↓ ↓ + S` | **Tiang Lampu Merah** | Senjata pusaka | 700 | Mencabut tiang lampu merah lalu mengayunkannya, lampunya masih berkedip. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Lampu Hijau, Jalan! |
@@ -37,6 +43,12 @@ Sinta sudah memindai sejuta barang dan tersenyum di setiap transaksi. Sapaannya 
 > Sekalian isi pulsanya, Kak?
 
 - **S**: Struk Panjang · **→ S**: Scan Barcode · **↓ S**: Laci Kasir Ding!
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Struk** | Rentetan | 250 | Struk setajam silet ditembakkan dari mesin kasir. |
+| `↓ ↙ ← + S` | **Serbuan Promo** | Serbuan massa | 400 | Pembeli pemburu promo beli satu gratis satu menerjang semuanya. |
+| `↓ ↓ + S` | **Troli Maut** | Senjata pusaka | 700 | Troli belanja penuh muatan, diayun seperti palu. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -61,6 +73,12 @@ Tiga puluh satu tahun mengajar, dan belum ada satu murid pun yang lolos dari kap
 
 - **S**: Lemparan Kapur · **→ S**: Sabetan Penggaris · **↓ S**: Ulangan Dadakan
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kapur Beruntun** | Rentetan | 250 | Tiga puluh tahun latihan membidik, sekaligus. |
+| `↓ ↙ ← + S` | **Badai Rumus** | Sambaran cuaca | 400 | Papan tulis penuh rumus berjatuhan dari langit. |
+| `↓ ↓ + S` | **Penggaris Raksasa** | Senjata pusaka | 700 | Penggaris satu meter, diperbesar jadi lima. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Pembagian Nol |
@@ -83,6 +101,12 @@ Rangga berlatih di halaman surau sebelum subuh sepanjang masa kecilnya. Silatnya
 > Silat bukan untuk gaya-gayaan.
 
 - **S**: Jurus Harimau · **→ S**: Tendangan Sabit · **↓ S**: Kuncian Sendi
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pusaran Angin Silat** | Angin topan | 250 | Tendangan berputar yang menjadi angin topan. |
+| `↓ ↙ ← + S` | **Harimau Gaib** | Panggilan | 400 | Harimau legenda perguruannya melompat keluar menyerang. |
+| `↓ ↓ + S` | **Tenaga Dalam** | Angkat & banting | 700 | Mengangkat lawan dengan tenaga dalam lalu menjatuhkannya. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -107,6 +131,12 @@ Setiap lapak di pasar membayar 'uang keamanan' ke Codet. Ia punya bekas luka unt
 
 - **S**: Palak Kilat · **→ S**: Seruduk Lapak · **↓ S**: Bantingan Pasar
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Anak Buah Pasar** | Serbuan massa | 250 | Codet bersiul dan seluruh anak buahnya berlarian datang. |
+| `↓ ↙ ← + S` | **Pentung Bambu** | Senjata pusaka | 400 | Bambu langsung dicabut dari rangka lapak. |
+| `↓ ↓ + S` | **Angkat dan Banting** | Angkat & banting | 700 | Mengangkat lawan di atas kepala lalu membantingnya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Uang Keamanan |
@@ -129,6 +159,12 @@ Tak ada yang melihat Priit datang, tapi ia selalu ada saat kamu mau pergi. Pelui
 > Kiri, kiri, terus... yak, stop!
 
 - **S**: Priiit! · **→ S**: Mundur Terus · **↓ S**: Goceng Dulu
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Peluit Sonik** | Gelombang | 250 | Peluit sekeras itu sampai orang-orang terjengkang. |
+| `↓ ↙ ← + S` | **Parkir Liar** | Serbuan massa | 400 | Sederet motor mundur keluar bersamaan. |
+| `↓ ↓ + S` | **Palang Parkir** | Senjata pusaka | 700 | Palang bergaris turun. Tidak ada karcis, tidak ada jalan keluar. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -153,6 +189,12 @@ Slamet menjaga gerbang yang sama melewati banjir, mati lampu, dan tiga kali gant
 
 - **S**: Pentungan Ronda · **→ S**: Patroli Malam · **↓ S**: Kentongan Siaga
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pentungan Ronda** | Senjata pusaka | 250 | Pentungan yang ia gosok selama dua puluh tahun. |
+| `↓ ↙ ← + S` | **Ronda Kampung** | Serbuan massa | 400 | Warga membawa kentongan menyisir jalan. |
+| `↓ ↓ + S` | **Gerbang Ditutup** | Gempa | 700 | Menutup gerbang komplek sampai tanahnya bergetar. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Portal Ditutup |
@@ -176,6 +218,12 @@ Kumis mendorong gerobak yang lebih berat dari motor ke setiap tanjakan di kota. 
 
 - **S**: Bakso Beranak · **→ S**: Gerobak Ngebut · **↓ S**: Siraman Kuah Panas
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Bakso Beranak** | Rentetan | 250 | Bakso yang beranak menjadi bakso-bakso lagi. |
+| `↓ ↙ ← + S` | **Banjir Kuah** | Gelombang | 400 | Gelombang kuah panas yang pedas. |
+| `↓ ↓ + S` | **Gerobak Ngebut** | Senjata pusaka | 700 | Gerobaknya, mangkoknya, kompornya, semuanya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Sambal Lima Sendok |
@@ -198,6 +246,12 @@ Ratna mengatur arisan, grup WhatsApp, dan satu jalan penuh. Lampu sein kirinya b
 > Kamu tuh ya, dibilangin dari tadi!
 
 - **S**: Sandal Kendali · **→ S**: Sein Kiri Belok Kanan · **↓ S**: Omelan Panjang
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Sandal Kendali** | Rentetan | 250 | Sandal jepit yang selalu menemukan anak nakal. |
+| `↓ ↙ ← + S` | **Geng Arisan** | Serbuan massa | 400 | Para emak datang naik motor matic, sein kiri, belok kanan. |
+| `↓ ↓ + S` | **Jeweran Maut** | Angkat & banting | 700 | Diangkat lewat telinga, lalu didudukkan dengan sangat tegas. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -224,6 +278,12 @@ Tawanya terdengar melintasi sungai. Saat terdengar jauh, ia ada tepat di belakan
 
 - **S**: Tawa Melengking · **→ S**: Terbang Melayang · **↓ S**: Cakar Tengah Malam
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kunti Kembar** | Panggilan | 250 | Saudari-saudarinya melayang keluar dari pohon sambil tertawa. |
+| `↓ ↙ ← + S` | **Rambut Penjerat** | Angkat & banting | 400 | Rambutnya melilit korban dan mengangkatnya ke udara. |
+| `↓ ↓ + S` | **Malam Jumat Kliwon** | Sambaran cuaca | 700 | Bulan semerah darah dan petir yang hanya menyambar pemberani. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Kepompong Rambut |
@@ -246,6 +306,12 @@ Tali Joni tak pernah dilepas, jadi ia melompat. Ia sudah melompat begitu lama sa
 > Lepasin... talinya...
 
 - **S**: Lompat Pocong · **→ S**: Guling Kafan · **↓ S**: Ikatan Tali
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pasukan Pocong** | Serbuan massa | 250 | Satu kuburan melompat-lompat melintasi arena. |
+| `↓ ↙ ← + S` | **Gulungan Kafan** | Angin topan | 400 | Berputar begitu cepat sampai kafannya menjadi angin puyuh. |
+| `↓ ↓ + S` | **Lompatan Kuburan** | Gempa | 700 | Satu lompatan raksasa, satu pendaratan raksasa. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -270,6 +336,12 @@ Raksasa lapar dari dongeng lama yang pernah dikalahkan Timun Mas. Ia sudah lama 
 
 - **S**: Raungan Raksasa · **→ S**: Hantaman Bumi · **↓ S**: Telan Bulat-bulat
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hentakan Raksasa** | Gempa | 250 | Bumi retak di bawah satu kaki hijau. |
+| `↓ ↙ ← + S` | **Lempar Batu Kali** | Rentetan | 400 | Batu kali dilempar seperti kerikil. |
+| `↓ ↓ + S` | **Genggaman Raksasa** | Angkat & banting | 700 | Mengangkat lawan seperti camilan, lalu berubah pikiran. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Dendam Timun Mas |
@@ -292,6 +364,12 @@ Bayangan berbulu yang tinggal di pohon beringin tua. Ia melempar batu ke siapa p
 > Hormati pohon tua.
 
 - **S**: Batu Melayang · **→ S**: Terkaman Bayangan · **↓ S**: Cengkeram Gelap
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Batu Gaib** | Rentetan | 250 | Batu dilempar oleh tak seorang pun, dari entah mana. |
+| `↓ ↙ ← + S` | **Bayangan Rimba** | Panggilan | 400 | Bayangan berbulu lepas dari pepohonan lalu menerkam. |
+| `↓ ↓ + S` | **Beringin Murka** | Sambaran cuaca | 700 | Beringin tua menjatuhkan dahan-dahan terberatnya. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -316,6 +394,12 @@ Ia menyembunyikan anak-anak yang ditelantarkan dan hanya mengembalikannya setela
 
 - **S**: Sembunyi di Pohon · **→ S**: Rangkulan Panjang · **↓ S**: Tangis Pilu
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Dekapan Wewe** | Angkat & banting | 250 | Lengan yang menjangkau seberang arena dan membawamu pergi. |
+| `↓ ↙ ← + S` | **Anak-anak Hilang** | Panggilan | 400 | Anak-anak yang ia sembunyikan keluar dan bermain kasar. |
+| `↓ ↓ + S` | **Kabut Bukit Gombel** | Sambaran cuaca | 700 | Kabut dingin yang menyambar dari atas. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Petak Umpet Abadi |
@@ -338,6 +422,12 @@ Roh dari kisah Batak yang tumbuh makin tinggi setiap kali kamu mendongak. Makin 
 > Lihat ke atas. Lebih tinggi. Lebih tinggi.
 
 - **S**: Tumbuh Menjulang · **→ S**: Tatapan Tinggi · **↓ S**: Bayang Panjang
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Ditarik ke Atas** | Angkat & banting | 250 | Makin lama kamu mendongak, makin tinggi kamu terbang. |
+| `↓ ↙ ← + S` | **Petir Toba** | Sambaran cuaca | 400 | Petir dari badai di atas Danau Toba. |
+| `↓ ↓ + S` | **Bayang Raksasa** | Panggilan | 700 | Bayangannya berdiri sendiri lalu menginjak-injak. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -362,6 +452,12 @@ Siang hari warga desa yang pendiam, malam hari penyihir aliran Rangda. Kepalanya
 
 - **S**: Api Leak · **→ S**: Kepala Terbang · **↓ S**: Kutukan Desti
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Api Leak** | Sambaran cuaca | 250 | Bola api kuburan berjatuhan seperti hujan. |
+| `↓ ↙ ← + S` | **Kepala Terbang** | Panggilan | 400 | Kepala-kepala bercahaya meninggalkan tubuhnya lalu menggigit. |
+| `↓ ↓ + S` | **Pusaran Rangda** | Angin topan | 700 | Angin puting beliung api ilmu hitam. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Panggilan Rangda |
@@ -384,6 +480,12 @@ Pada malam hari kepalanya meninggalkan tubuh dan terbang di atas kampung tepi su
 > Jendelanya sudah dikunci?
 
 - **S**: Jejak Merah · **→ S**: Tukikan Kepala · **↓ S**: Lapar Malam
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kepala Melayang** | Panggilan | 250 | Kepala saudari-saudarinya melayang datang dari sungai. |
+| `↓ ↙ ← + S` | **Isapan Malam** | Angkat & banting | 400 | Mengangkat korban dengan cahaya merah lalu mengisapnya. |
+| `↓ ↓ + S` | **Bulan Merah** | Sambaran cuaca | 700 | Sambaran cahaya merah dari bulan merah. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -408,6 +510,12 @@ Makhluk bertanduk dari legenda negeri seberang yang tertarik oleh tabir yang men
 
 - **S**: Kutuk Kuning · **→ S**: Seruduk Tanduk · **↓ S**: Kepakan Sayap
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Gerhana Kuning** | Sambaran cuaca | 250 | Matahari menggelap dan petir kuning berjatuhan. |
+| `↓ ↙ ← + S` | **Kambing Bayangan** | Panggilan | 400 | Bayangan bertanduk berlari keluar dari kegelapan. |
+| `↓ ↓ + S` | **Tahta Kegelapan** | Angkat & banting | 700 | Mengangkat lawan ke tahta tak kasatmata, lalu menjatuhkannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Penghakiman Kambing |
@@ -430,6 +538,12 @@ Raksasa bambu dan kertas yang dibuat untuk malam pengerupukan sebelum Nyepi, unt
 > RAAAWR! (baleganjur makin kencang)
 
 - **S**: Hantaman Bambu · **→ S**: Hentakan Arak-arakan · **↓ S**: Raungan Baleganjur
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Arak-arakan Pengusung** | Serbuan massa | 250 | Para pengusung mengarak ogoh-ogoh menembus kerumunan. |
+| `↓ ↙ ← + S` | **Hentakan Bambu** | Gempa | 400 | Rangka bambu menghentak seiring gamelan. |
+| `↓ ↓ + S` | **Putaran Perempatan** | Angin topan | 700 | Diputar tiga kali di perempatan, ia menjadi badai. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -454,6 +568,12 @@ Sang penari mengangkat topeng harimau dan kipas merak seberat manusia hanya deng
 
 - **S**: Kibasan Merak · **→ S**: Terjangan Barong · **↓ S**: Hentakan Warok
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kibasan Merak** | Angin topan | 250 | Kipas merak raksasa mengibaskan angin puyuh. |
+| `↓ ↙ ← + S` | **Pasukan Jathilan** | Serbuan massa | 400 | Penari kuda lumping berderap datang di atas kuda anyaman. |
+| `↓ ↓ + S` | **Gigitan Barong** | Angkat & banting | 700 | Mengangkat lawan di rahang Singo Barong. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Rahang Besi |
@@ -476,6 +596,12 @@ Klien Kerto datang tengah malam membawa foto dan dendam. Ia bertarung dengan bon
 > Bawa fotonya ke sini.
 
 - **S**: Santet Paku · **→ S**: Boneka Jerami · **↓ S**: Kutuk Keris
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kiriman Tuyul** | Panggilan | 250 | Mengirim tuyul-tuyulnya untuk merogoh sakumu, dengan menyakitkan. |
+| `↓ ↙ ← + S` | **Boneka Santet** | Angkat & banting | 400 | Apa pun yang terjadi pada boneka terjadi padamu. |
+| `↓ ↓ + S` | **Hujan Paku** | Sambaran cuaca | 700 | Paku berkarat jatuh dari langit cerah. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -502,6 +628,12 @@ Ucok menjaga hutan tua terakhir dengan kesabaran dan lengan yang sangat besar. I
 
 - **S**: Lempar Durian · **→ S**: Ayunan Liana · **↓ S**: Pelukan Rimba
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Durian** | Rentetan | 250 | Matang, berat, dan berduri. |
+| `↓ ↙ ← + S` | **Kawanan Rimba** | Serbuan massa | 400 | Seluruh keluarganya berayun turun dari kanopi. |
+| `↓ ↓ + S` | **Ayunan Liana** | Angkat & banting | 700 | Mengikat lawan ke sulur, mengayun, lalu melepaskannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Jatuh dari Kanopi |
@@ -524,6 +656,12 @@ Kebanggaan hutan bakau dengan hidung yang sepadan. Ia melompat antar perahu sung
 > Hongk!
 
 - **S**: Hidung Sakti · **→ S**: Lompatan Bakau · **↓ S**: Teriakan Bekantan
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pasukan Bekantan** | Serbuan massa | 250 | Selusin hidung besar, satu arah. |
+| `↓ ↙ ← + S` | **Arus Sungai Barito** | Gelombang | 400 | Memanggil sungai meluap dari tepiannya. |
+| `↓ ↓ + S` | **Pusaran Bakau** | Angin topan | 700 | Pusaran daun bakau dan lumpur sungai. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -548,6 +686,12 @@ Ora sudah tua, sabar, dan berbisa. Ia bisa menunggu berhari-hari. Gigitannya men
 
 - **S**: Gigitan Berbisa · **→ S**: Kibasan Ekor · **↓ S**: Terkaman Naga
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Anak Komodo** | Panggilan | 250 | Kecil, cepat, dan sudah berbisa. |
+| `↓ ↙ ← + S` | **Kabut Bisa** | Gelombang | 400 | Napas berbisa yang bergulung di lantai. |
+| `↓ ↓ + S` | **Gempa Ekor** | Gempa | 700 | Satu kibasan ekor, pulau pun bergetar. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Bisa Perlahan |
@@ -571,6 +715,12 @@ Warga desa memanggilnya Datuk karena hormat. Ia bergerak di rumput tinggi tanpa 
 
 - **S**: Cakar Loreng · **→ S**: Terkam Kilat · **↓ S**: Auman Sumatra
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Roh Harimau** | Panggilan | 250 | Roh harimau-harimau tua berlari di sampingnya. |
+| `↓ ↙ ← + S` | **Auman Badai** | Angin topan | 400 | Auman yang berubah menjadi angin berputar. |
+| `↓ ↓ + S` | **Cakar Raksasa** | Senjata pusaka | 700 | Cakar sebesar pintu, menyala oleh amarah hutan. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Rumput Tinggi |
@@ -593,6 +743,12 @@ Roh burung cenderawasih menari di tepi awan. Bulunya setajam pisau dan berkilau 
 > Wak-wak-wak!
 
 - **S**: Tarian Bulu · **→ S**: Sayap Fajar · **↓ S**: Badai Bulu
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Badai Bulu** | Angin topan | 250 | Topan bulu emas, setiap helainya sebilah pisau. |
+| `↓ ↙ ← + S` | **Kawanan Cenderawasih** | Serbuan massa | 400 | Sekawanan cenderawasih menukik melintasi arena. |
+| `↓ ↓ + S` | **Fajar Papua** | Sambaran cuaca | 700 | Sinar matahari pertama menyambar tanah. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -620,6 +776,12 @@ Ratu samudra selatan memerintah ombak itu sendiri. Konon, siapa yang memakai hij
 - **S**: Ombak Selatan · **→ S**: Selendang Hijau · **↓ S**: Panggilan Samudra
 - Cara membuka: Tamatkan Mode Cerita.
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Ombak Pantai Selatan** | Gelombang | 250 | Laut selatan menjawab panggilannya. |
+| `↓ ↙ ← + S` | **Selendang Hijau** | Angkat & banting | 400 | Selendangnya mengangkat lawan menuju ombak. |
+| `↓ ↓ + S` | **Badai Samudra** | Sambaran cuaca | 700 | Guntur di atas pasir hitam Parangtritis. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Arus Balik |
@@ -643,6 +805,12 @@ Ksatria terbang dari panggung wayang, putra Bima, ditempa di kawah Candradimuka.
 
 - **S**: Pukulan Brajamusti · **→ S**: Terbang Pringgandani · **↓ S**: Tameng Antakusuma
 - Cara membuka: Juarai Mode Turnamen di tingkat kesulitan apa pun.
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Petir Brajamusti** | Sambaran cuaca | 250 | Tinjunya memanggil petir turun dari kahyangan. |
+| `↓ ↙ ← + S` | **Terbang dan Banting** | Angkat & banting | 400 | Membawa lawan terbang ke awan, lalu ke bawah. |
+| `↓ ↓ + S` | **Tinju Meteor** | Gempa | 700 | Jatuh dari langit seperti meteor, tinju lebih dulu. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -668,6 +836,12 @@ Jagoan legendaris Betawi yang merampas dari tuan tanah kolonial dan membagikanny
 - **S**: Golok Betawi · **→ S**: Silat Rawa Belong · **↓ S**: Ilmu Kebal
 - Cara membuka: Capai gelombang ke-10 di Mode Survival.
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Golok Rawa Belong** | Senjata pusaka | 250 | Golok yang tak pernah meleset dari penindas. |
+| `↓ ↙ ← + S` | **Jagoan Kampung** | Serbuan massa | 400 | Jagoan Betawi dan ondel-ondel menyerbu bersamanya. |
+| `↓ ↓ + S` | **Lempar Golok** | Rentetan | 700 | Melempar golok demi golok, semuanya kembali ke tangannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Keadilan Golok |
@@ -691,6 +865,12 @@ Tertipu fajar palsu, ia menendang perahu yang belum selesai hingga menjadi gunun
 
 - **S**: Tendang Perahu · **→ S**: Bendung Citarum · **↓ S**: Fajar Palsu
 - Cara membuka: Lakukan 25 finisher.
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Dayung Raksasa** | Senjata pusaka | 250 | Dayung dari perahu yang tak pernah selesai. |
+| `↓ ↙ ← + S` | **Bendung Citarum** | Gelombang | 400 | Melepaskan seisi danau dalam satu malam. |
+| `↓ ↓ + S` | **Tendang Perahu** | Gempa | 700 | Menendang perahu hingga terbalik dan menjadi gunung. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -716,6 +896,12 @@ Ia pernah menyembunyikan selendang bidadari di tepi telaga. Kini ia bertarung de
 - **S**: Selendang Bidadari · **→ S**: Panah Kahyangan · **↓ S**: Telaga Bidadari
 - Cara membuka: Raih 30 pencapaian.
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pacul Kahyangan** | Senjata pusaka | 250 | Pacul petani yang diberkati para bidadari, turun bagai pisau pancung. |
+| `↓ ↙ ← + S` | **Bidadari Penolong** | Panggilan | 400 | Tujuh bidadari turun, dan mereka tidak senang. |
+| `↓ ↓ + S` | **Selendang Terbang** | Angkat & banting | 700 | Selendang curian membawa lawan terbang ke langit. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Selendang Curian |
@@ -739,6 +925,12 @@ Sundel Bolong hadir di Tarkam Arena lewat paket konten tambahan.
 
 - **S**: Pesan Sate · **→ S**: Balik Badan · **↓ S**: Ratapan Malam
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Panggilan Arwah** | Panggilan | 250 | Para arwah menjawab dan menyerang. |
+| `↓ ↙ ← + S` | **Petir Malam** | Sambaran cuaca | 400 | Petir sesuai perintah. |
+| `↓ ↓ + S` | **Kutukan Melayang** | Angkat & banting | 700 | Kutukan mengangkat lalu menjatuhkan korbannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Teror Malam |
@@ -759,6 +951,12 @@ Tuyul hadir di Tarkam Arena lewat paket konten tambahan.
 
 
 - **S**: Sambar Receh · **→ S**: Lari Bawa Dompet · **↓ S**: Umpan Kepiting
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Tendangan Topan** | Angin topan | 250 | Tendangan yang menjadi topan. |
+| `↓ ↙ ← + S` | **Rentetan Pisau** | Rentetan | 400 | Rentetan pisau terbang. |
+| `↓ ↓ + S` | **Bilah Pusaka** | Senjata pusaka | 700 | Bilah pusaka, akhirnya dihunus. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -781,6 +979,12 @@ Palasik hadir di Tarkam Arena lewat paket konten tambahan.
 
 - **S**: Terbang Malam · **→ S**: Isap Sukma · **↓ S**: Kutuk Ranah
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Panggilan Arwah** | Panggilan | 250 | Para arwah menjawab dan menyerang. |
+| `↓ ↙ ← + S` | **Petir Malam** | Sambaran cuaca | 400 | Petir sesuai perintah. |
+| `↓ ↓ + S` | **Kutukan Melayang** | Angkat & banting | 700 | Kutukan mengangkat lalu menjatuhkan korbannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← ← → H` | Fatality | Teror Malam |
@@ -801,6 +1005,12 @@ Bang Mamat hadir di Tarkam Arena lewat paket konten tambahan.
 
 
 - **S**: Pukulan Cingkrik · **→ S**: Terjang Palang Pintu · **↓ S**: Cambuk Sarung
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Tendangan Topan** | Angin topan | 250 | Tendangan yang menjadi topan. |
+| `↓ ↙ ← + S` | **Rentetan Pisau** | Rentetan | 400 | Rentetan pisau terbang. |
+| `↓ ↓ + S` | **Bilah Pusaka** | Senjata pusaka | 700 | Bilah pusaka, akhirnya dihunus. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -823,6 +1033,12 @@ Ki Jaro hadir di Tarkam Arena lewat paket konten tambahan.
 
 - **S**: Tinju Debus · **→ S**: Sabetan Golok · **↓ S**: Kulit Besi
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Rentetan Kampung** | Rentetan | 250 | Apa saja yang tergeletak, dilempar keras. |
+| `↓ ↙ ← + S` | **Panggil Warga** | Serbuan massa | 400 | Satu kampung ikut turun tangan. |
+| `↓ ↓ + S` | **Galah Bambu** | Senjata pusaka | 700 | Galah bambu panjang, diayun lebar. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `← → ↓ H` | Fatality | Teror Malam |
@@ -843,6 +1059,12 @@ Cak Ronggo hadir di Tarkam Arena lewat paket konten tambahan.
 
 
 - **S**: Bulan Sabit Celurit · **→ S**: Tanduk Karapan · **↓ S**: Angin Garam
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Rentetan Kampung** | Rentetan | 250 | Apa saja yang tergeletak, dilempar keras. |
+| `↓ ↙ ← + S` | **Panggil Warga** | Serbuan massa | 400 | Satu kampung ikut turun tangan. |
+| `↓ ↓ + S` | **Galah Bambu** | Senjata pusaka | 700 | Galah bambu panjang, diayun lebar. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -865,6 +1087,12 @@ Mas Bimo hadir di Tarkam Arena lewat paket konten tambahan.
 
 - **S**: Order Diterima · **→ S**: Lewat Jalan Tikus · **↓ S**: Bintang Lima
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Tendangan Topan** | Angin topan | 250 | Tendangan yang menjadi topan. |
+| `↓ ↙ ← + S` | **Rentetan Pisau** | Rentetan | 400 | Rentetan pisau terbang. |
+| `↓ ↓ + S` | **Bilah Pusaka** | Senjata pusaka | 700 | Bilah pusaka, akhirnya dihunus. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Teror Malam |
@@ -886,6 +1114,12 @@ Mbah Algo hadir di Tarkam Arena lewat paket konten tambahan.
 
 - **S**: Mantra Neural · **→ S**: Serangan Prediksi · **↓ S**: Halusinasi
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Panggilan Arwah** | Panggilan | 250 | Para arwah menjawab dan menyerang. |
+| `↓ ↙ ← + S` | **Petir Malam** | Sambaran cuaca | 400 | Petir sesuai perintah. |
+| `↓ ↓ + S` | **Kutukan Melayang** | Angkat & banting | 700 | Kutukan mengangkat lalu menjatuhkan korbannya. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ → ↓ H` | Fatality | Teror Malam |
@@ -906,6 +1140,12 @@ Unit P-62 hadir di Tarkam Arena lewat paket konten tambahan.
 
 
 - **S**: Laser Tilang · **→ S**: Sirene Melaju · **↓ S**: Kawanan Drone
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Rentetan Kampung** | Rentetan | 250 | Apa saja yang tergeletak, dilempar keras. |
+| `↓ ↙ ← + S` | **Panggil Warga** | Serbuan massa | 400 | Satu kampung ikut turun tangan. |
+| `↓ ↓ + S` | **Galah Bambu** | Senjata pusaka | 700 | Galah bambu panjang, diayun lebar. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -932,6 +1172,12 @@ Bambang tak pernah menandatangani apa pun tanpa amplop di bawahnya. Ia bertarung
 
 - **S**: Lempar Amplop · **→ S**: Hantam Koper · **↓ S**: Tameng Uang Pelicin
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Hujan Amplop** | Rentetan | 250 | Amplop berisi 'uang terima kasih', dilempar keras-keras. |
+| `↓ ↙ ← + S` | **Pengawal Pribadi** | Serbuan massa | 400 | Pria berjas hitam membuka jalan. |
+| `↓ ↓ + S` | **Koper Uang Pelicin** | Senjata pusaka | 700 | Koper yang begitu penuh uang sampai menjadi senjata. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Mark-up Anggaran |
@@ -954,6 +1200,12 @@ Dewi tidur sepanjang sidang pagi dan bangun tepat saat pemungutan suara. Pidaton
 > Aspirasi Anda kami tampung.
 
 - **S**: Pidato Tanpa Ujung · **→ S**: Walk Out Sidang · **↓ S**: Interupsi!
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Pidato Tanpa Ujung** | Gelombang | 250 | Pidato begitu panjang sampai suaranya mendorong orang mundur. |
+| `↓ ↙ ← + S` | **Rombongan Studi Banding** | Serbuan massa | 400 | Seluruh komisi beserta koper, baru pulang studi banding. |
+| `↓ ↓ + S` | **Ketuk Palu** | Sambaran cuaca | 700 | Palu raksasa jatuh dari langit. Sah. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -978,6 +1230,12 @@ Viral mengelola empat ratus akun dari satu kamar. Ia bisa membuat tagar apa pun 
 
 - **S**: Badai Tagar · **→ S**: Serbuan Akun Bot · **↓ S**: Ramai-ramai Hujat
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Badai Tagar** | Angin topan | 250 | Topik trending yang benar-benar bisa memukulmu. |
+| `↓ ↙ ← + S` | **Serbuan Akun Bot** | Serbuan massa | 400 | Empat ratus akun anonim, sekaligus. |
+| `↓ ↓ + S` | **Spam Notifikasi** | Rentetan | 700 | Semua notifikasi datang bersamaan, secara fisik. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Dibongkar Datanya |
@@ -1000,6 +1258,12 @@ Cleo punya dua juta pengikut dan selalu membawa ring light di punggungnya. Setia
 > Jangan lupa like dan subscribe, ya!
 
 - **S**: Selfie Silau · **→ S**: Kolab Dadakan · **↓ S**: Siaran Langsung
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Kilatan Ring Light** | Rentetan | 250 | Kilatan mode cantik yang menyilaukan. |
+| `↓ ↙ ← + S` | **Fans Garis Keras** | Serbuan massa | 400 | Fans dengan ponsel di tangan menyerbu demi selfie. |
+| `↓ ↓ + S` | **Viral Melambung** | Angkat & banting | 700 | Terangkat oleh banjir views, lalu dijatuhkan algoritma. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -1024,6 +1288,12 @@ Rizky bisa merakit mesin motor sambil merem. Ia selalu datang paling awal ke set
 
 - **S**: Lempar Kunci Inggris · **→ S**: Sabetan Ikat Pinggang · **↓ S**: Gas Pol
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Konvoi STM** | Serbuan massa | 250 | Satu angkatan datang naik motor berknalpot bising. |
+| `↓ ↙ ← + S` | **Lempar Kunci Pas** | Rentetan | 400 | Semua kunci di bengkel, terbang. |
+| `↓ ↓ + S` | **Ikat Pinggang Gir** | Senjata pusaka | 700 | Ikat pinggang berkepala gir motor. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↑ ↓ → H` | Fatality | Servis Total |
@@ -1046,6 +1316,12 @@ Nadia memimpin yel-yel dengan toa dan argumen dengan catatan kaki. Ia sudah memb
 > Baca dulu RUU-nya!
 
 - **S**: Teriakan Toa · **→ S**: Long March · **↓ S**: Sapuan Spanduk
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Panggil Pendemo** | Serbuan massa | 250 | Barisan mahasiswa berjaket almamater menyerbu membawa spanduk. |
+| `↓ ↙ ← + S` | **Toa Seribu Desibel** | Gelombang | 400 | Satu yel-yel lewat toa, satu gelombang kejut. |
+| `↓ ↓ + S` | **Hujan Spanduk** | Sambaran cuaca | 700 | Spanduk demo berjatuhan dari jembatan penyeberangan. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -1070,6 +1346,12 @@ Asep hafal semua jalan tikus di kota dan punya rating bintang lima yang harus di
 
 - **S**: Lempar Helm · **→ S**: Lewat Jalan Tikus · **↓ S**: Orderan Dibatalkan
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Konvoi Ojol** | Serbuan massa | 250 | Semua pengemudi sekota menjawab panggilan. |
+| `↓ ↙ ← + S` | **Lempar Helm** | Rentetan | 400 | Helm cadangan untuk semua, diantar dengan kencang. |
+| `↓ ↓ + S` | **Drift Muter** | Angin topan | 700 | Memutar motornya begitu cepat sampai menjadi topan asap. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Rating Bintang Satu |
@@ -1092,6 +1374,12 @@ Sarmin berjalan di atas kaca, mengunyah api, dan menahan bacokan golok dalam tra
 > Ayo, bacok saja.
 
 - **S**: Semburan Api · **→ S**: Jalan di Atas Beling · **↓ S**: Kulit Kebal
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Golok Api** | Senjata pusaka | 250 | Golok berselimut api dari napasnya sendiri. |
+| `↓ ↙ ← + S` | **Semburan Api** | Rentetan | 400 | Minyak tanah, obor, dan napas yang sangat dalam. |
+| `↓ ↓ + S` | **Ledakan Kebal** | Gempa | 700 | Menerima pukulan, dan gelombangnya menjatuhkan semua orang. |
 
 | Input | Jenis | Finisher |
 |---|---|---|
@@ -1116,6 +1404,12 @@ Jerry memainkan tiga kunci di ukulele rusak dan membagi nasi terakhirnya dengan 
 
 - **S**: Hantam Ukulele · **→ S**: Lompat ke Penonton · **↓ S**: Pogo Massal
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Distorsi Penuh** | Gelombang | 250 | Satu kunci gitar lewat ampli rusak. |
+| `↓ ↙ ← + S` | **Pogo Massal** | Serbuan massa | 400 | Semua anak punk Bandung ber-pogo melintasi arena. |
+| `↓ ↓ + S` | **Pogo Melingkar** | Angin topan | 700 | Pogo melingkar sebesar itu sampai punya cuaca sendiri. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `↓ ← → H` | Fatality | Anarki di Kampung |
@@ -1139,6 +1433,12 @@ Damar menghabiskan setiap musim kemarau di tengah asap kebakaran gambut. Ia bert
 
 - **S**: Semprotan Air · **→ S**: Sekat Bakar · **↓ S**: Bom Air
 
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Semprotan Bertekanan** | Gelombang | 250 | Selang tekanan penuh, diarahkan padamu. |
+| `↓ ↙ ← + S` | **Bom Air Helikopter** | Sambaran cuaca | 400 | Helikopter pembom air menjatuhkan muatannya atas aba-abanya. |
+| `↓ ↓ + S` | **Kapak Pemadam** | Senjata pusaka | 700 | Kapak yang sudah membuat seribu sekat bakar. |
+
 | Input | Jenis | Finisher |
 |---|---|---|
 | `→ → ← H` | Fatality | Kabut Asap |
@@ -1161,6 +1461,12 @@ Lala berjoget di depan tembok sound system yang lebih tinggi dari rumah. Bass-ny
 > Gaskeun, pol!
 
 - **S**: Bass Drop · **→ S**: Goyang Horeg · **↓ S**: Hantaman Subwoofer
+
+| Input | Jurus pamungkas | Jenis | Meter | Efek |
+|---|---|---|---|---|
+| `↓ ↘ → + S` | **Bass Drop** | Gempa | 250 | Sepuluh ribu watt sub-bass menghantam tanah. |
+| `↓ ↙ ← + S` | **Goyang Topan** | Angin topan | 400 | Ia bergoyang begitu keras sampai udara ikut berputar. |
+| `↓ ↓ + S` | **Truk Sound Lewat** | Serbuan massa | 700 | Sound system tiga lantai melintas di tengah pertarungan. |
 
 | Input | Jenis | Finisher |
 |---|---|---|

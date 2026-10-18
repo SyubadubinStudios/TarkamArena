@@ -28,6 +28,8 @@ public sealed class ArenaPresenter : IDisposable
     private readonly PropRenderer? _props;
     private readonly VfxSystem _vfx;
     private readonly CameraDirector _camera;
+    private readonly SignatureRenderer _signatures;
+    private float _superDim;
     private readonly Node[] _projectiles;
     private readonly Node _hazard;
     private readonly Node _hazardWarning;
@@ -67,6 +69,7 @@ public sealed class ArenaPresenter : IDisposable
 
         _vfx = new VfxSystem(Scene, stage, _fighters.Length, options.Weather, options.LowQuality);
         _camera = new CameraDirector(Scene);
+        _signatures = new SignatureRenderer(Scene, _cache, context, options.LowQuality);
 
         _projectiles = new Node[MatchState.MaxProjectiles];
         for (int i = 0; i < _projectiles.Length; i++)
@@ -191,6 +194,32 @@ public sealed class ArenaPresenter : IDisposable
                     _vfx.Shockwave(at + new Vector3(0, 1, 0), kind == FinisherKind.Legendary ? new Vector3(1f, 0.85f, 0.3f) : new Vector3(1f, 0.15f, 0.1f), 6f, 0.7f);
                     _flash = 0.6f;
                     break;
+                case MatchEventKind.SignatureStart:
+                {
+                    // The super flash: the arena dims, a ring of the move's colour bursts off the caster.
+                    var theme = _signatures.MoveOf(e.Slot, e.Value).Theme;
+                    var color = Palette.Hex3(theme.Primary);
+                    var chest = at + new Vector3(0, 1.1f, 0);
+                    _vfx.FinisherBurst(chest, gold: e.Value == 2);
+                    _vfx.Shockwave(chest, color, 3.2f + e.Value, 0.45f);
+                    _vfx.Shockwave(chest, Palette.Hex3(theme.Secondary), 1.8f + e.Value, 0.3f);
+                    _camera.Punch(0.5f + e.Value * 0.2f);
+                    _camera.Shake(0.25f);
+                    _superDim = 0.5f;
+                    break;
+                }
+                case MatchEventKind.SignatureImpact:
+                {
+                    ref readonly var s = ref state.Summons[e.Value];
+                    var theme = _signatures.MoveOf(s.Owner >= 0 ? s.Owner : e.Slot, s.Slot).Theme;
+                    _vfx.Shockwave(at + new Vector3(0, 0.3f, 0), Palette.Hex3(theme.Primary), 3.4f, 0.4f);
+                    _vfx.HitSparks(at + new Vector3(0, 0.5f, 0), 120);
+                    _vfx.Dust(at, 24);
+                    _camera.Shake(0.6f);
+                    _flash = 0.3f;
+                    _physics?.Explode(at, 4f, 3f);
+                    break;
+                }
                 case MatchEventKind.HazardHit:
                     _camera.Shake(0.5f);
                     _vfx.Dust(at, 20);
@@ -236,8 +265,9 @@ public sealed class ArenaPresenter : IDisposable
         {
             ref readonly var pr = ref state.Projectiles[i];
             var node = _projectiles[i];
-            node.Visible = pr.Active;
-            if (!pr.Active) continue;
+            bool show = pr.Active && !_signatures.DrawsProjectile(pr);
+            node.Visible = show;
+            if (!show) continue;
             var pos = pr.Position.ToVector2();
             node.Position = new Vector3(pos.X, pos.Y, 0);
             if (dt > 0) _vfx.Trail(node.Position);
@@ -297,7 +327,8 @@ public sealed class ArenaPresenter : IDisposable
         // Impact flash and blackouts dim or boost the sun.
         if (_flash > 0) _flash = MathF.Max(0, _flash - dt);
         else if (_flash < 0) _flash = MathF.Min(0, _flash + dt);
-        float sunIntensity = _rig.BaseSunIntensity * (1f + _flash * 1.6f) * (_flash < 0 ? 0.15f : 1f);
+        _superDim = MathF.Max(0, _superDim - dt);
+        float sunIntensity = _rig.BaseSunIntensity * (1f + _flash * 1.6f) * (_flash < 0 ? 0.15f : 1f) * (1f - MathF.Min(1, _superDim * 3f) * 0.7f);
         var light = _rig.Sun.Light!.Value;
         light.Intensity = sunIntensity;
         _rig.Sun.Light = light;
@@ -309,6 +340,7 @@ public sealed class ArenaPresenter : IDisposable
         }
 
         Audio?.SetCrowd(crowd01);
+        _signatures.Update(state, dt, _camera.Camera.WorldMatrix, _vfx);
         _vfx.Update(dt, _camera.Camera.WorldMatrix);
         Scene.UpdateAnimations(dt);
         Audio?.Update(Scene, _camera.Camera, dt);

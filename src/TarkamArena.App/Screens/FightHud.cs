@@ -24,6 +24,8 @@ public sealed class FightHud : Grid
         public required LifeBar Life;
         public required SegmentMeter Rage;
         public required SegmentMeter Adrenaline;
+        public required JurusMeter Jurus;
+        public int LastJurusLevel;
         public required TextBlock Status;
         public required StackPanel Pips;
         public required TextBlock Combo;
@@ -59,6 +61,16 @@ public sealed class FightHud : Grid
     private int _lastTimer = -1;
     private bool _letterbox;
     private double _vignetteTime;
+
+    // Signature cut-in: a slanted band in the move's colour with the caster's portrait and the move name.
+    private readonly Grid _cutIn = new() { VerticalAlignment = VerticalAlignment.Center, Height = 250, Margin = new Thickness(-80, 0, -80, 120), Opacity = 0, IsHitTestVisible = false };
+    private readonly Border _cutInBand = new() { BorderBrush = Ui.Arang, BorderThickness = new Thickness(0, 6), RenderTransform = new SkewTransform(0, -4) };
+    private readonly Border _cutInStripe = new() { Height = 14, VerticalAlignment = VerticalAlignment.Bottom, Margin = new Thickness(0, 0, 0, 22), RenderTransform = new SkewTransform(0, -4) };
+    private readonly Image _cutInFace = new() { Height = 330, Stretch = Stretch.Uniform, VerticalAlignment = VerticalAlignment.Bottom };
+    private readonly SignText _cutInName = new("", 76, Ui.Kapur);
+    private readonly TextBlock _cutInKind = Ui.Text("", "eyebrow").With(t => { t.FontSize = 18; t.Foreground = Ui.Spanduk; });
+    private readonly StackPanel _cutInText;
+    private double _cutInTimer;
 
     public FightHud(MatchContext context, int localSlot)
     {
@@ -182,6 +194,14 @@ public sealed class FightHud : Grid
             IsVisible = false,
         };
         Children.Add(_finisherPanel);
+
+        _cutInText = Ui.V(2, _cutInKind, _cutInName).With(v => v.VerticalAlignment = VerticalAlignment.Center);
+        _cutIn.Children.Add(_cutInBand);
+        _cutIn.Children.Add(_cutInStripe);
+        _cutIn.Children.Add(new ParticleField(ParticleStyle.SpeedLines, 40) { Opacity = 0.6, ClipToBounds = true });
+        _cutIn.Children.Add(_cutInFace);
+        _cutIn.Children.Add(_cutInText);
+        Children.Add(_cutIn);
         Children.Add(_confetti);
         Children.Add(_flash);
     }
@@ -193,6 +213,9 @@ public sealed class FightHud : Grid
         var life = new LifeBar { Width = width, Height = compact ? 20 : 34, Mirrored = mirrored, Fill = Ui.Spanduk };
         var rage = new SegmentMeter { Width = compact ? 150 : 220, Height = 10, Mirrored = mirrored, Fill = Ui.Cabai };
         var adrenaline = new SegmentMeter { Width = compact ? 110 : 160, Height = 10, Mirrored = mirrored, Fill = Ui.Daun };
+        var jurus = new JurusMeter { Width = compact ? 270 : 390, Height = 16, Mirrored = mirrored };
+        jurus.Configure(SignatureMove.Costs, MatchSimulation.MeterMax);
+        var jurusLabel = Ui.Text(Loc.T("hud.jurus").ToUpperInvariant(), "eyebrow").With(t => { t.FontSize = 12; t.Foreground = Ui.Spanduk; t.VerticalAlignment = VerticalAlignment.Center; });
         var name = new TextBlock { Text = c.Name.ToString().ToUpperInvariant(), FontFamily = Ui.Display, FontSize = compact ? 18 : 26, Foreground = Ui.Kapur };
         var status = Ui.Text("", "eyebrow").With(t => t.FontSize = 13);
         var pips = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6, VerticalAlignment = VerticalAlignment.Center };
@@ -225,11 +248,13 @@ public sealed class FightHud : Grid
 
         var nameRow = mirrored ? Ui.H(12, pips, status, name) : Ui.H(12, name, status, pips);
         var meters = mirrored ? Ui.H(10, adrenaline, rage) : Ui.H(10, rage, adrenaline);
-        var stack = Ui.V(6, nameRow, life, meters, combo);
+        var jurusRow = mirrored ? Ui.H(8, jurus, jurusLabel) : Ui.H(8, jurusLabel, jurus);
+        var stack = Ui.V(6, nameRow, life, meters, jurusRow, combo);
         if (mirrored)
         {
             nameRow.HorizontalAlignment = HorizontalAlignment.Right;
             meters.HorizontalAlignment = HorizontalAlignment.Right;
+            jurusRow.HorizontalAlignment = HorizontalAlignment.Right;
             combo.HorizontalAlignment = HorizontalAlignment.Right;
         }
         var row = mirrored ? Ui.H(12, stack, plate) : Ui.H(12, plate, stack);
@@ -239,6 +264,7 @@ public sealed class FightHud : Grid
             Life = life,
             Rage = rage,
             Adrenaline = adrenaline,
+            Jurus = jurus,
             Status = status,
             Pips = pips,
             Combo = combo,
@@ -275,7 +301,11 @@ public sealed class FightHud : Grid
             p.Rage.Set(f.RageActive ? f.RageTimer / (double)MatchSimulation.RageDuration : f.Rage / (double)MatchSimulation.MeterMax);
             p.Adrenaline.Active = f.AdrenalineActive;
             p.Adrenaline.Set(f.AdrenalineActive ? f.AdrenalineTimer / (double)MatchSimulation.AdrenalineDuration : f.Adrenaline / (double)MatchSimulation.MeterMax);
-            string status = f.RageActive ? Loc.T("hud.rage") : f.Rage >= MatchSimulation.MeterMax ? Loc.T("hud.rageReady") : f.AdrenalineActive ? Loc.T("hud.adrenaline") : "";
+            p.Jurus.Set(f.Jurus, dt);
+            if (p.Jurus.Level > p.LastJurusLevel) _ = Anim.Pop(p.Jurus, 1.12, 200);
+            p.LastJurusLevel = p.Jurus.Level;
+            string status = f.RageActive ? Loc.T("hud.rage") : f.Rage >= MatchSimulation.MeterMax ? Loc.T("hud.rageReady") : f.AdrenalineActive ? Loc.T("hud.adrenaline")
+                : p.Jurus.Level > 0 ? Loc.T("hud.jurusReady", p.Jurus.Level) : "";
             if (p.Status.Text != status.ToUpperInvariant()) p.Status.Text = status.ToUpperInvariant();
 
             int wins = state.RoundWins[f.Team];
@@ -323,6 +353,11 @@ public sealed class FightHud : Grid
         {
             _calloutTimer -= dt;
             _calloutBox.Opacity = Math.Clamp(_calloutTimer * 3, 0, 1);
+        }
+        if (_cutInTimer > 0)
+        {
+            _cutInTimer -= dt;
+            _cutIn.Opacity = Math.Clamp(_cutInTimer * 4, 0, 1);
         }
         if (_eventTimer > 0)
         {
@@ -430,6 +465,9 @@ public sealed class FightHud : Grid
                 ShowSide(e.Slot, Loc.T("hud.parry"));
                 Flash(Color.FromRgb(0x6B, 0xD0, 0xFF), 0.25);
                 break;
+            case MatchEventKind.SignatureStart when e.Slot >= 0:
+                CutIn(e.Slot, e.Value);
+                break;
             case MatchEventKind.TimeUp: Callout(Loc.T("hud.timeUp"), "", 1.6); break;
             case MatchEventKind.FinisherPrompt:
                 Callout(Loc.T("hud.finishThem"), "", 2.2);
@@ -474,6 +512,39 @@ public sealed class FightHud : Grid
                 _ = Anim.SlideIn(_eventBox, 0, 0, 320, "", -60);
                 break;
         }
+    }
+
+    /// <summary>The signature cut-in: band and portrait slide in from the caster's side, the name stamps down.</summary>
+    private void CutIn(int slot, int signature)
+    {
+        var move = _context.Signatures[slot][signature];
+        var c = _context.Characters[slot];
+        bool right = slot < _panels.Length && _panels[slot].Life.Mirrored;
+        var primary = Color.FromRgb((byte)(move.Theme.Primary >> 16), (byte)(move.Theme.Primary >> 8), (byte)move.Theme.Primary);
+        var secondary = Color.FromRgb((byte)(move.Theme.Secondary >> 16), (byte)(move.Theme.Secondary >> 8), (byte)move.Theme.Secondary);
+        _cutInBand.Background = new LinearGradientBrush
+        {
+            StartPoint = new RelativePoint(right ? 1 : 0, 0, RelativeUnit.Relative),
+            EndPoint = new RelativePoint(right ? 0 : 1, 0, RelativeUnit.Relative),
+            GradientStops = { new GradientStop(Color.FromArgb(0xF0, 0x0A, 0x16, 0x38), 0), new GradientStop(Color.FromArgb(0xE0, primary.R, primary.G, primary.B), 0.45), new GradientStop(Color.FromArgb(0x50, primary.R, primary.G, primary.B), 1) },
+        };
+        _cutInStripe.Background = new SolidColorBrush(secondary);
+        _cutInFace.Source = Images.Portrait(c, 512);
+        _cutInFace.HorizontalAlignment = right ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+        _cutInFace.Margin = right ? new Thickness(0, 0, 160, -40) : new Thickness(160, 0, 0, -40);
+        _cutInFace.RenderTransform = right ? new ScaleTransform(-1, 1) : null;
+        _cutInText.HorizontalAlignment = right ? HorizontalAlignment.Right : HorizontalAlignment.Left;
+        _cutInText.Margin = right ? new Thickness(0, 0, 520, 0) : new Thickness(520, 0, 0, 0);
+        _cutInName.Text = move.Name.ToString().ToUpperInvariant();
+        _cutInKind.Text = $"{Loc.T("hud.signature").ToUpperInvariant()} · {SignatureCatalog.KindName(move.Kind).ToString().ToUpperInvariant()} · {move.Input}";
+        _cutInTimer = 1.25;
+        _cutIn.Opacity = 1;
+        _ = Anim.SlideIn(_cutInBand, right ? 1400 : -1400, 0, 220, "skewY(-4deg)");
+        _ = Anim.SlideIn(_cutInStripe, right ? -1400 : 1400, 40, 260, "skewY(-4deg)");
+        _ = Anim.SlideIn(_cutInFace, right ? 600 : -600, 60, 300, right ? "scale(-1, 1)" : "");
+        _ = Anim.Stamp(_cutInName, 160, 300, 2.0, right ? 6 : -6);
+        Flash(primary, 0.35);
+        SpeedLines(1.0);
     }
 
     private string WinnerName(in MatchState state, int team)

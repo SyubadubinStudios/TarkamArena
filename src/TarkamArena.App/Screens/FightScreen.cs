@@ -35,6 +35,7 @@ public sealed class FightScreen : Screen
     private double _slowMotion;
     private readonly Border _pause;
     private readonly StackPanel _pauseMenu = new() { Spacing = 10 };
+    private readonly ContentControl _pauseMoves = new() { MaxWidth = 760 };
     private MatchContext? _context;
     private ArenaPresenter? _presenter;
     private FightHud? _hud;
@@ -62,7 +63,7 @@ public sealed class FightScreen : Screen
         {
             Background = Ui.Brush(0x0A1638, 0xD8),
             IsVisible = false,
-            Child = Ui.V(20, new SignText(Loc.T("common.paused").ToUpperInvariant(), 72), _pauseMenu, ControlsHelp())
+            Child = Ui.V(20, new SignText(Loc.T("common.paused").ToUpperInvariant(), 72), _pauseMenu, _pauseMoves, ControlsHelp())
                 .With(s => { s.HorizontalAlignment = HorizontalAlignment.Center; s.VerticalAlignment = VerticalAlignment.Center; }),
         };
         _pauseMenu.Children.Add(Ui.Banner(Loc.T("common.resume").ToUpperInvariant(), () => SetPaused(false)));
@@ -169,6 +170,9 @@ public sealed class FightScreen : Screen
         _tracker = new MatchStatsTracker(_localSlot, GameModes.TeamOf(_context.Rules.Mode, _localSlot));
 
         _hud = new FightHud(_context, _localSlot);
+        _pauseMoves.Content = Ui.Panel(Ui.V(10,
+            Ui.Text($"{Loc.T("moves.signatures").ToUpperInvariant()} · {_context.Characters[_localSlot].Name}", "eyebrow").With(t => t.Foreground = Ui.Spanduk),
+            SignatureList.Build(_context.Characters[_localSlot], compact: true)), 16);
         _hudLayer.Children.Clear();
         _hudLayer.Children.Add(_hud);
         _presenter.EventRaised += e =>
@@ -261,6 +265,8 @@ public sealed class FightScreen : Screen
                     _ => _brains[i]?.Think(_state, context) ?? InputFrame.Neutral,
                 };
             }
+            if (LaunchOptions.SignatureDemo)
+                for (int i = 0; i < _state.FighterCount; i++) _state.Fighters[i].Jurus = MatchSimulation.MeterMax;
             MatchSimulation.Step(ref _state, context, _inputs);
         }
         _presenter!.OnSimulated(_state);

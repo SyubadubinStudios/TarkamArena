@@ -24,13 +24,17 @@ Status legend / Keterangan: ✅ done/selesai · 🚧 in progress/berjalan · �
 | Ops | CI, release workflow with installers for Windows, Linux, macOS; MSIX | ✅ |
 | Docs | README + docs in English and Bahasa Indonesia with screenshots | ✅ |
 
-## Milestone 0.2 — Feel & polish / Rasa & polesan 📋
+## Milestone 0.2 — Feel & polish / Rasa & polesan 🚧
 
+- ✅ Signature moves (Jurus pamungkas): three per fighter, nine effect kinds, Jurus meter, cut-in,
+  VFX, CPU usage, move lists. / Tiga jurus pamungkas per petarung.
+- ✅ Hit-stop camera punch-in, slow-motion final hit, round-transition wipes in the spanduk style.
+- ✅ Per-fighter move list in the pause menu (signature moves).
+- Rodin/Blender-authored models for the signature props and summons (replace the primitive rigs).
 - Per-move hand-authored animations in Blender for the five most played fighters (signature specials).
 - Unique finisher cinematics per fighter (camera paths, props, Blender-authored clips).
-- Hit-stop camera punch-in, slow-motion final hit, round-transition wipes in the spanduk style.
 - Costume rendering (tinted materials and alternate Rodin textures) and visible victory poses/intros.
-- Key rebinding UI; rumble on hits; per-fighter move list screen in pause menu.
+- Key rebinding UI; rumble on hits.
 - Destructible environment pieces per arena (stalls collapse, speaker walls topple).
 
 ## Milestone 0.3 — Online / Daring 📋

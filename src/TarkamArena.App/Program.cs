@@ -34,6 +34,12 @@ internal static class LaunchOptions
     public static bool QuickFight { get; private set; }
     public static string? SnapDirectory { get; private set; }
 
+    /// <summary>--fighters a,b: the two fighters for --fight.</summary>
+    public static string[]? Fighters { get; private set; }
+
+    /// <summary>--jurus: CPU against CPU with full Jurus meters, to show off signature moves.</summary>
+    public static bool SignatureDemo { get; private set; }
+
     public static void Parse(string[] args)
     {
         for (int i = 0; i < args.Length; i++)
@@ -45,6 +51,8 @@ internal static class LaunchOptions
                 case "--fight": QuickFight = true; break;
                 case "--snap" when i + 1 < args.Length: SnapDirectory = args[++i]; break;
                 case "--lang" when i + 1 < args.Length: Language = args[++i]; break;
+                case "--fighters" when i + 1 < args.Length: Fighters = args[++i].Split(','); break;
+                case "--jurus": SignatureDemo = true; break;
             }
         }
     }

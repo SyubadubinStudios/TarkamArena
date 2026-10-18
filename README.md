@@ -30,6 +30,14 @@ All files: [latest release](https://github.com/SyubadubinStudios/TarkamArena/rel
 
 ## Screenshots / Tangkapan layar
 
+**Jurus pamungkas / Signature moves** — three per fighter: summoned spirits, protest marches, ojol
+convoys, a heavenly pacul, lightning, tornadoes, tidal waves… ([how to play](docs/en/gameplay.md#signature-moves-jurus-pamungkas) · [cara bermain](docs/id/gameplay.md#jurus-pamungkas))
+
+| | | |
+|---|---|---|
+| ![Kuyang](docs/screenshots/signatures/summon-kuyang-head.jpg) | ![Mahasiswi Demo](docs/screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Jaka Tarub](docs/screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |
+| ![Kang Ojol](docs/screenshots/signatures/tornado-kang-ojol.jpg) | ![Bang Damar](docs/screenshots/signatures/wave-pemadam-water.jpg) | ![Kuyang petir](docs/screenshots/signatures/storm-kuyang-lightning.jpg) |
+
 | | |
 |---|---|
 | ![Pasar Becek](docs/screenshots/06-fight-pasar-becek.png) | ![Karnaval Sound Horeg](docs/screenshots/07-fight-sound-horeg.png) |
@@ -53,6 +61,8 @@ Indonesia — where street workers, spirits, wildlife, satire and legends of the
 - **Real fighting-game systems**: frame data, target combos, launchers and air combos, grabs and
   throw techs, counter hits, parries, dodges, motion-input specials, Rage and Adrenaline modes,
   team combos.
+- **Signature moves**: three per fighter on the Jurus meter — summons, crowd charges, giant weapons,
+  weather strikes, lift & slam, tornadoes, barrages, quakes and waves, each with its own cut-in and VFX.
 - **Finishers**: every fighter has 3 Fatalities, 2 Brutalities, 2 Friendships, 1 Mercy and 1
   Legendary Finisher that needs a roaring crowd.
 - **Modes**: 1 vs 1, 2 vs 2, Tag Battle, Free For All, Survival, a nine-chapter Story, the Tarkam Cup
@@ -81,6 +91,9 @@ tempat pekerja jalanan, makhluk gaib, satwa, satire, dan legenda Nusantara berte
 - **Sistem pertarungan sungguhan**: frame data, kombo berantai, launcher dan kombo udara, bantingan dan
   throw tech, counter, tangkisan, menghindar, jurus dengan gerakan stik, mode Amarah dan Adrenalin,
   team combo.
+- **Jurus pamungkas**: tiga per petarung dengan meter Jurus — panggil makhluk halus, serbuan pendemo,
+  senjata raksasa seperti pacul, manipulasi cuaca, angkat & banting, angin topan, rentetan, gempa, dan
+  gelombang, masing-masing dengan cut-in dan VFX sendiri.
 - **Finisher**: setiap petarung punya 3 Fatality, 2 Brutality, 2 Persahabatan, 1 Ampunan, dan 1
   Finisher Legenda yang butuh sorakan penonton penuh.
 - **Mode**: 1 lawan 1, 2 lawan 2, Tag Battle, Bebas Semua, Survival, Mode Cerita sembilan bab, Piala

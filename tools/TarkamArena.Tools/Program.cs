@@ -13,6 +13,7 @@ using ThreeNet;
 //   dotnet run --project tools/TarkamArena.Tools -- portraits [--all] -> assets/generated/portraits/<id>.png (procedural/glTF render)
 //   dotnet run --project tools/TarkamArena.Tools -- scene <stage> <p1> <p2> <frames> <out.png> [mode]
 //   dotnet run --project tools/TarkamArena.Tools -- music <style> <out.wav>
+//   dotnet run --project tools/TarkamArena.Tools -- signatures <outDir> [id,id,...] -> one frame per signature move
 ThreeNetRuntime.Initialize();
 var command = args.Length > 0 ? args[0] : "help";
 switch (command)
@@ -43,6 +44,26 @@ switch (command)
         RenderScene(Stages.Get(args[1]), ids, int.Parse(args[4]), 1600, 900, args[5], mode, arenaCamera: false);
         Console.WriteLine($"scene -> {args[5]}");
         break;
+
+    case "signatures":
+    {
+        string outDir = args.Length > 1 ? args[1] : "docs/screenshots/signatures";
+        var who = args.Length > 2 ? args[2].Split(',') : [.. Roster.All.Where(c => SignatureCatalog.IsHandAuthored(c.Id)).Select(c => c.Id)];
+        Directory.CreateDirectory(outDir);
+        using var renderer = Renderer.CreateOffscreen(OffscreenCapture.Options(960, 540, high: false));
+        for (int n = 0; n < who.Length; n++)
+        {
+            var stage = Stages.All[n % Stages.All.Count];
+            string foe = who[n] == "preman-pasar" ? "pesilat" : "preman-pasar";
+            for (int slot = 0; slot < 3; slot++)
+            {
+                var path = Path.Combine(outDir, $"{who[n]}-{slot}.png");
+                RenderSignature(renderer, stage, who[n], foe, slot, path);
+                Console.WriteLine($"signature {who[n]} #{slot} -> {path}");
+            }
+        }
+        break;
+    }
 
     case "music":
         var buffer = MusicGenerator.Compose(Enum.Parse<MusicStyle>(args[1]), 7);
@@ -80,6 +101,11 @@ switch (command)
                     sb.AppendLine();
                     sb.AppendLine($"- **S**: {c.Specials.Neutral.Get(lang)} · **→ S**: {c.Specials.Forward.Get(lang)} · **↓ S**: {c.Specials.Down.Get(lang)}");
                     if (c.IsSecret) sb.AppendLine($"- {(id ? "Cara membuka" : "Unlock")}: {c.UnlockHint.Get(lang)}");
+                    sb.AppendLine();
+                    sb.AppendLine(id ? "| Input | Jurus pamungkas | Jenis | Meter | Efek |" : "| Input | Signature move | Kind | Meter | Effect |");
+                    sb.AppendLine("|---|---|---|---|---|");
+                    foreach (var m in TarkamArena.Core.Combat.SignatureCatalog.For(c))
+                        sb.AppendLine($"| `{m.Input}` | **{m.Name.Get(lang)}** | {TarkamArena.Core.Combat.SignatureCatalog.KindName(m.Kind).Get(lang)} | {m.Cost} | {m.Description.Get(lang)} |");
                     sb.AppendLine();
                     sb.AppendLine(id ? "| Input | Jenis | Finisher |" : "| Input | Kind | Finisher |");
                     sb.AppendLine("|---|---|---|");
@@ -177,6 +203,59 @@ static void RenderScene(StageDefinition stage, string[] ids, int frames, int wid
         presenter.Camera.LookAt(new Vector3(0, 2.0f, -4));
     }
     OffscreenCapture.RenderToPng(presenter.Scene, presenter.Camera, width, height, path);
+}
+
+// Plays one signature move and captures the frame where its effect is at its most visible.
+static void RenderSignature(Renderer renderer, StageDefinition stage, string id, string foe, int slot, string path)
+{
+    var rules = MatchRules.For(GameMode.Versus) with { ArenaEventsEnabled = false, TimerEnabled = false };
+    var setup = new MatchSetup(rules, stage, [new FighterEntry(Roster.Get(id)), new FighterEntry(Roster.Get(foe))], Seed: 5);
+    var context = new MatchContext(setup);
+    var state = MatchSimulation.CreateInitialState(context);
+    using var presenter = new ArenaPresenter(context, new PresenterOptions(Weather: false, Physics: false, NpcCount: 40));
+    var inputs = new InputFrame[2];
+    void Run(int frames, InputButtons p0 = InputButtons.None)
+    {
+        inputs[0] = new(p0);
+        for (int f = 0; f < frames; f++)
+        {
+            MatchSimulation.Step(ref state, context, inputs);
+            presenter.OnSimulated(state);
+            presenter.Render(state, 1f / 60f);
+        }
+    }
+    while (state.Phase != MatchPhase.Fight) Run(1);
+    state.Fighters[0].Position = TarkamArena.Core.Mathematics.FixedVector2.Of(-1.6f, 0);
+    state.Fighters[1].Position = TarkamArena.Core.Mathematics.FixedVector2.Of(1.6f, 0);
+    state.Fighters[0].Jurus = MatchSimulation.MeterMax;
+    Run(20);
+    var right = InputButtons.Right;
+    var left = InputButtons.Left;
+    switch (slot)
+    {
+        case 0: Run(2, InputButtons.Down); Run(2, InputButtons.Down | right); Run(1, right | InputButtons.Special); break;
+        case 1: Run(2, InputButtons.Down); Run(2, InputButtons.Down | left); Run(1, left | InputButtons.Special); break;
+        default: Run(2, InputButtons.Down); Run(2); Run(1, InputButtons.Down | InputButtons.Special); break;
+    }
+    var kind = context.Signatures[0][slot].Kind;
+    // Frames after the press: wind-up (16) plus the moment each effect peaks.
+    int peak = 16 + kind switch
+    {
+        SignatureKind.Summon => 40,
+        SignatureKind.Crowd => 26,
+        SignatureKind.Weapon => 9,
+        SignatureKind.Storm => 35,
+        SignatureKind.Levitate => 40,
+        SignatureKind.Tornado => 30,
+        SignatureKind.Barrage => 22,
+        SignatureKind.Quake => 14,
+        _ => 18,
+    };
+    Run(peak);
+    presenter.Scene.FinishStreaming(TimeSpan.FromSeconds(5));
+    for (int i = 0; i < 2; i++) renderer.Render(presenter.Scene, presenter.Camera);
+    var rgba = renderer.ReadPixels();
+    File.WriteAllBytes(path, OffscreenCapture.EncodePng(rgba, 960, 540));
 }
 
 static void RenderPortrait(CharacterDefinition c, string path)

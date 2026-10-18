@@ -44,6 +44,50 @@ frame awalan (startup), aktif, dan pemulihan, serta hitstun, blockstun, dan doro
 | **Team combo** | Di 2 lawan 2 dan Tag Battle, memukul lawan yang sedang dikombo rekanmu memberi +20 % damage. Di Tag Battle, menukar rekan saat lawan terkena hitstun membuat rekan masuk dengan launcher. |
 | **Penurunan kombo** | Setiap pukulan dalam kombo 10 % lebih lemah (minimal 35 %). |
 
+## Jurus pamungkas
+
+Setiap petarung punya **tiga jurus pamungkas** sendiri, dibayar dengan **meter Jurus** (bilah ungu
+ke emas di bawah meter Amarah dan Adrenalin). Meter terisi pelan dengan sendirinya, lebih cepat saat
+pukulanmu kena (dan sedikit saat kamu terkena pukulan atau menangkis). Setiap jurus yang sudah
+terjangkau ditandai berlian yang menyala di bilah.
+
+| Input | Slot | Biaya | Kekuatan |
+|---|---|---|---|
+| `↓ ↘ → + S` | 1 | 250 | ×1,0 |
+| `↓ ↙ ← + S` | 2 | 400 | ×1,3 |
+| `↓ ↓ + S` | 3 | 700 | ×1,7 |
+
+`→` selalu ke arah lawan. Jika meter cukup, gerakan itu menjadi jurus pamungkas; jika tidak,
+`↓ ↘ →` + S tetap jurus khusus maju biasa. Jurus pamungkas bisa membatalkan serangan biasa yang kena
+(super cancel). Awalan jurus kebal, dan semua petarung lain membeku selama cut-in: arena meredup, pita
+berwarna jurus meluncur melintasi layar bersama potret petarung, dan nama jurus dicap di atasnya.
+
+Ada sembilan jenis jurus pamungkas, dan setiap petarung punya set yang sesuai dengan dirinya:
+
+| Jenis | Yang terjadi | Contoh |
+|---|---|---|
+| Panggilan | Makhluk pembantu terbang ke lawan dan menyerang beberapa kali | kepala terbang Kuyang, bidadari Jaka Tarub, hantu-hantu Kuntilanak |
+| Serbuan massa | Kerumunan menyapu arena; setiap lawan kena sekali dan terjatuh | barisan demo Mahasiswi, konvoi Kang Ojol, geng arisan naik motor |
+| Senjata pusaka | Senjata raksasa diayun (atau ditabrakkan) di depan petarung | **pacul** Jaka Tarub, golok Si Pitung, gerobak bakso ngebut |
+| Sambaran cuaca | Lingkaran peringatan, lalu petir, hujan api, bom air, atau palu sidang jatuh ke lawan | petir Kuyang, bom air pemadam |
+| Angkat & banting | Lawan terdekat diangkat, ditahan di udara, lalu dibanting ke lantai (tak bisa ditahan) | jeweran emak-emak, selendang terbang Jaka Tarub |
+| Angin topan | Pusaran angin berjalan, menyedot dan melambungkan korban | Drift Muter Kang Ojol, Goyang Topan si penari horeg |
+| Rentetan | Hujan benda yang dilempar | bakso, kapur, sandal, amplop |
+| Gempa | Gelombang kejut merambat di lantai ke dua arah | hentakan Buto Ijo |
+| Gelombang | Dinding yang menyapu ke depan: air, kuah, suara | banjir pemadam, Toa Seribu Desibel Mahasiswi Demo |
+
+Tiga jurus pamungkas setiap petarung ditampilkan di pemilihan karakter, di menu jeda saat bertarung,
+dan di [halaman petarung](characters.md). Di mode Latihan meter Jurus terisi sendiri.
+
+| | | |
+|---|---|---|
+| ![Panggilan](../screenshots/signatures/summon-kuyang-head.jpg) | ![Serbuan](../screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Senjata](../screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |
+| Kuyang: kepala terbang | Mahasiswi Demo: barisan demo | Jaka Tarub: pacul kahyangan |
+| ![Cuaca](../screenshots/signatures/storm-kuyang-lightning.jpg) | ![Topan](../screenshots/signatures/tornado-kang-ojol.jpg) | ![Gelombang](../screenshots/signatures/wave-pemadam-water.jpg) |
+| Kuyang: petir | Kang Ojol: angin topan | Bang Damar: gelombang air |
+| ![Konvoi](../screenshots/signatures/crowd-kang-ojol-convoy.jpg) | ![Angkat](../screenshots/signatures/levitate-emak-ear-pull.jpg) | ![Gempa](../screenshots/signatures/quake-buto-ijo.jpg) |
+| Kang Ojol: konvoi ojol | Emak-emak: jeweran | Buto Ijo: gempa |
+
 ## Finisher
 
 Saat ronde penentuan dimenangkan, pihak yang kalah berdiri linglung dan muncul tulisan **HABISI!**

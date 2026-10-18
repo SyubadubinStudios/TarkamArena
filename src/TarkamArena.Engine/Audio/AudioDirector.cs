@@ -298,6 +298,23 @@ public sealed class AudioDirector : IDisposable
     }
 
     /// <summary>Turns simulation events into sound.</summary>
+    /// <summary>The sound that gives a signature move its character on activation.</summary>
+    private static Sfx? SignatureAccent(SignatureMove move) => (move.Kind, move.Theme.Prop) switch
+    {
+        (SignatureKind.Crowd, SignatureProp.Bike) => Sfx.Motorbikes,
+        (SignatureKind.Crowd, SignatureProp.Truck) => Sfx.BassDrop,
+        (SignatureKind.Crowd, _) => Sfx.Whistle,
+        (_, SignatureProp.Bird) => Sfx.Chicken,
+        (_, SignatureProp.Sound) => Sfx.BassDrop,
+        (SignatureKind.Tornado, _) => Sfx.Helicopter,
+        (SignatureKind.Quake, _) => Sfx.BassDrop,
+        (SignatureKind.Storm, SignatureProp.Bolt) => Sfx.Siren,
+        (SignatureKind.Weapon, _) => Sfx.Gavel,
+        (_, SignatureProp.Water) => Sfx.Splash,
+        (_, SignatureProp.Fireball) => Sfx.Fire,
+        _ => null,
+    };
+
     public void OnEvents(in MatchState state, MatchContext context)
     {
         foreach (ref readonly var e in state.CurrentEvents)
@@ -328,6 +345,30 @@ public sealed class AudioDirector : IDisposable
                 case MatchEventKind.AdrenalineActivated: Play(Sfx.Tag, 0.6f, 0.2f); break;
                 case MatchEventKind.Combo when e.Value >= 5: Play(Sfx.CrowdOoh, 0.6f); break;
                 case MatchEventKind.Dodge: Play(Sfx.Whoosh, 0.45f, 0.1f, pan); break;
+                case MatchEventKind.SignatureStart:
+                {
+                    var move = context.Signatures[e.Slot][e.Value];
+                    Play(Sfx.Rage, 0.9f, 0.02f, pan);
+                    Play(Sfx.Whoosh, 0.8f, 0.05f, pan);
+                    Play(Sfx.CrowdOoh, 0.7f);
+                    if (SignatureAccent(move) is { } accent) Play(accent, 0.9f, 0.04f, pan);
+                    break;
+                }
+                case MatchEventKind.SignatureImpact:
+                {
+                    ref readonly var summon = ref state.Summons[e.Value];
+                    var move = context.Signatures[summon.Owner >= 0 ? summon.Owner : e.Slot][summon.Slot];
+                    Play(Sfx.HitHeavy, 1f, 0.05f, pan);
+                    Play(move.Theme.Flavor switch
+                    {
+                        SignatureFlavor.Water => Sfx.Splash,
+                        SignatureFlavor.Fire => Sfx.Fire,
+                        SignatureFlavor.Electric => Sfx.Clash,
+                        SignatureFlavor.Notes => Sfx.BassDrop,
+                        _ => Sfx.Land,
+                    }, 0.8f, 0.05f, pan);
+                    break;
+                }
                 case MatchEventKind.KO:
                     Play(Sfx.Ko, 1f, 0);
                     Say(VoiceLine.Ko);

@@ -15,9 +15,11 @@ dotnet build TarkamArena.slnx
 dotnet test tests/TarkamArena.Tests                                   # all tests (~10 s)
 dotnet test tests/TarkamArena.Tests --filter "FullyQualifiedName~Rollback"   # a subset / single test
 dotnet run --project src/TarkamArena.App [-- --fight | --lang en | --capture docs/screenshots]
+dotnet run --project src/TarkamArena.App -- --fight --jurus --fighters kuyang,kang-ojol [--snap <dir>]   # CPU signature-move demo
 dotnet run --project src/TarkamArena.Server                           # http://localhost:5080 (SQLite; ConnectionStrings__Postgres for PostgreSQL)
 dotnet run --project tools/TarkamArena.Tools -- scene <stage> <p1> <p2> <frames> <out.png>   # offscreen render to check visuals
 dotnet run --project tools/TarkamArena.Tools -- docs                  # regenerate docs/{en,id}/characters.md and stages.md
+dotnet run --project tools/TarkamArena.Tools -- signatures <dir> [id,id]   # one offscreen frame per signature move (window-independent)
 python tools/blender/process_all.py [--only id] [--force]             # Rodin glb -> rigged/animated glb (headless Blender 5.2)
 ```
 
@@ -34,6 +36,11 @@ images are produced. Kill stale `TarkamArena.dll` processes if a run hangs (the 
 - The simulation communicates outward only through `MatchEvent`s in `state.CurrentEvents`; presentation
   (`TarkamArena.Engine.ArenaPresenter`, `AudioDirector`, the HUD) reads state and events and must never
   influence the fight. `NpcDirector` and `ArenaPhysics` (BepuPhysics) are cosmetic and may use floats.
+- Signature moves ("Jurus pamungkas") are data in `Combat/Signatures.cs` (`SignatureCatalog`, three per
+  fighter, keyed by id; archetype fallback otherwise). Their live effects are `Summon` structs in
+  `MatchState.Summons`, stepped in `MatchSimulation.Signatures.cs`; `SignatureRenderer` (Engine) draws them.
+  The in-window render loop stalls when the game window is in the background, so check visuals with the
+  `signatures`/`scene` tool commands rather than desktop screenshots.
 - Content is data in `Roster.cs` and `Stages.cs`. Order is stable (append only). Frame data is derived by
   `MoveSetFactory` from archetype + stats; finisher inputs by `FinisherFactory` (seeded by id, 4 tokens,
   disjoint pools per kind so no sequence is a suffix of another — a test checks this).

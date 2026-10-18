@@ -84,6 +84,27 @@ Tokoh-tokoh fiksi dari kehidupan kota dan satir sosial. Semua tokoh adalah karak
 - Launcher
 - Team Combo
 
+## Jurus Pamungkas (Signature Moves)
+Setiap karakter memiliki 3 jurus pamungkas sendiri, dikeluarkan dengan kombinasi tombol dan dibayar
+dengan meter Jurus (terisi pelan sendiri, lebih cepat saat memukul, sedikit saat dipukul/menangkis):
+- `↓ ↘ → + S` (biaya 250), `↓ ↙ ← + S` (biaya 400), `↓ ↓ + S` (biaya 700, paling kuat)
+- Awalan kebal, layar membeku dengan cut-in potret + nama jurus, arena meredup
+- Bisa membatalkan serangan biasa yang kena (super cancel); CPU juga memakainya
+
+Sembilan jenis efek, disesuaikan dengan karakter:
+- Panggilan makhluk halus / hewan yang ikut menyerang (kepala Kuyang, Kunti kembar, bidadari, burung)
+- Serbuan massa (pendemo, konvoi ojol, geng arisan, jagoan kampung, truk sound horeg)
+- Senjata pusaka raksasa (pacul Jaka Tarub, golok Si Pitung, penggaris guru, gerobak bakso, kapak pemadam)
+- Manipulasi cuaca & alam (petir, hujan api, bom air, papan rumus jatuh dari langit)
+- Angkat & banting (lawan diterbangkan lalu dibanting: jeweran emak-emak, rambut Kunti, selendang)
+- Angin topan yang menyedot dan melambungkan lawan
+- Rentetan lemparan (bakso, kapur, sandal, amplop)
+- Gempa yang merambat di lantai
+- Gelombang (air, kuah, suara toa)
+
+Setiap jurus punya VFX sendiri: rig 3D bertema, partikel (api, air, daun, bulu, asap, aura gaib,
+listrik, kertas, not musik, emas), gelombang kejut, getaran kamera, dan suara.
+
 ## Finisher System
 Setiap karakter memiliki:
 - 3 Fatality

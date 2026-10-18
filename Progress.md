@@ -2,6 +2,38 @@
 
 *Dibuat oleh Ariana Mischa Fadhila dari Syubadubin Studios.*
 
+## 2026-10-18 — v0.2.0
+
+### Done / Selesai
+
+- **Signature moves / Jurus pamungkas**: every fighter has three signature moves of their own
+  (`↓↘→+S`, `↓↙←+S`, `↓↓+S`) paid for with the new Jurus meter (costs 250/400/700). Nine kinds:
+  summoned spirits and creatures, crowd charges (protesters, ojol convoys, arisan moms, sound trucks),
+  giant weapons (including Jaka Tarub's pacul), weather strikes (lightning, fire rain, water bombs),
+  lift & slam, tornadoes, barrages, quakes and waves. 126 hand-authored moves for the 42 main fighters,
+  themed fallbacks for DLC and creator fighters.
+  Setiap petarung punya tiga jurus pamungkas sendiri dengan meter Jurus baru dan sembilan jenis efek.
+- **Simulation**: signature effects live in `MatchState.Summons` (fixed-size, rolls back with the
+  match); super freeze, invulnerable wind-up, super cancel from normals; meter gain on hit, on being
+  hit and on parry; Training refills the meter. Step stays allocation-free.
+- **AI**: the CPU performs the motions and spends its meter (more often on harder levels).
+- **VFX**: `SignatureRenderer` builds a rig per fighter and signature from primitives (ghosts,
+  flying heads, birds, beasts, protesters with placards, ojol bikes, sound trucks, carts, poles,
+  blades, the pacul, storm clouds and bolts, lift rings, wind funnels, quake shards, wave walls,
+  sound rings) with a themed particle emitter each; super flash dims the arena; shockwaves, shake and
+  camera punch on impacts; per-kind sounds.
+- **HUD**: Jurus meter with cost diamonds and shimmer; full-width cut-in banner in the move's colours
+  with the fighter portrait, kind and input; move list in character select and the pause menu.
+- **UI/UX pass** (commit 1c06e63): animated title and menus, spanduk banner-wipe transitions, VS
+  loading card with Rodin 2D art, battle HUD with portrait plates, brush callouts, letterbox,
+  vignette, KO slow motion, more VFX (counter sparks, shockwaves, aura, projectile trails).
+- **Tools**: `signatures <dir> [ids]` renders one offscreen frame per signature (used for the docs);
+  the app takes `--fight --jurus --fighters a,b` for a CPU signature demo.
+- **Quality**: 65 automated tests passing (new: every signature of every fighter deals damage, meter
+  cost, input slots, determinism, CPU usage, meter gain).
+- **Docs**: signature section in the EN/ID gameplay guides with screenshots; every fighter page lists
+  its three signatures.
+
 ## 2026-10-18 — v0.1.0
 
 ### Done / Selesai
@@ -32,7 +64,8 @@
 
 ### Known issues / Masalah yang diketahui
 
-- Attack animations are shared across fighters (one clip set); signature specials reuse generic clips.
+- Attack animations are shared across fighters (one clip set); signature moves reuse a generic
+  wind-up clip, and the summoned props are built from primitives rather than authored models.
 - Costumes and poses are unlockable but not yet visible in matches.
 - The DLC fighters and creator fighters use the procedural body (no Rodin model yet).
 - ThreeNet 0.12 `CreateCapsuleGeometry` shades inverted; the engine builds its own capsule mesh.

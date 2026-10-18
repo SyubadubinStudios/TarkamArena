@@ -43,6 +43,51 @@ active and recovery frames, hitstun, blockstun and pushback.
 | **Team combo** | In 2 vs 2 and Tag Battle, hitting a victim your partner is comboing deals +20 % damage. In Tag Battle, tagging in while the opponent is in hitstun brings the partner in with a launcher. |
 | **Combo scaling** | Each hit in a combo does 10 % less (down to 35 %). |
 
+## Signature moves (Jurus Pamungkas)
+
+Every fighter has **three signature moves** of their own, paid for with the **Jurus meter** (the
+violet-to-gold bar under the Rage and Adrenaline meters). The meter fills slowly on its own, faster
+when you land hits (and a little when you take them or parry). A diamond on the bar lights up for
+each signature you can afford.
+
+| Input | Slot | Cost | Power |
+|---|---|---|---|
+| `↓ ↘ → + S` | 1 | 250 | ×1.0 |
+| `↓ ↙ ← + S` | 2 | 400 | ×1.3 |
+| `↓ ↓ + S` | 3 | 700 | ×1.7 |
+
+`→` is always towards the opponent. With enough meter the motion becomes the signature; without it,
+`↓ ↘ →` + S is still the ordinary forward special. A signature can cancel a normal move that hits
+(the super cancel). The wind-up is invulnerable, and everyone else freezes while the cut-in plays:
+the arena dims, a band in the move's colour slides across the screen with the fighter's portrait,
+and the move name is stamped on it.
+
+There are nine kinds of signature, and each fighter's set is themed to who they are:
+
+| Kind | What happens | Examples |
+|---|---|---|
+| Summon | Helpers fly at the opponent and strike several times | Kuyang's flying head, Jaka Tarub's nymphs, the Kuntilanak's ghosts |
+| Crowd charge | A crowd sweeps across the arena; each enemy is hit once and knocked down | Mahasiswi Demo's protest march, Kang Ojol's convoy, the arisan moms on scooters |
+| Signature weapon | A giant weapon is swung (or rammed) in front of the fighter | Jaka Tarub's **pacul**, the Si Pitung golok, the runaway bakso cart |
+| Weather strike | A warning circle, then lightning, fire rain, water bombs or gavels fall on the opponent | Kuyang's lightning, the firefighter's water bombs |
+| Lift & slam | The nearest opponent is lifted, held in the air and slammed into the floor (unblockable) | Emak-emak's ear pull, Jaka Tarub's flying shawl |
+| Tornado | A travelling whirlwind pulls victims in and juggles them | Kang Ojol's Drift Tornado, the Horeg Twister |
+| Barrage | A volley of thrown props | meatballs, chalk, sandals, envelopes |
+| Quake | A shockwave runs along the floor in both directions | Buto Ijo's stomp |
+| Wave | A wall sweeps forward: water, broth, sound | the firefighter's flood, Mahasiswi Demo's Thousand-Decibel Megaphone |
+
+Every fighter's three signatures are listed on character select, in the pause menu during a fight,
+and on the [fighter pages](characters.md). In Training the Jurus meter refills by itself.
+
+| | | |
+|---|---|---|
+| ![Summon](../screenshots/signatures/summon-kuyang-head.jpg) | ![Crowd](../screenshots/signatures/crowd-mahasiswi-demo.jpg) | ![Weapon](../screenshots/signatures/weapon-jaka-tarub-pacul.jpg) |
+| Kuyang: flying head | Mahasiswi Demo: protest march | Jaka Tarub: heavenly pacul |
+| ![Storm](../screenshots/signatures/storm-kuyang-lightning.jpg) | ![Tornado](../screenshots/signatures/tornado-kang-ojol.jpg) | ![Wave](../screenshots/signatures/wave-pemadam-water.jpg) |
+| Kuyang: lightning | Kang Ojol: tornado | Bang Damar: water wave |
+| ![Convoy](../screenshots/signatures/crowd-kang-ojol-convoy.jpg) | ![Levitate](../screenshots/signatures/levitate-emak-ear-pull.jpg) | ![Quake](../screenshots/signatures/quake-buto-ijo.jpg) |
+| Kang Ojol: ojol convoy | Emak-emak: ear pull | Buto Ijo: quake |
+
 ## Finishers
 
 When the deciding round is won, the loser stands dazed and the screen says **HABISI!** (Finish them!).

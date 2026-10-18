@@ -20,6 +20,7 @@ public enum MoveId : byte
     SpecialDown,
     TagStrike,
     RageBurst,
+    Signature,
     Count,
 }
 
@@ -53,6 +54,8 @@ public enum MoveFlags : ushort
     Poison = 1 << 11,
     /// <summary>Command grab: grabs on contact.</summary>
     CommandGrab = 1 << 12,
+    /// <summary>Spawns the fighter's signature effect on the first active frame.</summary>
+    Summon = 1 << 13,
 }
 
 /// <summary>Frame data for one move. All times are in 60 Hz frames.</summary>
@@ -162,6 +165,12 @@ public static class MoveSetFactory
             Id = MoveId.TagStrike, Startup = 8, Active = 6, Recovery = 14, Damage = Dmg(55),
             Hitstun = 30, Blockstun = 14, Hitstop = 10, Pushback = F(0.05f), LaunchVelocity = F(0.26f), LungeSpeed = F(0.14f),
             HitboxOffset = V(0.7f, 1.0f), HitboxSize = V(1.0f, 1.2f), MeterGain = 40, Flags = MoveFlags.Launcher | MoveFlags.Lunge,
+        };
+        // Signature move ("Jurus Pamungkas"): a short invulnerable wind-up, then the effect spawns.
+        moves[(int)MoveId.Signature] = new()
+        {
+            Id = MoveId.Signature, Startup = 16, Active = 2, Recovery = 26,
+            Flags = MoveFlags.Summon | MoveFlags.StartupInvulnerable,
         };
         moves[(int)MoveId.RageBurst] = new()
         {

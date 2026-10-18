@@ -7,7 +7,7 @@ namespace TarkamArena.Core.Match;
 /// Deterministic fixed-step fight simulation. <see cref="Step"/> never allocates, never reads the
 /// clock and only uses fixed-point maths, so the same inputs always produce the same state.
 /// </summary>
-public static class MatchSimulation
+public static partial class MatchSimulation
 {
     public const int IntroFrames = 120;
     public const int RoundOverFrames = 110;
@@ -71,6 +71,7 @@ public static class MatchSimulation
         state.Hazard = default;
         state.NextArenaEventFrame = state.Frame + 900 + DeterministicRandom.Range(ref state.Rng, 600);
         for (int i = 0; i < MatchState.MaxProjectiles; i++) state.Projectiles[i] = default;
+        for (int i = 0; i < MatchState.MaxSummons; i++) state.Summons[i] = default;
 
         int onField = 0;
         for (int i = 0; i < state.FighterCount; i++)
@@ -199,6 +200,7 @@ public static class MatchSimulation
 
         StepFighters(ref state, context, allowActions: true);
         StepProjectiles(ref state, context);
+        StepSummons(ref state, context);
         if (context.Rules.ArenaEventsEnabled) StepHazards(ref state, context);
         ResolveHits(ref state, context);
         StepCrowd(ref state, context);
@@ -226,6 +228,8 @@ public static class MatchSimulation
             if (f.RageTimer > 0) f.RageTimer--;
             if (f.AdrenalineTimer > 0) f.AdrenalineTimer--;
             TickPoison(ref state, ref f);
+            // The Jurus meter trickles up on its own during a fight.
+            if (allowActions && f.IsAlive && (state.Frame & 7) == 0 && f.Jurus < MeterMax) f.Jurus++;
 
             if (f.WasPressed(InputButtons.Block)) f.BlockPressedFrame = state.Frame;
 
@@ -365,6 +369,9 @@ public static class MatchSimulation
             Emit(ref state, MatchEventKind.Dodge, slot, -1, 0, f.Position);
             return;
         }
+
+        if (f.WasPressed(InputButtons.Special) && !air && TrySignature(ref state, context, slot))
+            return;
 
         if (f.WasPressed(InputButtons.Special))
         {
@@ -557,6 +564,7 @@ public static class MatchSimulation
         if (frame == activeStart)
         {
             if (move.Has(MoveFlags.Projectile)) SpawnProjectile(ref state, slot, in move);
+            if (move.Has(MoveFlags.Summon)) SpawnSignature(ref state, context, slot);
             if (move.Has(MoveFlags.Teleport) && f.Target >= 0)
             {
                 ref readonly var t = ref state.Fighters[f.Target];
@@ -575,6 +583,9 @@ public static class MatchSimulation
                 StartMove(ref state, context, slot, move.ChainsInto);
                 return;
             }
+            // Normals that hit can be cancelled into a signature move (the classic super cancel).
+            if (f.WasPressed(InputButtons.Special) && f.Move is MoveId.Jab or MoveId.Cross or MoveId.Hook or MoveId.Heavy or MoveId.LowLight && TrySignature(ref state, context, slot))
+                return;
             if (f.WasPressed(InputButtons.Special) && f.Move is MoveId.Jab or MoveId.Cross or MoveId.Hook or MoveId.Heavy or MoveId.LowLight)
             {
                 bool down = f.IsHeld(InputButtons.Down);
@@ -758,7 +769,7 @@ public static class MatchSimulation
         v.Invulnerable <= 0 && v.Status is not (FighterStatus.Benched or FighterStatus.KO or FighterStatus.Dizzy or FighterStatus.Finishing or FighterStatus.Knockdown or FighterStatus.GetUp)
         && !(v.Status == FighterStatus.Juggle && v.JuggleCount >= MaxJuggle);
 
-    private static void ApplyHit(ref MatchState state, MatchContext context, int attackerSlot, int victimSlot, in MoveData move, bool isProjectile, Fixed hitX, Fixed hitY)
+    private static void ApplyHit(ref MatchState state, MatchContext context, int attackerSlot, int victimSlot, in MoveData move, bool isProjectile, Fixed hitX, Fixed hitY, bool freezeAttacker = true)
     {
         ref var a = ref state.Fighters[attackerSlot];
         ref var v = ref state.Fighters[victimSlot];
@@ -798,6 +809,7 @@ public static class MatchSimulation
             a.Move = MoveId.None;
             v.BlockPressedFrame = -1000;
             v.Adrenaline = Math.Min(MeterMax, v.Adrenaline + 120);
+            v.Jurus = Math.Min(MeterMax, v.Jurus + 60);
             AddCrowd(ref state, context, 70);
             Emit(ref state, MatchEventKind.Parry, (sbyte)victimSlot, (sbyte)attackerSlot, 0, hitPos);
             CheckAdrenaline(ref state, victimSlot);
@@ -814,7 +826,7 @@ public static class MatchSimulation
                 SetStatus(ref v, FighterStatus.Blockstun);
                 v.StunFrames = move.Blockstun;
                 v.Velocity.X = move.Pushback * dir;
-                a.Hitstop = move.Hitstop / 2;
+                if (freezeAttacker) a.Hitstop = move.Hitstop / 2;
                 v.Hitstop = move.Hitstop / 2;
                 v.Rage = Math.Min(MeterMax, v.Rage + chip);
                 Emit(ref state, MatchEventKind.Block, (sbyte)victimSlot, (sbyte)attackerSlot, (short)chip, hitPos);
@@ -844,12 +856,17 @@ public static class MatchSimulation
 
         // Meters: the victim builds rage (faster when low), the attacker builds adrenaline.
         int rageGain = damage * (v.Health * 4 < v.MaxHealth ? 2 : 1);
+        if (move.Id != MoveId.Signature)
+        {
+            a.Jurus = Math.Min(MeterMax, a.Jurus + damage / 2);
+            v.Jurus = Math.Min(MeterMax, v.Jurus + damage / 3);
+        }
         v.Rage = Math.Min(MeterMax, v.Rage + rageGain);
         a.Adrenaline = Math.Min(MeterMax, a.Adrenaline + move.MeterGain + (state.Crowd > 700 ? 10 : 0));
         CheckAdrenaline(ref state, attackerSlot);
 
         int hitstop = move.Hitstop + (counter ? 4 : 0);
-        a.Hitstop = hitstop;
+        if (freezeAttacker) a.Hitstop = hitstop;
         v.Hitstop = hitstop;
 
         bool airborneVictim = !v.Grounded;
@@ -1110,6 +1127,8 @@ public static class MatchSimulation
                 ref var f = ref state.Fighters[i];
                 if (f.Status is FighterStatus.Idle && f.Health < f.MaxHealth) f.Health = Math.Min(f.MaxHealth, f.Health + 8);
                 if (!f.IsAlive) f.Health = f.MaxHealth;
+                // ...and the Jurus meter refills so every signature can be practised.
+                if (f.Move != MoveId.Signature) f.Jurus = Math.Min(MeterMax, f.Jurus + 12);
             }
             return;
         }

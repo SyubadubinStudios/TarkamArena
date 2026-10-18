@@ -142,6 +142,10 @@ public enum MatchEventKind : byte
     Whiff,
     Jump,
     Land,
+    /// <summary>A signature move started; Value is the signature slot (0-2). Everyone else freezes for the cut-in.</summary>
+    SignatureStart,
+    /// <summary>A signature effect landed a big beat (storm strike, slam, quake front); Value is the summon index.</summary>
+    SignatureImpact,
 }
 
 /// <summary>Something presentation should react to (sound, particles, camera). Value meaning depends on the kind.</summary>
@@ -169,6 +173,39 @@ public struct Projectile
     public byte Hitstun;
     public byte Blockstun;
     public FixedVector2 Size;
+
+    /// <summary>0 for ordinary specials; 1 + signature slot for signature barrages (the presentation picks the prop).</summary>
+    public byte Signature;
+}
+
+/// <summary>
+/// A live signature effect: a summoned helper, a charging crowd, a weapon swing, a storm, a lift,
+/// a tornado, a barrage emitter, a quake front or a wave. Plain data so it rolls back with the state.
+/// </summary>
+public struct Summon
+{
+    public bool Active;
+    public Combat.SignatureKind Kind;
+    public byte Slot;
+    public sbyte Owner;
+    public byte Team;
+    public sbyte Target;
+    public sbyte Facing;
+    public byte Phase;
+    public FixedVector2 Position;
+    public FixedVector2 Velocity;
+    public FixedVector2 Size;
+    public short Life;
+    public short Age;
+    public short HitTimer;
+    public short Damage;
+    public byte Hits;
+    public byte MaxHits;
+    public byte HitMask;
+
+    public readonly bool HasHit(int slot) => (HitMask & (1 << slot)) != 0;
+
+    public void MarkHit(int slot) => HitMask |= (byte)(1 << slot);
 }
 
 /// <summary>A stage hazard such as a runaway cart or a falling tree.</summary>

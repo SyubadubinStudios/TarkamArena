@@ -26,6 +26,7 @@ public sealed class MatchContext
     public Fixed[] HurtHeight { get; }
     public Fixed[] HurtWidth { get; }
     public Fixed[] WalkSpeed { get; }
+    public SignatureMove[][] Signatures { get; }
 
     public MatchContext(MatchSetup setup)
     {
@@ -41,6 +42,7 @@ public sealed class MatchContext
         HurtHeight = [.. Characters.Select(c => Fixed.FromFloat(Math.Clamp(c.Body.Height, 0.9f, 2.4f)))];
         HurtWidth = [.. Characters.Select(c => Fixed.FromFloat(Math.Clamp(0.45f * c.Body.Width + 0.15f, 0.45f, 0.9f)))];
         WalkSpeed = [.. Characters.Select(c => Fixed.FromFloat(0.040f + c.Stats.Speed * 0.0035f))];
+        Signatures = [.. Characters.Select(SignatureCatalog.For)];
     }
 
     public ref readonly MoveData Move(int slot, MoveId id) => ref Moves[slot][(int)id];

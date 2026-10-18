@@ -40,6 +40,7 @@ public sealed class CharacterSelectScreen : Screen
     private readonly TextBlock _bio = Ui.Wrap("", "body").With(t => t.MaxWidth = 470);
     private readonly StatBar[] _stats = [new(), new(), new(), new()];
     private readonly TextBlock _specials = Ui.Wrap("", "body");
+    private readonly ContentControl _signatures = new();
     private readonly TextBlock _finishers = Ui.Wrap("", "mono").With(t => t.LineHeight = 22);
     private readonly TextBlock _picking = Ui.Text("", "h3");
     private List<CharacterDefinition> _visible = [];
@@ -85,6 +86,7 @@ public sealed class CharacterSelectScreen : Screen
         var details = Ui.V(10,
             _title, _name, _origin, _bio, statsGrid,
             Ui.Text(Loc.T("select.specials").ToUpperInvariant(), "eyebrow"), _specials,
+            Ui.Text(Loc.T("moves.signatures").ToUpperInvariant(), "eyebrow").With(t => t.Foreground = Ui.Spanduk), _signatures,
             Ui.Text(Loc.T("select.finishers").ToUpperInvariant(), "eyebrow"), _finishers);
         var poster = new Grid();
         _portrait.HorizontalAlignment = HorizontalAlignment.Right;
@@ -195,6 +197,7 @@ public sealed class CharacterSelectScreen : Screen
         _stats[2].Value = c.Stats.Defense;
         _stats[3].Value = c.Stats.Technique;
         _specials.Text = $"S  ·  {c.Specials.Neutral}\n→ + S  ·  {c.Specials.Forward}\n↓ + S  ·  {c.Specials.Down}";
+        _signatures.Content = unlocked ? SignatureList.Build(c) : null;
         var finishers = FinisherFactory.Build(c);
         _finishers.Text = string.Join("\n", finishers.Select(f => $"{f.SequenceGlyphs,-12} {FinisherFactory.KindName(f.Kind)}: {f.Name}"));
     }

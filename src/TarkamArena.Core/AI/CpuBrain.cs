@@ -29,6 +29,8 @@ public sealed class CpuBrain
     private int _sequenceStep = -1;
     private InputToken[]? _sequence;
     private int _sequenceTimer;
+    private int _motion = -1;
+    private int _motionStep;
 
     public CpuBrain(int slot, CpuDifficulty difficulty, uint seed = 7)
     {
@@ -82,6 +84,10 @@ public sealed class CpuBrain
         if (state.Phase != MatchPhase.Fight || !me.IsAlive || me.Target < 0) return InputFrame.Neutral;
 
         ref readonly var foe = ref state.Fighters[me.Target];
+
+        // Finish a signature motion that is already under way.
+        if (_motion >= 0) return MotionStep(me.Facing);
+
         Fixed distance = Fixed.Abs(foe.Position.X - me.Position.X);
         InputButtons toward = foe.Position.X > me.Position.X ? InputButtons.Right : InputButtons.Left;
         InputButtons away = toward == InputButtons.Right ? InputButtons.Left : InputButtons.Right;
@@ -114,6 +120,20 @@ public sealed class CpuBrain
 
         // Rage when it is full and we are losing.
         if (me.Rage >= MatchSimulation.MeterMax && me.Health * 2 < me.MaxHealth && Roll(30)) return new(InputButtons.Rage);
+
+        // Spend the Jurus meter on a signature move: the best one affordable, more often on harder levels.
+        if (me.Grounded && me.Status is FighterStatus.Idle or FighterStatus.Walk && Roll(SignatureChance))
+        {
+            // Any affordable signature, so the CPU shows its whole move list rather than only the dearest.
+            int affordable = 0;
+            while (affordable < SignatureMove.Costs.Length && me.Jurus >= SignatureMove.Costs[affordable]) affordable++;
+            if (affordable > 0)
+            {
+                _motion = DeterministicRandom.Range(ref _rng, affordable);
+                _motionStep = 0;
+                return MotionStep(me.Facing);
+            }
+        }
 
         // Anti-air an incoming jump.
         if (!foe.Grounded && foe.Status == FighterStatus.Airborne && distance < Fixed.FromFloat(2.0f) && Roll(DefenseSkill / 2))
@@ -200,6 +220,31 @@ public sealed class CpuBrain
         InputToken.Grab => InputButtons.Grab,
         _ => InputButtons.Special,
     };
+
+    private int SignatureChance => _difficulty switch
+    {
+        CpuDifficulty.Easy => 1,
+        CpuDifficulty.Normal => 2,
+        CpuDifficulty.Hard => 4,
+        _ => 6,
+    };
+
+    /// <summary>Plays the signature motion one frame at a time: ↓↘→+S, ↓↙←+S or ↓ · ↓+S.</summary>
+    private InputFrame MotionStep(int facing)
+    {
+        InputButtons forward = facing >= 0 ? InputButtons.Right : InputButtons.Left;
+        InputButtons back = facing >= 0 ? InputButtons.Left : InputButtons.Right;
+        int kind = _motion;
+        InputButtons side = kind == 0 ? forward : back;
+        int step = _motionStep++;
+        if (step >= 4) _motion = -1;
+        return step switch
+        {
+            0 or 1 => new(InputButtons.Down),
+            2 or 3 => kind == 2 ? InputFrame.Neutral : new(InputButtons.Down | side),
+            _ => new(InputButtons.Special | (kind == 2 ? InputButtons.Down : side)),
+        };
+    }
 
     private static InputFrame Pulse(InputButtons button, int frame) => frame % 6 < 3 ? new(button) : InputFrame.Neutral;
 

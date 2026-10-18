@@ -55,6 +55,10 @@ public struct FighterState
     public byte TokenHead;
     public byte TokenCount;
 
+    /// <summary>Jurus meter (0-1000) that pays for signature moves.</summary>
+    public int Jurus;
+    public byte SignatureSlot;
+
     public readonly bool IsAlive => Health > 0;
     public readonly bool IsActive => Present && OnField;
     public readonly bool RageActive => RageTimer > 0;
@@ -87,6 +91,12 @@ public struct ProjectileArray
     private Projectile _element;
 }
 
+[InlineArray(MatchState.MaxSummons)]
+public struct SummonArray
+{
+    private Summon _element;
+}
+
 [InlineArray(MatchState.MaxEvents)]
 public struct EventArray
 {
@@ -108,6 +118,7 @@ public struct MatchState
     public const int MaxFighters = 4;
     public const int MaxProjectiles = 8;
     public const int MaxEvents = 24;
+    public const int MaxSummons = 8;
     public const int FramesPerSecond = 60;
 
     public int Frame;
@@ -121,6 +132,7 @@ public struct MatchState
     public FighterArray Fighters;
     public ProjectileArray Projectiles;
     public Hazard Hazard;
+    public SummonArray Summons;
     public int NextArenaEventFrame;
     public sbyte LastArenaEvent;
 

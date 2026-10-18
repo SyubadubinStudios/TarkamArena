@@ -84,8 +84,13 @@ public static class ScreenshotTour
     public static void QuickFight(MainWindow window)
     {
         var plan = MatchPlan.For(GameMode.Versus);
-        plan.Fighters[0] = Roster.Get("gembel-lampu-merah");
-        plan.Fighters[1] = Roster.Get("preman-pasar");
+        plan.Fighters[0] = Roster.Get(LaunchOptions.Fighters is { Length: > 0 } f0 ? f0[0] : "gembel-lampu-merah");
+        plan.Fighters[1] = Roster.Get(LaunchOptions.Fighters is { Length: > 1 } f1 ? f1[1] : "preman-pasar");
+        if (LaunchOptions.SignatureDemo)
+        {
+            plan.Controllers = [SlotController.Cpu, SlotController.Cpu];
+            plan.Difficulty = CpuDifficulty.Legend;
+        }
         plan.Stage = Stages.Get("pasar-becek");
         window.Replace(new MainMenuScreen());
         window.Show(new FightScreen(plan));
@@ -93,7 +98,10 @@ public static class ScreenshotTour
         {
             // --snap <dir>: save in-app frames at fixed times (no desktop capture needed).
             Directory.CreateDirectory(dir);
-            foreach (var (seconds, name) in new[] { (4.0, "a-vs-loaded"), (5.6, "b-round"), (8.0, "c-fight"), (12.0, "d-fight"), (18.0, "e-fight"), (26.0, "f-fight") })
+            var shots = LaunchOptions.SignatureDemo
+                ? Enumerable.Range(0, 24).Select(i => (8.0 + i * 0.5, $"sig-{i:00}")).ToArray()
+                : new[] { (4.0, "a-vs-loaded"), (5.6, "b-round"), (8.0, "c-fight"), (12.0, "d-fight"), (18.0, "e-fight"), (26.0, "f-fight") };
+            foreach (var (seconds, name) in shots)
                 DispatcherTimer.RunOnce(() => Save(window, Path.Combine(dir, name + ".png")), TimeSpan.FromSeconds(seconds));
         }
     }

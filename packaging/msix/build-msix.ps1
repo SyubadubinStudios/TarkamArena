@@ -11,7 +11,8 @@ $ErrorActionPreference = "Stop"
 $root = Resolve-Path "$PSScriptRoot/../.."
 $work = Join-Path ([IO.Path]::GetTempPath()) "tarkam-msix"
 Remove-Item $work -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Force $work, "$work/Assets", $OutDir | Out-Null
+# Store logos go in StoreAssets: "Assets" would collide with the game's own assets folder on Windows.
+New-Item -ItemType Directory -Force $work, "$work/StoreAssets", $OutDir | Out-Null
 Copy-Item "$PublishDir/*" $work -Recurse
 (Get-Content "$PSScriptRoot/AppxManifest.xml") -replace '@VERSION@', $Version | Set-Content "$work/AppxManifest.xml" -Encoding utf8
 
@@ -19,7 +20,7 @@ Add-Type -AssemblyName System.Drawing
 $icon = [System.Drawing.Image]::FromFile("$root/assets/ui/icon.png")
 foreach ($pair in @(@("StoreLogo.png", 50), @("Square150x150Logo.png", 150), @("Square44x44Logo.png", 44))) {
     $bmp = New-Object System.Drawing.Bitmap $icon, $pair[1], $pair[1]
-    $bmp.Save("$work/Assets/$($pair[0])")
+    $bmp.Save("$work/StoreAssets/$($pair[0])")
     $bmp.Dispose()
 }
 $icon.Dispose()

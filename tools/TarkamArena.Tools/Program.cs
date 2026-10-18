@@ -38,6 +38,45 @@ switch (command)
         }
         break;
 
+    case "previews":
+    {
+        // Transparent idle portraits through the game's own glTF path (what players see), not Blender.
+        string output = args.Length > 1 ? args[1] : AssetLocator.PathOf("generated/previews");
+        var selected = args.Length > 2 && args[2] is not ("" or "-") ? args[2].Split(',').ToHashSet(StringComparer.Ordinal) : null;
+        Directory.CreateDirectory(output);
+        var options = OffscreenCapture.Options(512, 640, high: true);
+        options.Vignette = 0;
+        options.Bloom = false;
+        using var renderer = Renderer.CreateOffscreen(options);
+        using var previewScene = CreatePreviewScene();
+        // Optional 4th argument: a folder of alternative glbs (e.g. a staging folder) to compare.
+        string? models = args.Length > 3 && args[3] != "-" ? args[3] : null;
+        string pose = args.Length > 4 ? args[4] : "idle";
+        foreach (var c in Roster.All.Where(c => (selected is null || selected.Contains(c.Id)) && AssetLocator.Exists(c.ModelPath)))
+        {
+            var path = Path.Combine(output, $"{c.Id}.png");
+            RenderPreview(renderer, previewScene, c, path, models is null ? null : Path.Combine(models, $"{c.Id}.glb"), pose);
+            Console.WriteLine($"preview {c.Id} -> {path}");
+        }
+        break;
+    }
+
+    case "characters":
+    {
+        string output = args.Length > 1 ? args[1] : "docs/screenshots/characters";
+        var selected = args.Length > 2 ? args[2].Split(',').ToHashSet(StringComparer.Ordinal) : null;
+        Directory.CreateDirectory(output);
+        var report = new List<object>();
+        // Keep scene resource handles unique for the lifetime of the renderer.
+        using var scene = CreateCharacterAuditScene();
+        using var renderer = Renderer.CreateOffscreen(OffscreenCapture.Options(480, 600, high: false));
+        foreach (var character in Roster.All.Where(c => selected is null || selected.Contains(c.Id)))
+            report.Add(RenderCharacterAudit(scene, renderer, character, output));
+        File.WriteAllText(Path.Combine(output, "manifest.json"),
+            System.Text.Json.JsonSerializer.Serialize(report, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
+        break;
+    }
+
     case "scene":
         var mode = args.Length > 6 ? Enum.Parse<GameMode>(args[6]) : GameMode.Versus;
         string[] ids = args[2].Contains(',') ? args[2].Split(',') : [args[2], args[3]];
@@ -50,7 +89,6 @@ switch (command)
         string outDir = args.Length > 1 ? args[1] : "docs/screenshots/signatures";
         var who = args.Length > 2 ? args[2].Split(',') : [.. Roster.All.Where(c => SignatureCatalog.IsHandAuthored(c.Id)).Select(c => c.Id)];
         Directory.CreateDirectory(outDir);
-        using var renderer = Renderer.CreateOffscreen(OffscreenCapture.Options(960, 540, high: false));
         for (int n = 0; n < who.Length; n++)
         {
             var stage = Stages.All[n % Stages.All.Count];
@@ -58,7 +96,10 @@ switch (command)
             for (int slot = 0; slot < 3; slot++)
             {
                 var path = Path.Combine(outDir, $"{who[n]}-{slot}.png");
-                RenderSignature(renderer, stage, who[n], foe, slot, path);
+                // A fresh renderer per scene: the offscreen renderer caches resources by scene handle,
+                // and handles are reused once a presenter is disposed.
+                using (var renderer = Renderer.CreateOffscreen(OffscreenCapture.Options(960, 540, high: false)))
+                    RenderSignature(renderer, stage, who[n], foe, slot, path);
                 Console.WriteLine($"signature {who[n]} #{slot} -> {path}");
             }
         }
@@ -166,7 +207,7 @@ switch (command)
         break;
 
     default:
-        Console.WriteLine("commands: stages | portraits [--all] | scene <stage> <p1> <p2> <frames> <out.png> [mode] | music <style> <out.wav>");
+        Console.WriteLine("commands: stages | portraits [--all] | characters <outDir> [id,id,...] | scene <stage> <p1> <p2> <frames> <out.png> [mode] | music <style> <out.wav>");
         break;
 }
 
@@ -256,6 +297,175 @@ static void RenderSignature(Renderer renderer, StageDefinition stage, string id,
     for (int i = 0; i < 2; i++) renderer.Render(presenter.Scene, presenter.Camera);
     var rgba = renderer.ReadPixels();
     File.WriteAllBytes(path, OffscreenCapture.EncodePng(rgba, 960, 540));
+}
+
+// Renders the fighter's idle pose twice, over black and over white, and recovers a straight-alpha
+// PNG from the difference, so soft edges (hair, fur, feathers) keep their partial coverage.
+// One scene serves every fighter: the offscreen renderer caches resources by scene handle.
+static void RenderPreview(Renderer renderer, Scene scene, CharacterDefinition c, string path, string? modelPath = null, string pose = "idle")
+{
+    var model = new GltfFighterModel(scene, c, modelPath ?? AssetLocator.PathOf(c.ModelPath));
+    var context = new MatchContext(new MatchSetup(MatchRules.For(GameMode.Training), Stages.All[0], [new FighterEntry(c), new FighterEntry(c)]));
+    var state = MatchSimulation.CreateInitialState(context);
+    ref var f = ref state.Fighters[0];
+    f.Position = default;
+    f.Facing = 1;
+    var (status, move, frames) = pose switch
+    {
+        "jab" => (FighterStatus.Attack, MoveId.Jab, 3),
+        "heavy" => (FighterStatus.Attack, MoveId.Heavy, 10),
+        "block" => (FighterStatus.Blockstun, MoveId.Jab, 5),
+        "victory" => (FighterStatus.Victory, MoveId.Jab, 15),
+        _ => (FighterStatus.Idle, MoveId.Jab, 12),
+    };
+    f.Status = status;
+    f.Move = move;
+    for (int i = 0; i <= frames; i++)
+    {
+        f.StatusFrame = i;
+        model.Apply(f, context, 1f / 30f, i / 30f);
+        scene.UpdateAnimations(1f / 30f);
+    }
+    model.Root.Rotation = Quaternion.CreateFromYawPitchRoll(0.3f, 0, 0);
+    float h = c.Body.Height;
+    var camera = scene.AddCamera(Camera.Perspective(30f * MathF.PI / 180f), new Vector3(0, h * 0.53f, h * 2.45f));
+    camera.LookAt(new Vector3(0, h * 0.5f, 0));
+    float distance = 2.45f;
+    scene.FinishStreaming(TimeSpan.FromSeconds(15));
+
+    byte[] Shot(Vector4 background)
+    {
+        var env = scene.Environment;
+        env.Background = background;
+        scene.Environment = env;
+        for (int i = 0; i < 3; i++) renderer.Render(scene, camera);
+        return renderer.ReadPixels();
+    }
+
+    byte[] black, white;
+    // Pull the camera back until wings, tails and feet clear the frame edges.
+    for (int attempt = 0; ; attempt++)
+    {
+        black = Shot(new Vector4(0, 0, 0, 1));
+        white = Shot(new Vector4(1, 1, 1, 1));
+        if (attempt == 5 || !TouchesEdge(black, white)) break;
+        distance *= 1.15f;
+        camera.Position = new Vector3(0, h * 0.53f, h * distance);
+        camera.LookAt(new Vector3(0, h * 0.5f, 0));
+    }
+    model.Root.Visible = false;
+    var rgba = new byte[black.Length];
+    // Tone mapping lifts the black background and dims the white one, so measure both at a corner
+    // and express each pixel's difference relative to that full-transparency span.
+    float bgBlack = (black[0] + black[1] + black[2]) / 3f;
+    float span = Math.Max(1f, (white[0] + white[1] + white[2]) / 3f - bgBlack);
+    for (int i = 0; i < rgba.Length; i += 4)
+    {
+        // Over black we see colour * alpha; over white colour * alpha + (1 - alpha).
+        float diff = (white[i] - black[i] + white[i + 1] - black[i + 1] + white[i + 2] - black[i + 2]) / 3f;
+        int alpha = (int)Math.Clamp(255 * (1 - diff / span), 0, 255);
+        if (alpha < 8) alpha = 0;
+        rgba[i + 3] = (byte)alpha;
+        if (alpha == 0) continue;
+        float a = alpha / 255f;
+        for (int ch = 0; ch < 3; ch++) rgba[i + ch] = (byte)Math.Clamp((black[i + ch] - bgBlack * (1 - a)) / a, 0, 255);
+    }
+    File.WriteAllBytes(path, OffscreenCapture.EncodePng(rgba, 512, 640));
+}
+
+static bool TouchesEdge(byte[] black, byte[] white, int width = 512, int height = 640)
+{
+    bool Covered(int x, int y)
+    {
+        int i = (y * width + x) * 4;
+        return Math.Abs(white[i] - black[i]) + Math.Abs(white[i + 1] - black[i + 1]) < Math.Abs(white[0] - black[0]) + Math.Abs(white[1] - black[1]) - 60;
+    }
+    for (int x = 0; x < width; x += 2)
+        if (Covered(x, 6) || Covered(x, height - 7)) return true;
+    for (int y = 0; y < height; y += 2)
+        if (Covered(6, y) || Covered(width - 7, y)) return true;
+    return false;
+}
+
+static Scene CreatePreviewScene()
+{
+    var scene = new Scene();
+    var env = SceneEnvironment.Default;
+    env.Sky = SkyMode.Color;
+    env.AmbientIntensity = 0.55f;
+    env.FogDensity = 0;
+    scene.Environment = env;
+    var key = scene.AddLight(Light.Directional(new Vector3(1, 0.95f, 0.88f), 3.2f));
+    key.Position = new Vector3(3, 4, 5);
+    key.LookAt(Vector3.Zero);
+    var rim = scene.AddLight(Light.Directional(new Vector3(0.75f, 0.85f, 1f), 1.6f));
+    rim.Position = new Vector3(-3, 2.5f, -3);
+    rim.LookAt(Vector3.Zero);
+    scene.AddLight(Light.Hemisphere(new Vector3(0.7f, 0.8f, 1f), new Vector3(0.35f, 0.3f, 0.28f), 0.7f));
+    return scene;
+}
+
+static Scene CreateCharacterAuditScene()
+{
+    var scene = new Scene();
+    var env = SceneEnvironment.Default;
+    env.Background = new Vector4(0.045f, 0.055f, 0.075f, 1);
+    env.AmbientIntensity = 0.6f;
+    scene.Environment = env;
+    var key = scene.AddLight(Light.Directional(new Vector3(1, 0.95f, 0.88f), 3f));
+    key.Position = new Vector3(3, 4, 4);
+    key.LookAt(Vector3.Zero);
+    scene.AddLight(Light.Hemisphere(new Vector3(0.7f, 0.8f, 1f), new Vector3(0.3f), 0.8f));
+    return scene;
+}
+
+static object RenderCharacterAudit(Scene scene, Renderer renderer, CharacterDefinition c, string output)
+{
+    var cache = new MeshCache(scene);
+    bool authored = AssetLocator.Exists(c.ModelPath);
+    // Fail loudly on authored assets: a procedural fallback would conceal a broken export.
+    FighterModel model = authored
+        ? new GltfFighterModel(scene, c, AssetLocator.PathOf(c.ModelPath))
+        : new ProceduralFighterModel(scene, cache, c);
+    int clips = model is GltfFighterModel gltf ? gltf.ClipCount : 0;
+    if (authored && clips != 14) throw new InvalidDataException($"{c.Id}: expected 14 clips, found {clips}");
+    var context = new MatchContext(new MatchSetup(MatchRules.For(GameMode.Training), Stages.All[0], [new FighterEntry(c), new FighterEntry(c)]));
+    var state = MatchSimulation.CreateInitialState(context);
+    ref var fighter = ref state.Fighters[0];
+    fighter.Position = default;
+    fighter.Facing = 1;
+    float h = c.Body.Height;
+    var camera = scene.AddCamera(Camera.Perspective(35f * MathF.PI / 180f), new Vector3(0, h * 0.57f, h * 3.3f));
+    camera.LookAt(new Vector3(0, h * 0.52f, 0));
+    scene.FinishStreaming(TimeSpan.FromSeconds(15));
+    var captures = new List<string>();
+    foreach (var (name, status, move, frames, yaw) in new[]
+    {
+        ("idle", FighterStatus.Idle, MoveId.Jab, 12, 0.35f),
+        ("jab", FighterStatus.Attack, MoveId.Jab, 3, MathF.PI / 2),
+        ("heavy", FighterStatus.Attack, MoveId.Heavy, 10, 0.35f),
+        ("block", FighterStatus.Blockstun, MoveId.Jab, 5, 0.35f),
+        ("victory", FighterStatus.Victory, MoveId.Jab, 15, 0.35f),
+    })
+    {
+        fighter.Status = status;
+        fighter.Move = move;
+        fighter.StatusFrame = 0;
+        for (int i = 0; i <= frames; i++)
+        {
+            fighter.StatusFrame = i;
+            model.Apply(fighter, context, 1f / 30f, i / 30f);
+            scene.UpdateAnimations(1f / 30f);
+        }
+        model.Root.Rotation = Quaternion.CreateFromYawPitchRoll(yaw, 0, 0);
+        for (int i = 0; i < 3; i++) renderer.Render(scene, camera);
+        string file = $"{c.Id}-{name}.png";
+        File.WriteAllBytes(Path.Combine(output, file), OffscreenCapture.EncodePng(renderer.ReadPixels(), 480, 600));
+        captures.Add(file);
+    }
+    Console.WriteLine($"character {c.Id}: {(authored ? "glTF" : "procedural")}, {clips} clips, {captures.Count} captures");
+    model.Root.Visible = false;
+    return new { id = c.Id, model = authored ? "glTF" : "procedural", clips, captures };
 }
 
 static void RenderPortrait(CharacterDefinition c, string path)

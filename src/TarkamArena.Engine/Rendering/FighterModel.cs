@@ -266,8 +266,24 @@ public sealed class ProceduralFighterModel : FighterModel
         _shoulderR = Limb(_spine, new Vector3(-shoulderX, shoulderY, 0), armLen, 0.075f * w, features.HasFlag(BodyFeature.Fur) ? primary : armMat, "shoulder.R");
         _elbowL = Limb(_shoulderL, new Vector3(0, -armLen, 0), armLen, 0.065f * w, skin, "elbow.L");
         _elbowR = Limb(_shoulderR, new Vector3(0, -armLen, 0), armLen, 0.065f * w, skin, "elbow.R");
-        cache.Add(cache.Sphere, skin, new Vector3(0, -armLen, 0), new Vector3(0.09f * w), _elbowL);
-        cache.Add(cache.Sphere, skin, new Vector3(0, -armLen, 0), new Vector3(0.09f * w), _elbowR);
+        AddFist(_elbowL, 1);
+        AddFist(_elbowR, -1);
+        void AddFist(Node elbow, int side)
+        {
+            // A closed palm, four knuckles and a tucked thumb give fallback fighters
+            // a readable hand silhouette at the same scale as authored characters.
+            var hand = scene.CreateNode(elbow, $"hand.{(side > 0 ? "L" : "R")}");
+            hand.Position = new Vector3(0, -armLen, 0);
+            cache.Add(cache.Sphere, skin, Vector3.Zero, new Vector3(0.067f * w, 0.085f * w, 0.052f * w), hand);
+            for (int finger = 0; finger < 4; finger++)
+            {
+                float x = (finger - 1.5f) * 0.031f * w;
+                cache.Add(cache.Sphere, skin, new Vector3(x, -0.054f * w, 0.018f * w),
+                    new Vector3(0.022f * w, 0.036f * w, 0.038f * w), hand);
+            }
+            cache.Add(cache.Sphere, skin, new Vector3(side * 0.055f * w, -0.004f * w, 0.035f * w),
+                new Vector3(0.03f * w, 0.055f * w, 0.03f * w), hand);
+        }
         if (features.HasFlag(BodyFeature.Weapon))
             cache.Add(cache.Box, cache.Pbr(0xB0B0B8, 0.3f, 0.8f), new Vector3(0, -armLen - 0.25f, 0.05f), new Vector3(0.04f, 0.5f, 0.08f), _elbowR);
 

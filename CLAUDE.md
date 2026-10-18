@@ -20,6 +20,8 @@ dotnet run --project src/TarkamArena.Server                           # http://l
 dotnet run --project tools/TarkamArena.Tools -- scene <stage> <p1> <p2> <frames> <out.png>   # offscreen render to check visuals
 dotnet run --project tools/TarkamArena.Tools -- docs                  # regenerate docs/{en,id}/characters.md and stages.md
 dotnet run --project tools/TarkamArena.Tools -- signatures <dir> [id,id]   # one offscreen frame per signature move (window-independent)
+dotnet run --project tools/TarkamArena.Tools -- previews [dir] [id,id|-] [models|-] [idle|jab|heavy|block|victory]   # transparent portraits via the runtime (default: assets/generated/previews)
+blender -b -P tools/blender/cut_arm_seams.py -- --models out/character-audit/repaired --output out/character-audit/seamed   # after repair_character_arms.py; see docs/en/asset-pipeline.md
 python tools/blender/process_all.py [--only id] [--force]             # Rodin glb -> rigged/animated glb (headless Blender 5.2)
 ```
 
@@ -71,6 +73,8 @@ timings to `%TEMP%/tarkam-trace.txt`.
 
 ## Gotchas
 
+- The offscreen renderer caches resources by scene handle and handles are reused after a scene is
+  disposed: render many scenes either in one long-lived scene or with a fresh renderer per scene.
 - ThreeNet 0.12's `CreateCapsuleGeometry` shades inverted; use `MeshCache.Capsule` (custom mesh).
 - ThreeNet glTF models face +Z; fighters are yawed ±90° to face ±X.
 - Bash heredocs containing apostrophes break in this environment; write files with the Write tool.

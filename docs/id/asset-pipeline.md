@@ -41,6 +41,58 @@ python tools/blender/process_all.py --only pesilat --force
 
 Nama klip adalah kontrak dengan `GltfFighterModel`. Petarung tanpa glb memakai `ProceduralFighterModel`.
 
+## Perbaikan lengan dan validasi ekspor
+
+Rig otomatis lama dapat mengira ujung senjata atau sayap sebagai tangan. Untuk karakter yang sudah
+ada, gunakan `repair_character_arms.py` dengan posisi bahu/siku/pergelangan/telapak yang ditinjau
+dalam `arm_landmarks.json` serta wilayah properti kaku dalam `arm_skin_overrides.json`. Geometri
+dan tekstur sumber dipertahankan; bobot lengan diperbaiki dan 14 animasi lengan dibuat ulang memakai
+IK dua tulang. Koordinat landmark mengacu ke capture ortografis depan pada pose dasar, diperkecil
+menjadi lebar 240 px. Tinjau ulang koordinat bila mesh sumber berubah.
+
+Gunakan GLB asli sebagai masukan, bukan hasil perbaikan berulang. Cadangan awal pada checkout ini
+ada di `out/character-audit/original-models/`. Dengan Blender tersedia pada PATH:
+
+```bash
+blender -b --python-exit-code 1 -P tools/blender/repair_character_arms.py -- --models out/character-audit/original-models --output out/character-audit/repaired
+blender -b --python-exit-code 1 -P tools/blender/audit_characters.py -- --models out/character-audit/repaired --output out/character-audit/after
+```
+
+Periksa capture pose dasar/depan/samping, idle, jab, dan `audit.json`; kesalahan menggagalkan audit.
+
+Mesh Rodin ter-weld: di bagian tangan yang menempel ke pinggang atau paha pada pose sumber, permukaan
+lengan tersambung ke badan, dan setelah lengan hasil perbaikan bergerak sambungan itu meregang menjadi
+lembaran yang menggantung dari tangan. `cut_arm_seams.py` melepaskannya tanpa merusak properti, rambut,
+atau wajah: verteks setengah lengan/setengah badan di-snap ke satu sisi (campuran hanya dipertahankan
+di sekitar bahu), permukaan berbobot lengan yang terletak di torso (rompi, bagian depan baju)
+dikembalikan ke badan, semua klip dievaluasi, lalu hanya face jahitan lengan-badan yang meregang yang
+dipotong; serpihan lepas dibuang dan lubang pendek ditutup.
+
+```bash
+blender -b --python-exit-code 1 -P tools/blender/cut_arm_seams.py -- --models out/character-audit/repaired --output out/character-audit/seamed
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/idle - out/character-audit/seamed idle
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/heavy - out/character-audit/seamed heavy
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/victory - out/character-audit/seamed victory
+```
+
+`previews <dir> [id,id|-] [folder model|-] [idle|jab|heavy|block|victory]` merender lewat jalur glTF
+game sendiri, sehingga yang ditinjau sama dengan yang dilihat pemain. Salin hanya petarung yang lolos
+ke `assets/models/characters/`; pertahankan model asli bila masih ada bagian yang melayang. Pada
+putaran ini 40 dari 42 dipromosikan; **genderuwo** (cakar melayang lepas dari lengan: landmark tangannya
+tidak cocok dengan geometri tangan) dan **tukang-parkir** (sisi rompi ikut terangkat saat Victory)
+tetap memakai model asli. Lalu capture ulang potret UI dan audit:
+
+```bash
+dotnet run --project tools/TarkamArena.Tools -- previews          # potret transparan -> assets/generated/previews
+dotnet run --project tools/TarkamArena.Tools -- characters out/character-audit/engine
+```
+
+Perintah `characters` mengambil lima pose setiap petarung melalui model runtime, menolak GLB dengan
+klip tidak lengkap tanpa menyembunyikan masalah lewat model cadangan, dan menulis manifest.
+Sembilan petarung DLC prosedural juga diperiksa. Ketiga skrip Blender mendukung `--only id,id`.
+Set `TARKAM_ASSETS` ke path absolut folder `assets` repositori saat memeriksa build pengembangan;
+build ulang aplikasi sesudahnya untuk memperbarui salinan aset di samping executable.
+
 ## Menambah petarung
 
 1. Tambahkan `CharacterDefinition` di `Roster.cs` (di akhir; id dipakai sebagai kunci data simpanan).

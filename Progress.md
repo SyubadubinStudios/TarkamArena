@@ -2,6 +2,24 @@
 
 *Dibuat oleh Ariana Mischa Fadhila dari Syubadubin Studios.*
 
+## 2026-10-19 — v0.2.2
+
+### Done / Selesai
+
+- **Hands / Tangan**: 40 of the 42 authored fighters now fight with free arms and closed fists.
+  The arm repair (`repair_character_arms.py`, reviewed landmarks) re-binds the arms; the new
+  `cut_arm_seams.py` then frees the welded Rodin surface where hands rested on hips or thighs,
+  without damaging props, hair or faces. Reviewed in idle, heavy and victory through the runtime.
+  40 dari 42 petarung kini bertarung dengan lengan bebas dan tangan mengepal.
+- **Kept on the original model / Tetap model asli**: genderuwo (hand landmarks do not match the
+  hand geometry, so the claws float) and tukang-parkir (vest lifts with the arms in Victory).
+- **Procedural fallback fighters** get a proper fist (palm, knuckles, thumb).
+- **Tools**: `previews [dir] [ids|-] [models|-] [pose]` renders transparent UI portraits through the
+  game's glTF path (black/white difference matting, auto-fit framing); the `characters` audit command;
+  `signatures` now uses a fresh offscreen renderer per scene (reused scene handles mixed resources).
+- **Assets**: all 42 UI portraits re-rendered; all README/docs screenshots retaken (app tour,
+  signature moves, arenas); announcer voice lines restored.
+
 ## 2026-10-18 — v0.2.0
 
 ### Done / Selesai
@@ -53,6 +71,8 @@
 - On a busy or integrated GPU (or while the window is covered) the first frames of an arena can take
   tens of seconds (pipeline and texture warm-up); the VS card stays up until the arena is ready.
 - Signature props and summons are primitive rigs, not authored models yet.
+- Genderuwo and Tukang Parkir still use their original (arms-fused) models; their landmarks/vest
+  weights need a manual pass in Blender.
 
 ## 2026-10-18 — v0.1.0
 

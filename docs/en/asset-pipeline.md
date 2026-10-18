@@ -42,6 +42,58 @@ python tools/blender/process_all.py --only pesilat --force
 The clip names are a contract with `GltfFighterModel`. A fighter without a glb falls back to
 `ProceduralFighterModel`.
 
+## Arm repair and export validation
+
+The original automatic rig can mistake a weapon or wing tip for a hand. For existing fighters,
+use `repair_character_arms.py` with the reviewed shoulder/elbow/wrist/palm positions in
+`arm_landmarks.json` and rigid prop regions in `arm_skin_overrides.json`. It preserves source
+geometry and textures, rebinds the arms, and rebuilds all 14 arm animations with two-bone IK.
+The landmark coordinates refer to the front orthographic bind-pose audit (scaled to 240 px wide).
+Review them whenever the source mesh changes; they are not universal humanoid proportions.
+
+Keep the original GLBs as the input; do not repeatedly repair already-repaired exports. This
+checkout's baseline is backed up under `out/character-audit/original-models/`. With Blender on PATH:
+
+```bash
+blender -b --python-exit-code 1 -P tools/blender/repair_character_arms.py -- --models out/character-audit/original-models --output out/character-audit/repaired
+blender -b --python-exit-code 1 -P tools/blender/audit_characters.py -- --models out/character-audit/repaired --output out/character-audit/after
+```
+
+Inspect the rest/front/side, idle and jab captures and `audit.json`; errors fail the audit.
+
+Rodin meshes are welded: where a hand rested on the hip or thigh in the source pose, the arm surface
+is stitched to the body, and once the repaired arms move those stitches stretch into sheets hanging
+from the hands. `cut_arm_seams.py` frees them without touching props, hair or faces: it snaps
+half-arm/half-body vertices to one side (blending is kept only around the shoulder), returns
+arm-weighted surface that lies on the torso (vests, shirt fronts) to the body, evaluates every clip
+and cuts only the arm-to-body seam faces that stretch, then removes the loose fragments and closes
+short holes.
+
+```bash
+blender -b --python-exit-code 1 -P tools/blender/cut_arm_seams.py -- --models out/character-audit/repaired --output out/character-audit/seamed
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/idle - out/character-audit/seamed idle
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/heavy - out/character-audit/seamed heavy
+dotnet run --project tools/TarkamArena.Tools -- previews out/character-audit/review/victory - out/character-audit/seamed victory
+```
+
+`previews <dir> [id,id|-] [models dir|-] [idle|jab|heavy|block|victory]` renders through the game's
+own glTF path, so what you review is what players see. Copy only the fighters that pass to
+`assets/models/characters/`; keep the original model for any that still show floating parts.
+In this pass 40 of 42 were promoted; **genderuwo** (claws float off the arms: its hand landmarks
+do not match the hand geometry) and **tukang-parkir** (vest sides lift with the arms in Victory)
+keep their original models. Then recapture the UI portraits and the audit:
+
+```bash
+dotnet run --project tools/TarkamArena.Tools -- previews          # transparent portraits -> assets/generated/previews
+dotnet run --project tools/TarkamArena.Tools -- characters out/character-audit/engine
+```
+
+The `characters` command captures five poses per roster entry using the actual runtime model,
+rejects authored GLBs with missing clips instead of silently using a fallback, and writes a manifest.
+It also covers the nine procedural DLC fighters. All three Blender scripts accept `--only id,id`.
+Set `TARKAM_ASSETS` to the repository's absolute `assets` path when checking a development build;
+rebuild the app afterwards so copied content beside the executable is refreshed.
+
 ## Adding a fighter
 
 1. Add a `CharacterDefinition` to `Roster.cs` (append; ids are save-data keys).
